@@ -29,6 +29,7 @@ public class OscGenerator {
         sineOsc.output.connect(0, sineLineOut.input, 0);
         sineOsc.output.connect(0, sineLineOut.input, 1);
         sineLineOut.start();
+        //magnus sucks
     }
 
     public void Saw(){
