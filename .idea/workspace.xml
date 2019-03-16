@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73fd02a6-4069-4eeb-8784-c6fccdadeabd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/data" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/data" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Osc Objects.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Osc Objects.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Osc Objects/META-INF/Osc Objects.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/fileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/fileReader.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -40,14 +37,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="data" value="129" />
-          <entry key="java" value="765" />
-          <entry key="txt" value="31" />
+          <entry key="java" value="1354" />
+          <entry key="txt" value="33" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="765" />
-          <entry key="PLAIN_TEXT" value="160" />
+          <entry key="JAVA" value="1354" />
+          <entry key="PLAIN_TEXT" value="162" />
         </counts>
       </usages-collector>
     </session>
@@ -75,12 +72,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/fileReader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="79" lean-forward="true" selection-start-line="18" selection-start-column="79" selection-end-line="18" selection-end-column="79" />
+            <state relative-caret-position="680">
+              <caret line="76" column="22" selection-start-line="76" selection-start-column="22" selection-end-line="76" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#255#256#0" expanded="true" />
-                <element signature="e#299#300#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -95,7 +90,7 @@
         <entry file="file://$PROJECT_DIR$/.idea/data">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+              <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -197,8 +192,9 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552766450211" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552767971027" />
     <property name="extract.method.default.visibility" value="private" />
+    <property name="last.edited.regexp" value="Sample Text" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../MyLinkedList" />
     <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.0" />
@@ -275,7 +271,7 @@
       <workItem from="1551797721006" duration="604000" />
       <workItem from="1551968729205" duration="2784000" />
       <workItem from="1552041558051" duration="77000" />
-      <workItem from="1552757634392" duration="7564000" />
+      <workItem from="1552757634392" duration="9027000" />
     </task>
     <task id="LOCAL-00001" summary="er igang med filereader">
       <created>1552764155978</created>
@@ -284,11 +280,18 @@
       <option name="project" value="LOCAL" />
       <updated>1552764155978</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="er igang med filereader 2">
+      <created>1552766514958</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1552766514958</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19830000" />
+    <option name="totallyTimeSpent" value="21293000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
@@ -311,9 +314,9 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3299532" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32839313" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.3369735" />
       <window_info anchor="right" id="Maven Projects" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -334,7 +337,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="er igang med filereader" />
-    <option name="LAST_COMMIT_MESSAGE" value="er igang med filereader" />
+    <MESSAGE value="er igang med filereader 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="er igang med filereader 2" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/company/SawOsc.java" />
@@ -369,18 +373,16 @@
     <entry file="file://$PROJECT_DIR$/.idea/data">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+          <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/fileReader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="79" lean-forward="true" selection-start-line="18" selection-start-column="79" selection-end-line="18" selection-end-column="79" />
+        <state relative-caret-position="680">
+          <caret line="76" column="22" selection-start-line="76" selection-start-column="22" selection-end-line="76" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#255#256#0" expanded="true" />
-            <element signature="e#299#300#0" expanded="true" />
           </folding>
         </state>
       </provider>
