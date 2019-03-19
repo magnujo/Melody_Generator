@@ -12,13 +12,13 @@ public class OscGenerator {
     private LineOut sawLineOut;
     private double frequency;
     double amplitude;
-    private LineOut sineLineOut;
+    public LineOut sineLineOut;
     private LineOut squareLineOut;
     private Random random = new Random();
     private LineOut noiseLineOut;
     private Synthesizer synthSquare = JSyn.createSynthesizer();
     private Synthesizer synthNoise = JSyn.createSynthesizer();
-    private double duration = 1;
+    private double duration = 0.1;
     private UnitOscillator sineOsc = new SineOscillator();
     private double[] cSkala = {261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25, 587.33, 659.25, 698.46, 783.99};
 
@@ -36,7 +36,7 @@ public class OscGenerator {
         sineOsc.output.connect(0, sineLineOut.input, 1);
     }
 
-    private void PlaySine(double frequency){
+    public void PlaySine(double frequency){
         this.frequency = frequency;
         sineOsc.frequency.set(frequency);
         sineLineOut.start();
@@ -107,6 +107,7 @@ public class OscGenerator {
                 e.printStackTrace();
             }
             sineLineOut.stop();
+
                /* case 1:
                     PlaySine(293.66);
                     try {
@@ -178,8 +179,8 @@ public class OscGenerator {
         synthSine.stop();
     }
 
-  /*  public void RandomMadness() {
-        SetupSine(400,0.5);
+   public void RandomMadness() {
+        SetupSine();
         SetupSaw();
         SetupSquare();
         SetupRedNoise();
@@ -237,8 +238,6 @@ public class OscGenerator {
         synthNoise.stop();
         synthSine.stop();
     }
-*/
-
 
 }
 
