@@ -7,7 +7,7 @@ import com.jsyn.unitgen.*;
 import java.util.Random;
 
 public class OscGenerator {
-    private Synthesizer synthSaw = JSyn.createSynthesizer();
+     private Synthesizer synthSaw = JSyn.createSynthesizer();
     private Synthesizer synthSine = JSyn.createSynthesizer();
     private LineOut sawLineOut;
     private double frequency;
@@ -20,7 +20,9 @@ public class OscGenerator {
     private Synthesizer synthNoise = JSyn.createSynthesizer();
     private double duration = 0.1;
     private UnitOscillator sineOsc = new SineOscillator();
-    private double[] cSkala = {261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25, 587.33, 659.25, 698.46, 783.99};
+    private Skala skala = new Skala();
+
+
 
 
 
@@ -29,6 +31,7 @@ public class OscGenerator {
         synthSine.start();
         synthSine.add(sineOsc);
         synthSine.add(sineLineOut);
+
 
 
         sineOsc.amplitude.set(0.5);
@@ -90,13 +93,15 @@ public class OscGenerator {
 
     public void RandomMelody() {
         SetupSine();
+        skala.transponerHalvTone(600);
+
 
 
         for (int i = 0; i < 100; i++) {
 
-            int rndIndex = random.nextInt(cSkala.length);
-            PlaySine(cSkala[rndIndex]);
-            System.out.print(i+"       "+cSkala[rndIndex]);
+            int rndIndex = random.nextInt(skala.getcSkala().length);
+            PlaySine(skala.getcSkala()[rndIndex]);
+            System.out.print(i+"       "+skala.getcSkala()[rndIndex]);
             System.out.println();
 
 
