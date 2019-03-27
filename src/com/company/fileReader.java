@@ -83,7 +83,7 @@ public class fileReader {
 
         //fR.playnote();
         //System.out.println(fR.notePlayed);
-        
+
             fileReader fR = new fileReader(".idea/data");
             System.out.println(fR.playNote());
 
