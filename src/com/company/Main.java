@@ -8,7 +8,7 @@ public class Main {
         //osc.Sine(400,0.4);
         //osc.Square();
         //osc.redNoise();
-       // osc.RandomMelody();
-        osc.RandomMadness();
+        osc.RandomMelody();
+       // osc.RandomMadness();
     }
 }
