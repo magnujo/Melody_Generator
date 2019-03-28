@@ -4,6 +4,7 @@ import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.*;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class OscGenerator {
@@ -31,6 +32,8 @@ public class OscGenerator {
         synthSine.start();
         synthSine.add(sineOsc);
         synthSine.add(sineLineOut);
+
+
 
 
 
@@ -64,6 +67,8 @@ public class OscGenerator {
     public void SetupSquare() {
 
         UnitOscillator squareOsc = new SquareOscillator();
+
+
         squareLineOut = new LineOut();
         synthSquare.start();
         synthSquare.add(squareOsc);
@@ -92,15 +97,18 @@ public class OscGenerator {
     }
 
     public void RandomMelody() {
+        fileReader fR = new fileReader(".idea/data");
+        ArrayList<Integer> intRhytmList = fR.playNote();
+
         SetupSine();
-        skala.transponerHalvTone(600);
+        skala.transponerHalvTone(0);
 
-
-
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < intRhytmList.size(); i++) {
+                duration = intRhytmList.get(i)*0.1;
+                System.out.println(duration);
 
             int rndIndex = random.nextInt(skala.getcSkala().length);
-            PlaySine(skala.getcSkala()[rndIndex]);
+            PlaySine(skala.getcSkala()[intRhytmList.get(i)]);
             System.out.print(i+"       "+skala.getcSkala()[rndIndex]);
             System.out.println();
 

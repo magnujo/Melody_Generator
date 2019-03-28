@@ -14,12 +14,12 @@ public class fileReader {
     String aline = null;
 
 
-    private fileReader(String path) {
+    public fileReader(String path) {
         this.path = path;
     }
 
 
-    private ArrayList<Integer> playNote() {
+    public ArrayList<Integer> playNote() {
 
         try {
             // FileReader reads text files in the default encoding.
@@ -48,7 +48,7 @@ public class fileReader {
                 Matcher m5 = uz.matcher(aline);
 
                 if (m.find()) {
-                    // System.out.println("found 1");
+                    // a to e value
                     playlist.add(1);
                 }
                 if (m2.find()) {
@@ -72,7 +72,7 @@ public class fileReader {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Something went wrong.");
+            System.out.println("The file was not read correctly.");
         }
 
         return playlist;
