@@ -27,9 +27,4 @@ public class Skala {
         this.cSkala = cSkala;
     }
 
-
-
-
-
-
 }
