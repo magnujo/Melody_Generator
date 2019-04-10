@@ -6,6 +6,10 @@ public class ScaleGenerator {
     //this method generates a chromatic scale from any starting frequency.
     //A frequency table can be found on http://pages.mtu.edu/~suits/notefreqs.html
 
+    public static double[] getScale() {
+        return scale;
+    }
+
     //This array of doubles stores the scale.
     protected static double[] scale;
 

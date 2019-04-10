@@ -21,10 +21,7 @@ public class OscGenerator {
     private Synthesizer synthNoise = JSyn.createSynthesizer();
     private double duration = 0.1;
     private UnitOscillator sineOsc = new SineOscillator();
-    private Skala skala = new Skala();
-
-
-
+    private MajorScale skala = new MajorScale(9,146.83);
 
 
     private void SetupSine(){
@@ -32,10 +29,6 @@ public class OscGenerator {
         synthSine.start();
         synthSine.add(sineOsc);
         synthSine.add(sineLineOut);
-
-
-
-
 
         sineOsc.amplitude.set(0.5);
         sineOsc.output.connect(0, sineLineOut.input, 0);
@@ -101,15 +94,14 @@ public class OscGenerator {
         ArrayList<Integer> intRhytmList = fR.playNote();
 
         SetupSine();
-        skala.transponerHalvTone(0);
 
         for (int i = 0; i < intRhytmList.size(); i++) {
                 duration = intRhytmList.get(i)*0.1;
                 System.out.println(duration);
 
-            int rndIndex = random.nextInt(skala.getcSkala().length);
-            PlaySine(skala.getcSkala()[intRhytmList.get(i)]);
-            System.out.print(i+"       "+skala.getcSkala()[rndIndex]);
+            int rndIndex = random.nextInt(skala.getScale().length);
+            PlaySine(skala.getScale()[intRhytmList.get(i)]);
+            System.out.print(i+"       "+skala.getScale()[rndIndex]);
             System.out.println();
 
 
