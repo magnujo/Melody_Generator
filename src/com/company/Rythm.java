@@ -2,8 +2,6 @@ package com.company;
 
 import java.util.Scanner;
 
-import java.lang.*;
-
     public class Rythm {
 
         static OscGenerator osc = new OscGenerator();

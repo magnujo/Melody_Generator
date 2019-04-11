@@ -6,12 +6,12 @@ public class ScaleGenerator {
     //this method generates a chromatic scale from any starting frequency.
     //A frequency table can be found on http://pages.mtu.edu/~suits/notefreqs.html
 
-    public static double[] getScale() {
+    public double[] getScale() {
         return scale;
     }
 
     //This array of doubles stores the scale.
-    protected static double[] scale;
+    protected double[] scale;
 
     //This is the constructor which can take a length (there are 12 notes in a chromatic octave), and a starting frequency. I refer to the table mentioned above.
     public ScaleGenerator(int scaleLength, double startFreq){
@@ -29,7 +29,7 @@ public class ScaleGenerator {
 
         ScaleGenerator scaleGenerator = new ScaleGenerator(13,440);
 
-        System.out.println(Arrays.toString(scale));
+        System.out.println(Arrays.toString(scaleGenerator.getScale()));
     }
 }
 
