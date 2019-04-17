@@ -1,23 +1,26 @@
 package com.company;
 
 public class Skala {
-    private double rootNote =0; //rootnote
-    private double faktor=1.05946;
-    private double[] cSkala = {rootNote, rootNote +32.03, rootNote +68, rootNote +87.6, rootNote +130.37, rootNote +178.37, rootNote +231.37, rootNote +261.62, rootNote +325.7, rootNote +397.62, rootNote +436.83, rootNote +522.36};
+    private double a=0;
+    private double halvtoneFaktor = 1.05946;
+    private double heltonefaktor = 1.05946*1.05946;
 
-    public double getRootNote() {
-        return rootNote;
+    public double getA() {
+        return a;
     }
 
-    public void transponerHalvTone(double rootNote) {
-        this.rootNote = rootNote*faktor;
-        this.cSkala = new double[]{this.rootNote, this.rootNote+32.03, this.rootNote+68, this.rootNote+87.6, this.rootNote+130.37, this.rootNote+178.37, this.rootNote+231.37, this.rootNote+261.62, this.rootNote+325.7, this.rootNote+397.62, this.rootNote+436.83, this.rootNote+522.36};
-       // this.cSkala = tempSkala;
+    public void transponerHalvTone(double a) {
+        this.a = a* halvtoneFaktor;
+
+        double[] tempSkala = {a, a+32.03, a+68, a+87.6, a+130.37, a+178.37, a+231.37, a+261.62, a+325.7, a+397.62, a+436.83, a+522.36};
+        this.cSkala = tempSkala;
     }
 
-    public void transponerHelTone(double rootNote) {
-        this.rootNote = rootNote*faktor;
+    public void transponerHelTone(double a) {
+        this.a = a* halvtoneFaktor;
     }
+
+
 
     public double[] getcSkala() {
         return cSkala;
@@ -26,5 +29,11 @@ public class Skala {
     public void setcSkala(double[] cSkala) {
         this.cSkala = cSkala;
     }
+
+
+
+    private double[] cSkala = {a, a+32.03, a+68, a+87.6, a+130.37, a+178.37, a+231.37, a+261.62, a+325.7, a+397.62, a+436.83, a+522.36};
+
+
 
 }
