@@ -1,12 +1,8 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Hash {
-
-
 
     public static void main(String[] args) {
 
@@ -25,12 +21,7 @@ public class Hash {
             hashMap.put(noteNames[j]+octaveNumber,scaleGenerator.getScale().get(i));
             j++;
         }
-
-
-     System.out.println(hashMap.get("F4"));
-
     }
-
 }
 
 
