@@ -13,32 +13,24 @@ public class ScaleGeneratorTest {
 
     //This is the constructor which can take a length (there are 12 notes in a chromatic octave), and a starting frequency.
     // I refer to the table mentioned above.
-    public ScaleGeneratorTest(int scaleLength, double startFreq) {
+    public ScaleGeneratorTest(int scalelength, double startFreq) {
         //scale = new double[scaleLength];
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < scalelength; i++) {
             // The frequency needs to double every \{12}12 notes (because there are \{7}7 white notes and \{5}5 black notes in each octave.)
             scale.add(i, startFreq * Math.pow(2, i / 12.0));
         }
-
     }
 
-
     public ArrayList<Double> getScale() {
+
         return scale;
     }
 
-
     public static void main(String[] args) {
 
-
-        ScaleGeneratorTest scaleGenerator = new ScaleGeneratorTest(13, 440);
-
-
-
+        ScaleGeneratorTest scaleGenerator = new ScaleGeneratorTest(8, 440);
             System.out.println(Arrays.toString(scale.toArray()));
-
-
     }
 }
 
