@@ -13,7 +13,6 @@ public class fileReader {
     private String path;
     String aline = null;
 
-
     public fileReader(String path) {
         this.path = path;
     }
@@ -93,7 +92,7 @@ public class fileReader {
                 }
                 if (m8.find()) {
                     // System.out.println("found 5");
-                    playlist.add(8);
+                    playlist.add(7);
                 }
                 if (m9.find()) {
                     // System.out.println("found 5");
@@ -108,7 +107,6 @@ public class fileReader {
    }
 
     public static void main(String[] args) {
-
 
         //fR.playnote();
         //System.out.println(fR.notePlayed);

@@ -21,8 +21,6 @@ public class OscGenerator {
     private Synthesizer synthNoise = JSyn.createSynthesizer();
     private double duration = 0.1;
     private UnitOscillator sineOsc = new SineOscillator();
-    private MajorScale skala = new MajorScale(9,440);
-
 
     private void SetupSine(){
         sineLineOut = new LineOut();
@@ -60,8 +58,6 @@ public class OscGenerator {
     public void SetupSquare() {
 
         UnitOscillator squareOsc = new SquareOscillator();
-
-
         squareLineOut = new LineOut();
         synthSquare.start();
         synthSquare.add(squareOsc);
@@ -73,7 +69,6 @@ public class OscGenerator {
         squareOsc.output.connect(0, squareLineOut.input, 1);
 
     }
-
 
     public void SetupRedNoise() {
         RedNoise noise = new RedNoise();
@@ -89,7 +84,7 @@ public class OscGenerator {
 
     }
 
-    public void RandomMelody() {
+    public void RandomMelody(double[] scale) {
         fileReader fR = new fileReader(".idea/data");
         ArrayList<Integer> intRhytmList = fR.playNote();
 
@@ -99,12 +94,10 @@ public class OscGenerator {
                 duration = intRhytmList.get(i)*0.1;
                 System.out.println(duration);
 
-            int rndIndex = random.nextInt(skala.getScale().length);
-            PlaySine(skala.getScale()[intRhytmList.get(i)]);
-            System.out.print(i+"       "+skala.getScale()[rndIndex]);
+            int rndIndex = random.nextInt(scale.length);
+            PlaySine(scale[intRhytmList.get(i)]);
+            System.out.print(i+"       "+scale[rndIndex]);
             System.out.println();
-
-
 
             try {
                 synthSine.sleepFor(duration);
@@ -122,7 +115,6 @@ public class OscGenerator {
         SetupSaw();
         SetupSquare();
         SetupRedNoise();
-
 
         for (int i = 0; i < 100; i++) {
             switch (random.nextInt(2)) {
