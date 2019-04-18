@@ -10,7 +10,7 @@ public class MajorScale extends ScaleGenerator {
         //ScaleLength has to be +4 because there are 4 less tones in a major scale than in a Chromatic scale, and it helps the user logically if we tell them they are creating a scale of just
         super(scaleLength+4, startFreq);
 
-        this.modifiedScale = new double[scaleLength-1];
+        this.modifiedScale = new double[8];
 
         this.modifiedScale[0]=scale[0];
         this.modifiedScale[1]=scale[2];
@@ -21,11 +21,13 @@ public class MajorScale extends ScaleGenerator {
         this.modifiedScale[6]=scale[11];
         this.modifiedScale[7]=scale[12];
 
+        this.scale = modifiedScale;
+
     }
 
     public static void main(String[] args) {
 
-        MajorScale majorScale = new MajorScale(9,16.35);
+        MajorScale majorScale = new MajorScale(9,261.63);
 
         System.out.println(Arrays.toString(majorScale.getScale()));
     }

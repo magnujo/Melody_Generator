@@ -21,7 +21,7 @@ public class OscGenerator {
     private Synthesizer synthNoise = JSyn.createSynthesizer();
     private double duration = 0.1;
     private UnitOscillator sineOsc = new SineOscillator();
-    private MajorScale skala = new MajorScale(9,146.83);
+    private MajorScale skala = new MajorScale(9,440);
 
 
     private void SetupSine(){

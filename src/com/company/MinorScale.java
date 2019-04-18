@@ -21,6 +21,8 @@ public class MinorScale extends ScaleGenerator {
         this.modifiedScale[6]=scale[10];
         this.modifiedScale[7]=scale[12];
 
+        this.scale = modifiedScale;
+
     }
 
     public static void main(String[] args) {
