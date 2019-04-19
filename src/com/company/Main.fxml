@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainController">
    <children>
 
       <Button fx:id="btn" layoutX="232.0" layoutY="199.0" mnemonicParsing="false" onAction="#btn" text="Play Major">
@@ -19,12 +19,12 @@
             <Font name="Britannic Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btn2" layoutX="232.0" layoutY="314.0" mnemonicParsing="false" onAction="#btn2" text="Play3">
+      <Button fx:id="btn2" layoutX="232.0" layoutY="314.0" mnemonicParsing="false" onAction="#btn2" text="Add Scale">
          <font>
             <Font name="Britannic Bold" size="18.0" />
          </font>
       </Button>
-      <TextField layoutX="360.0" layoutY="203.0" />
-      <Text layoutX="400.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Write here" />
+      <TextField fx:id="textField" layoutX="360.0" layoutY="203.0" text="C3" />
+      <Text layoutX="407.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scale to play here" />
    </children>
 </AnchorPane>

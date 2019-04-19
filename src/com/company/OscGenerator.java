@@ -105,9 +105,23 @@ public class OscGenerator {
                 e.printStackTrace();
             }
             sineLineOut.stop();
+            if (MainController.chosenScales.size()>5) {
+                if (i == 15) scale = new MajorScale(9, MainController.chosenScales.get(0)).getScale();
+                if (i == 25) scale = new MajorScale(9, MainController.chosenScales.get(1)).getScale();
+                if (i == 35) scale = new MajorScale(9, MainController.chosenScales.get(1)).getScale();
+                if (i == 45) scale = new MajorScale(9, MainController.chosenScales.get(1)).getScale();
+                if (i == 55) scale = new MajorScale(9, MainController.chosenScales.get(1)).getScale();
+                if (i == 65) scale = new MajorScale(9, MainController.chosenScales.get(1)).getScale();
+            }
+
+
+
+
+
 
         }
         synthSine.stop();
+
     }
 
    public void RandomMadness() {
