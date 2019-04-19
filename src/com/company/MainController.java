@@ -1,30 +1,29 @@
 package com.company;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.TextField;
-import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import javafx.fxml.FXML;
+
+import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
+
 import java.util.ArrayList;
 
 public class MainController {
     public static ArrayList<Double> chosenScales = new ArrayList<>();
     HashTest hashTest = new HashTest();
+    ArrayList textList = new ArrayList();
+
 
 
     @FXML
-TextField textField = new TextField();
+    TextFlow textFlow;
+
+    @FXML
+    TextField textField;
+
 
     public void btn() {
 
@@ -47,12 +46,25 @@ TextField textField = new TextField();
 
     }
 
+    @FXML
     public void btn2() {
 
         String s = textField.getText();
         System.out.println("added " + s);
+        textList.add(s);
         HashTest hashTest = new HashTest();
         chosenScales.add(hashTest.frequencyFinder(s));
+        textFlow.getChildren().clear();
+
+
+
+        for (int i = 0; i < textList.size(); i++) {
+            Text text = new Text(textList.get(i)+" ");
+            text.setFont(new Font(25));
+            text.setFill(Color.DARKORCHID);
+            textFlow.getChildren().add(text);
+       }
+
 
     }
 

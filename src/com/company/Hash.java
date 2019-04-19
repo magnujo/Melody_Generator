@@ -21,6 +21,8 @@ public class Hash {
             hashMap.put(noteNames[j]+octaveNumber,scaleGenerator.getScale().get(i));
             j++;
         }
+
+
     }
 }
 
