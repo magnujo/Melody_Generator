@@ -10,13 +10,12 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainController {
     public static ArrayList<Double> chosenScales = new ArrayList<>();
     HashTest hashTest = new HashTest();
     ArrayList textList = new ArrayList();
-
-
 
     @FXML
     TextFlow textFlow;
@@ -29,9 +28,12 @@ public class MainController {
 
         String s = textField.getText();
         System.out.println("playing " + s);
-        MajorScale skala = new MajorScale(9,hashTest.frequencyFinder(s));
+        MajorScaleTest skala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
 
-        OscGenerator osc = new OscGenerator();
+        //System.out.println(skala.getScale().size());
+        //System.out.println(Arrays.toString(skala.getScale().toArray()));
+
+       OscGenerator osc = new OscGenerator();
         osc.RandomMelody(skala.getScale());
 
     }
@@ -39,10 +41,10 @@ public class MainController {
     public void btn1() {
         String s = textField.getText();
         System.out.println("playing " + s);
-        MinorScale skala = new MinorScale(9,hashTest.frequencyFinder(s));
+       // MinorScale skala = new MinorScale(9,hashTest.frequencyFinder(s));
 
-        OscGenerator osc = new OscGenerator();
-        osc.RandomMelody(skala.getScale());
+      //  OscGenerator osc = new OscGenerator();
+     //   osc.RandomMelody(skala.getScale());
 
     }
 

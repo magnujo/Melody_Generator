@@ -5,6 +5,7 @@ import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class OscGenerator {
@@ -84,7 +85,7 @@ public class OscGenerator {
 
     }
 
-    public void RandomMelody(double[] scale) {
+    public void RandomMelody(ArrayList<Double> scale) {
         fileReader fR = new fileReader(".idea/data");
         ArrayList<Integer> intRhytmList = fR.playNote();
 
@@ -94,9 +95,9 @@ public class OscGenerator {
                 duration = intRhytmList.get(i)*0.1;
                 System.out.println(duration);
 
-            int rndIndex = random.nextInt(scale.length);
-            PlaySine(scale[intRhytmList.get(i)]);
-            System.out.print(i+"       "+scale[rndIndex]);
+            int rndIndex = random.nextInt(scale.size());
+            PlaySine(scale.get(intRhytmList.get(i)));
+            System.out.print(i+"       "+scale.get(rndIndex));
             System.out.println();
 
             try {
@@ -106,18 +107,13 @@ public class OscGenerator {
             }
             sineLineOut.stop();
             if (MainController.chosenScales.size()>5) {
-                if (i == 15) scale = new MajorScale(9, MainController.chosenScales.get(0)).getScale();
-                if (i == 25) scale = new MajorScale(9, MainController.chosenScales.get(1)).getScale();
-                if (i == 35) scale = new MajorScale(9, MainController.chosenScales.get(1)).getScale();
-                if (i == 45) scale = new MajorScale(9, MainController.chosenScales.get(1)).getScale();
-                if (i == 55) scale = new MajorScale(9, MainController.chosenScales.get(1)).getScale();
-                if (i == 65) scale = new MajorScale(9, MainController.chosenScales.get(1)).getScale();
+                if (i == 15) scale = new MajorScaleTest(9, MainController.chosenScales.get(0)).getScale();
+                if (i == 25) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
+                if (i == 35) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
+                if (i == 45) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
+                if (i == 55) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
+                if (i == 65) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
             }
-
-
-
-
-
 
         }
         synthSine.stop();

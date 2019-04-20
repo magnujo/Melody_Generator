@@ -8,7 +8,7 @@ public class ScaleGeneratorTest {
     //A frequency table can be found on http://pages.mtu.edu/~suits/notefreqs.html
     //This array of doubles stores the scale.
     //protected double[] scale;
-    static ArrayList<Double> scale = new ArrayList<Double>();
+    protected ArrayList<Double> scale = new ArrayList<Double>();
 
 
     //This is the constructor which can take a length (there are 12 notes in a chromatic octave), and a starting frequency.
@@ -30,7 +30,8 @@ public class ScaleGeneratorTest {
     public static void main(String[] args) {
 
         ScaleGeneratorTest scaleGenerator = new ScaleGeneratorTest(8, 440);
-            System.out.println(Arrays.toString(scale.toArray()));
+
+
     }
 }
 
