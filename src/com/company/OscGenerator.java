@@ -5,11 +5,10 @@ import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class OscGenerator {
-     private Synthesizer synthSaw = JSyn.createSynthesizer();
+    private Synthesizer synthSaw = JSyn.createSynthesizer();
     private Synthesizer synthSine = JSyn.createSynthesizer();
     private LineOut sawLineOut;
     private double frequency;
@@ -22,6 +21,8 @@ public class OscGenerator {
     private Synthesizer synthNoise = JSyn.createSynthesizer();
     private double duration = 0.1;
     private UnitOscillator sineOsc = new SineOscillator();
+    public ArrayList notes = new ArrayList();
+
 
     private void SetupSine(){
         sineLineOut = new LineOut();
@@ -52,7 +53,6 @@ public class OscGenerator {
         sawOsc.amplitude.set(0.4);
         sawOsc.output.connect(0, sawLineOut.input, 0);
         sawOsc.output.connect(0, sawLineOut.input, 1);
-
     }
 
 
@@ -93,18 +93,20 @@ public class OscGenerator {
 
         for (int i = 0; i < intRhytmList.size(); i++) {
                 duration = intRhytmList.get(i)*0.1;
-                System.out.println(duration);
+               // System.out.println(duration);
 
             int rndIndex = random.nextInt(scale.size());
             PlaySine(scale.get(intRhytmList.get(i)));
-            System.out.print(i+"       "+scale.get(rndIndex));
-            System.out.println();
+            notes.add(scale.get(intRhytmList.get(i)));
+            //System.out.print(i+"       "+scale.get(rndIndex));
+            //System.out.println();
 
             try {
                 synthSine.sleepFor(duration);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             sineLineOut.stop();
             if (MainController.chosenScales.size()>5) {
                 if (i == 15) scale = new MajorScaleTest(9, MainController.chosenScales.get(0)).getScale();

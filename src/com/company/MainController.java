@@ -1,8 +1,11 @@
 package com.company;
 
 
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -16,7 +19,10 @@ public class MainController {
     public static ArrayList<Double> chosenScales = new ArrayList<>();
     HashTest hashTest = new HashTest();
     ArrayList textList = new ArrayList();
+    OscGenerator osc = new OscGenerator();
 
+    @FXML
+    Canvas canvas;
     @FXML
     TextFlow textFlow;
 
@@ -33,9 +39,7 @@ public class MainController {
         //System.out.println(skala.getScale().size());
         //System.out.println(Arrays.toString(skala.getScale().toArray()));
 
-       OscGenerator osc = new OscGenerator();
-        osc.RandomMelody(skala.getScale());
-
+       osc.RandomMelody(skala.getScale());
     }
 
     public void btn1() {
@@ -58,8 +62,6 @@ public class MainController {
         chosenScales.add(hashTest.frequencyFinder(s));
         textFlow.getChildren().clear();
 
-
-
         for (int i = 0; i < textList.size(); i++) {
             Text text = new Text(textList.get(i)+" ");
             text.setFont(new Font(25));
@@ -67,6 +69,37 @@ public class MainController {
             textFlow.getChildren().add(text);
        }
 
+
+    }
+
+    public void initialize()
+    {
+
+
+        // Start and control game loop
+        new AnimationTimer(){
+            long lastUpdate;
+            public void handle (long now)
+            {
+                if (now > lastUpdate + 50 * 1000000)
+                {
+                    lastUpdate = now;
+                    drawCanvas();
+                }             }
+        }.start();
+    }
+    private void drawCanvas() {
+        GraphicsContext g = canvas.getGraphicsContext2D();
+        g.setFill(Color.GREY);
+
+        System.out.println(osc.notes.toString());
+
+        for (int i = 0; i < osc.notes.size() ; i++) {
+
+
+            g.fillOval(5+i*5, 5, 25, 25);
+
+        }
 
     }
 
