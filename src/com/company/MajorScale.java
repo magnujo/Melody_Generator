@@ -12,7 +12,7 @@ public class MajorScale extends ScaleGenerator {
         and it helps the user logically if we tell them they are creating a scale of just*/
         super(scaleLength+5, startFreq);
 
-        this.scale.remove(1,3,6,8,10);
+        //this.scale.remove(1,3,6,8,10);
 
         this.modifiedScale = new double[8];
 

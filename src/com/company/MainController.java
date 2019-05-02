@@ -19,7 +19,7 @@ public class MainController {
     public static ArrayList<Double> chosenScales = new ArrayList<>();
     HashTest hashTest = new HashTest();
     ArrayList textList = new ArrayList();
-    OscGenerator osc = new OscGenerator();
+    OscGenerator osc;
 
     @FXML
     Canvas canvas;
@@ -75,9 +75,16 @@ public class MainController {
     public void initialize()
     {
 
+        GraphicsContext g = canvas.getGraphicsContext2D();
+
+        g.setFill(Color.GREY);
+        osc = new OscGenerator(g);
+        //g.fillOval(5+5*5, 5, 25, 25);
+
+
 
         // Start and control game loop
-        new AnimationTimer(){
+        /*new AnimationTimer(){
             long lastUpdate;
             public void handle (long now)
             {
@@ -87,6 +94,7 @@ public class MainController {
                     drawCanvas();
                 }             }
         }.start();
+        */
     }
     private void drawCanvas() {
         GraphicsContext g = canvas.getGraphicsContext2D();

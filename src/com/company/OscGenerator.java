@@ -3,6 +3,7 @@ package com.company;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.*;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,6 +23,14 @@ public class OscGenerator {
     private double duration = 0.1;
     private UnitOscillator sineOsc = new SineOscillator();
     public ArrayList notes = new ArrayList();
+
+    GraphicsContext graphicsContext;
+
+    public OscGenerator(GraphicsContext graphicsContext){
+        this.graphicsContext = graphicsContext;
+
+
+    }
 
 
     private void SetupSine(){
@@ -98,8 +107,11 @@ public class OscGenerator {
             int rndIndex = random.nextInt(scale.size());
             PlaySine(scale.get(intRhytmList.get(i)));
             notes.add(scale.get(intRhytmList.get(i)));
-            //System.out.print(i+"       "+scale.get(rndIndex));
-            //System.out.println();
+            graphicsContext.fillOval(5+i*5, 5, 25, 25);
+            graphicsContext.restore();
+
+            System.out.print(i+"       "+scale.get(rndIndex));
+            System.out.println();
 
             try {
                 synthSine.sleepFor(duration);

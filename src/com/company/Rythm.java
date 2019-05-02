@@ -4,7 +4,7 @@ import java.util.Scanner;
 
     public class Rythm {
 
-        static OscGenerator osc = new OscGenerator();
+        static OscGenerator osc = new OscGenerator(null);
 
         public static void main(String[] args) {
 
