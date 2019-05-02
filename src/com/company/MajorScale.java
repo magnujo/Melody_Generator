@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MajorScale extends ScaleGenerator {
@@ -22,7 +23,6 @@ public class MajorScale extends ScaleGenerator {
         this.modifiedScale[7]=scale[12];
 
         this.scale = modifiedScale;
-
     }
 
     public static void main(String[] args) {
@@ -30,5 +30,7 @@ public class MajorScale extends ScaleGenerator {
         MajorScale majorScale = new MajorScale(9,261.63);
 
         System.out.println(Arrays.toString(majorScale.getScale()));
+
     }
+
 }
