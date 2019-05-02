@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class OscGenerator {
-     private Synthesizer synthSaw = JSyn.createSynthesizer();
+    private Synthesizer synthSaw = JSyn.createSynthesizer();
     private Synthesizer synthSine = JSyn.createSynthesizer();
     private LineOut sawLineOut;
     private double frequency;
@@ -52,7 +52,6 @@ public class OscGenerator {
         sawOsc.amplitude.set(0.4);
         sawOsc.output.connect(0, sawLineOut.input, 0);
         sawOsc.output.connect(0, sawLineOut.input, 1);
-
     }
 
 
