@@ -29,8 +29,9 @@ public class ScaleGeneratorTest {
      * Creates a chromatic scale with a equation from from http://pages.mtu.edu/~suits/NoteFreqCalcs.html)
      *
      * @param scalelength Determines the length of the chromatic scale.
-     * @param startFreq Determines the root frequency of the scale, which all the frequencies are calculated out of.
-     *                  This means that this number must be very precise.
+     * @param startFreq Determines the root frequency of the scale, which all the frequencies are calculated out from.
+     *                  This means that this number must be very precise, in order to make all the other frequencies
+     *                  accurate.
      */
     public void ScaleGeneratorEquation2(int scalelength, double startFreq) {
 
@@ -44,7 +45,7 @@ public class ScaleGeneratorTest {
     public double CalcFreq(double rootFreq, int distanceInSemitones) {
 
         //   double a = Math.pow(2,1.0/12.0); // same as the 12th square root of 2;
-return rootFreq * Math.pow(Math.pow(2,1.0/12.0),distanceInSemitones);
+        return rootFreq * Math.pow(Math.pow(2,1.0/12.0),distanceInSemitones);
 
 
     }
