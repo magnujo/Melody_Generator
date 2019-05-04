@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class OscGenerator {
     private Synthesizer synthSaw = JSyn.createSynthesizer();
-    private Synthesizer synthSine = JSyn.createSynthesizer();
+    public Synthesizer synthSine = JSyn.createSynthesizer();
     private LineOut sawLineOut;
     private double frequency;
     double amplitude;
@@ -22,18 +22,19 @@ public class OscGenerator {
     private Synthesizer synthNoise = JSyn.createSynthesizer();
     private double duration = 0.1;
     private UnitOscillator sineOsc = new SineOscillator();
-    public ArrayList notes = new ArrayList();
+    public ArrayList<Double> notes = new ArrayList<>();
+    boolean runonce =false;
+    fileReader fR = new fileReader(".idea/data");
+    ArrayList<Integer> intRhytmList = fR.playNote();
 
-    GraphicsContext graphicsContext;
 
-    public OscGenerator(GraphicsContext graphicsContext){
-        this.graphicsContext = graphicsContext;
+    public OscGenerator(){
 
 
     }
 
 
-    private void SetupSine(){
+    public void SetupSine(){
         sineLineOut = new LineOut();
         synthSine.start();
         synthSine.add(sineOsc);
@@ -94,24 +95,19 @@ public class OscGenerator {
 
     }
 
-    public void RandomMelody(ArrayList<Double> scale) {
-        fileReader fR = new fileReader(".idea/data");
-        ArrayList<Integer> intRhytmList = fR.playNote();
 
-        SetupSine();
+    public void RandomMelody(ArrayList<Double> scale, int i) {
 
-        for (int i = 0; i < intRhytmList.size(); i++) {
                 duration = intRhytmList.get(i)*0.1;
                // System.out.println(duration);
 
-            int rndIndex = random.nextInt(scale.size());
             PlaySine(scale.get(intRhytmList.get(i)));
             notes.add(scale.get(intRhytmList.get(i)));
-            graphicsContext.fillOval(5+i*5, 5, 25, 25);
-            graphicsContext.restore();
 
+/*
             System.out.print(i+"       "+scale.get(rndIndex));
             System.out.println();
+            */
 
             try {
                 synthSine.sleepFor(duration);
@@ -119,7 +115,8 @@ public class OscGenerator {
                 e.printStackTrace();
             }
 
-            sineLineOut.stop();
+          //  sineLineOut.stop();
+            /*
             if (MainController.chosenScales.size()>5) {
                 if (i == 15) scale = new MajorScaleTest(9, MainController.chosenScales.get(0)).getScale();
                 if (i == 25) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
@@ -128,11 +125,13 @@ public class OscGenerator {
                 if (i == 55) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
                 if (i == 65) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
             }
+            */
 
-        }
-        synthSine.stop();
+
+       // synthSine.stop();
 
     }
+
 
    public void RandomMadness() {
         SetupSine();

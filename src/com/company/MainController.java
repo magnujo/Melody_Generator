@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,6 +21,10 @@ public class MainController {
     HashTest hashTest = new HashTest();
     ArrayList textList = new ArrayList();
     OscGenerator osc;
+    int iE;
+    MajorScaleTest skala;
+    boolean runonce = false;
+    boolean clicked=false;
 
     @FXML
     Canvas canvas;
@@ -30,22 +35,38 @@ public class MainController {
     TextField textField;
 
 
+
+    @FXML
+
     public void btn() {
 
         String s = textField.getText();
         System.out.println("playing " + s);
         MajorScaleTest skala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
+            clicked = true;
+
 
         //System.out.println(skala.getScale().size());
         //System.out.println(Arrays.toString(skala.getScale().toArray()));
 
-       osc.RandomMelody(skala.getScale());
+
+
     }
+    @FXML
+
+    public void btn3(){
+        clicked = false;
+        osc.sineLineOut.stop();
+    }
+
+    @FXML
 
     public void btn1() {
         String s = textField.getText();
         System.out.println("playing " + s);
-       // MinorScale skala = new MinorScale(9,hashTest.frequencyFinder(s));
+
+
+        // MinorScale skala = new MinorScale(9,hashTest.frequencyFinder(s));
 
       //  OscGenerator osc = new OscGenerator();
      //   osc.RandomMelody(skala.getScale());
@@ -76,16 +97,17 @@ public class MainController {
     public void initialize()
     {
 
+
         GraphicsContext g = canvas.getGraphicsContext2D();
 
         g.setFill(Color.GREY);
-        osc = new OscGenerator(g);
+        osc = new OscGenerator();
         //g.fillOval(5+5*5, 5, 25, 25);
 
 
 
         // Start and control game loop
-        /*new AnimationTimer(){
+        new AnimationTimer(){
             long lastUpdate;
             public void handle (long now)
             {
@@ -95,21 +117,42 @@ public class MainController {
                     drawCanvas();
                 }             }
         }.start();
-        */
+
     }
     private void drawCanvas() {
-        GraphicsContext g = canvas.getGraphicsContext2D();
-        g.setFill(Color.GREY);
 
-        System.out.println(osc.notes.toString());
+        if (clicked) {
 
-        for (int i = 0; i < osc.notes.size() ; i++) {
+            if (!runonce) {
+                osc.SetupSine();
 
 
-            g.fillOval(5+i*5, 5, 25, 25);
+                runonce = true;
+            }
+            String s = textField.getText();
+            // System.out.println("playing " + s);
+            MajorScaleTest skala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
+
+            GraphicsContext g = canvas.getGraphicsContext2D();
+            if (iE < osc.intRhytmList.size()) {
+                osc.RandomMelody(skala.getScale(), iE);
+                iE++;
+            } else {
+                osc.sineLineOut.stop();
+            }
+            g.setFill(Color.GREY);
+
+            System.out.println(osc.notes.toString());
+
+            for (int i = 0; i < osc.notes.size(); i++) {
+
+
+                g.fillOval(5 + i * 5, 5 + i, 3, 3);
+
+
+            }
 
         }
-
     }
 
 

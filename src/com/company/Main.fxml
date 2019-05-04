@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="542.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainController">
+<AnchorPane prefHeight="542.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainController">
    <children>
 
       <Button fx:id="btn" layoutX="232.0" layoutY="199.0" mnemonicParsing="false" onAction="#btn" text="Play Major">
@@ -20,7 +20,7 @@
             <Font name="Britannic Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btn2" layoutX="232.0" layoutY="314.0" mnemonicParsing="false" onAction="#btn2" text="Add Scale">
+      <Button fx:id="btn2" layoutX="235.0" layoutY="303.0" mnemonicParsing="false" onAction="#btn2" text="Add Scale">
          <font>
             <Font name="Britannic Bold" size="18.0" />
          </font>
@@ -28,5 +28,10 @@
       <TextField fx:id="textField" layoutX="360.0" layoutY="203.0" text="C3" />
       <TextFlow fx:id="textFlow" layoutX="14.0" layoutY="408.0" prefHeight="120.0" prefWidth="603.0" />
       <Canvas fx:id="canvas" height="200.0" width="650.0" />
+      <Button id="btn3" fx:id="btn3" layoutX="360.0" layoutY="252.0" mnemonicParsing="false" onAction="#btn3" text="[Stop]">
+         <font>
+            <Font name="Britannic Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

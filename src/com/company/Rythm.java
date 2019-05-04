@@ -1,8 +1,8 @@
 package com.company;
 
 import java.util.Scanner;
-
     public class Rythm {
+/*
 
         static OscGenerator osc = new OscGenerator(null);
 
@@ -29,5 +29,7 @@ import java.util.Scanner;
                 }
             }
         }
+            */
+
     }
 
