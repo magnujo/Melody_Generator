@@ -113,37 +113,15 @@ public class OscGenerator {
     public void RandomMelody(ArrayList<Double> scale, int i) {
 
                 duration = intRhytmList.get(i)*0.1;
-               // System.out.println(duration);
 
             PlaySine(scale.get(intRhytmList.get(i)));
             notes.add(scale.get(intRhytmList.get(i)));
-
-/*
-            System.out.print(i+"       "+scale.get(rndIndex));
-            System.out.println();
-            */
 
             try {
                 synthSine.sleepFor(duration);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-          //  sineLineOut.stop();
-            /*
-            if (MainController.chosenScales.size()>5) {
-                if (i == 15) scale = new MajorScaleTest(9, MainController.chosenScales.get(0)).getScale();
-                if (i == 25) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
-                if (i == 35) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
-                if (i == 45) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
-                if (i == 55) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
-                if (i == 65) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
-            }
-            */
-
-
-       // synthSine.stop();
-
     }
 
 

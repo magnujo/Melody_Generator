@@ -12,21 +12,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-import javax.sound.sampled.Line;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainController {
-    public static ArrayList<Double> chosenScales = new ArrayList<>();
-    HashTest hashTest = new HashTest();
-    ArrayList textList = new ArrayList();
-    OscGenerator osc;
-    int iE;
-    MajorScaleTest skala;
-    boolean runonce = false;
-    boolean clicked=false;
-  //  ArrayList rytm = osc.getIntRhytmList();
+    private static ArrayList<Double> chosenScales = new ArrayList<>();
+    private HashTest hashTest = new HashTest();
+    private ArrayList textList = new ArrayList();
+    private OscGenerator osc;
+    private int iE;
+    private String s = "C3";
+    private MajorScaleTest skala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
+    private boolean runonce = false;
+    private boolean clicked=false;
 
     @FXML
     Canvas canvas;
@@ -44,15 +41,8 @@ public class MainController {
 
         String s = textField.getText();
         System.out.println("playing " + s);
-        MajorScaleTest skala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
-            clicked = true;
-
-
-        //System.out.println(skala.getScale().size());
-        //System.out.println(Arrays.toString(skala.getScale().toArray()));
-
-
-
+        skala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
+        clicked = true;
     }
     @FXML
 
@@ -67,11 +57,6 @@ public class MainController {
         String s = textField.getText();
         System.out.println("playing " + s);
 
-
-        // MinorScale skala = new MinorScale(9,hashTest.frequencyFinder(s));
-
-      //  OscGenerator osc = new OscGenerator();
-     //   osc.RandomMelody(skala.getScale());
 
     }
 
@@ -92,7 +77,6 @@ public class MainController {
             textFlow.getChildren().add(text);
        }
 
-
     }
 
     @FXML
@@ -104,9 +88,6 @@ public class MainController {
 
         g.setFill(Color.GREY);
         osc = new OscGenerator();
-        //g.fillOval(5+5*5, 5, 25, 25);
-
-
 
         // Start and control game loop
         new AnimationTimer(){
@@ -128,12 +109,8 @@ public class MainController {
             if (!runonce) {
                 osc.SetupSine();
 
-
                 runonce = true;
             }
-            String s = textField.getText();
-            // System.out.println("playing " + s);
-            MajorScaleTest skala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
 
             GraphicsContext g = canvas.getGraphicsContext2D();
             if (iE < osc.intRhytmList.size()) {
@@ -143,27 +120,18 @@ public class MainController {
                 osc.sineLineOut.stop();
             }
             g.setFill(Color.RED);
-           // System.out.println(rytm.toString());
-            // System.out.println(osc.getNotes().toString());
-            System.out.println(iE);
-
-           // System.out.println(osc.getPlayingNoteValue(iE-1));
-
-             //ArrayList A = osc.getNotes(); //
-            //System.out.println(A.get(iE-1)); //
-
-            //System.out.println(osc.getNotes().get(iE));
 
             int d = osc.getPlayingNoteValue(iE-1)/2;
             g.setFill(Color.BLACK);
 
-
+                //noder
                 g.fillOval(5 + iE * 5, 0 + d, 5, 5);
 
+                //nodepapir
                 g.fillRect(0,75,500,1);
-               g.fillRect(0,85,500,1);
+                g.fillRect(0,85,500,1);
                 g.fillRect(0,95,500,1);
-               g.fillRect(0,105,500,1);
+                g.fillRect(0,105,500,1);
                 g.fillRect(0,115,500,1);
 
         }
