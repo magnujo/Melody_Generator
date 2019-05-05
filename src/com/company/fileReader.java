@@ -68,34 +68,34 @@ public class fileReader {
 
                     if (m.find()) {
                         // a to e value
-                        playlist.add(1);
+                        playlist.add(0);
                     }
                     if (m2.find()) {
-                        playlist.add(2);
+                        playlist.add(1);
 
                     }
                     if (m3.find()) {
-                        playlist.add(3);
+                        playlist.add(2);
 
                     }
                     if (m4.find()) {
-                        playlist.add(4);
+                        playlist.add(3);
 
                     }
                     if (m5.find()) {
-                        playlist.add(5);
+                        playlist.add(4);
                     }
                     if (m6.find()) {
-                        playlist.add(6);
+                        playlist.add(5);
                     }
                     if (m7.find()) {
-                        playlist.add(7);
+                        playlist.add(6);
                     }
                     if (m8.find()) {
                         playlist.add(7);
                     }
                     if (m9.find()) {
-                        playlist.add(0);
+                        playlist.add(8);
                     }
                 }
 

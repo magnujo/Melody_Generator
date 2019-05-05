@@ -27,6 +27,7 @@ public class MainController {
     private boolean runonce = false;
     private boolean clicked=false;
     private boolean isMajor;
+    private double rootnote;
 
     @FXML
     Canvas canvas;
@@ -43,6 +44,7 @@ public class MainController {
         s = textField.getText();
         System.out.println("playing " + s);
         majorScala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
+        rootnote =  majorScala.getScale().get(0);
         isMajor = true;
         clicked = true;
     }
@@ -127,14 +129,19 @@ public class MainController {
             }
             g.setFill(Color.RED);
 
-            int d = osc.getPlayingNoteValue(iE-1)/2;
+            //int d = osc.getPlayingNoteValue(iE-1);
+            int d = (int) rootnote/2;
+            int e = osc.getPlayingNoteNum(iE-1);
+
+            System.out.println(190 - d);
+
             g.setFill(Color.BLACK);
 
             //noder
-                g.fillOval(5 + iE * 5, 0 + d, 6, 6);
-                g.fillRect(5 + iE * 5, 0 -12+d, 2, 15);
-                if(d>110||d<70)
-                    g.fillRect(2 + iE * 5, +2 +d, 10, 2);
+                g.fillOval(5 + iE * 5, 187 - d-e*5, 6, 6);
+                g.fillRect(5 + iE * 5, 187 -12 -d-e*5, 2, 15);
+                //if(d>200||d<160)
+                   // g.fillRect(2 + iE * 5, +187 -d-e*5, 10, 2);
 
                 //nodepapir
                 g.fillRect(0,75,500,1);

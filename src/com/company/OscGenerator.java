@@ -24,6 +24,7 @@ public class OscGenerator {
     private double duration = 0.1;
     private UnitOscillator sineOsc = new SineOscillator();
 
+    private ArrayList<Integer> playListValues = new ArrayList<>();
     private ArrayList<Double> notes = new ArrayList<>();
     boolean runonce =false;
     fileReader fR = new fileReader(".idea/data");
@@ -37,6 +38,13 @@ public class OscGenerator {
     }
     public ArrayList<Double> getNotes() {
         return notes;
+    }
+    public int getPlayingNoteNum(int i) {
+
+
+        Integer u =  playListValues.get(i);
+
+        return u;
     }
 
 
@@ -101,9 +109,9 @@ public class OscGenerator {
 
     }
 
-    public int getPlayingNoteValue(int i) {
+    public int getRootNote() {
 
-        Double d = notes.get(i);
+        Double d = notes.get(0);
         Integer u = d.intValue();
 
         return u;
@@ -115,9 +123,12 @@ public class OscGenerator {
                 duration = intRhytmList.get(i)*0.1;
 
             PlaySine(scale.get(intRhytmList.get(i)));
-            notes.add(scale.get(intRhytmList.get(i)));
+            //notes.add(scale.get(intRhytmList.get(i)));
+             notes.add(scale.get(intRhytmList.get(i)));
+            playListValues.add(intRhytmList.get(i));
 
-            try {
+
+        try {
                 synthSine.sleepFor(duration);
             } catch (InterruptedException e) {
                 e.printStackTrace();
