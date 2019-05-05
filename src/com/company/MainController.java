@@ -61,6 +61,8 @@ public class MainController {
         s = textField.getText();
         System.out.println("playing " + s);
         minorScala = new MinorScaleTest(13,hashTest.frequencyFinder(s));
+        rootnote =  minorScala.getScale().get(0);
+
         isMajor = false;
         clicked = true;
 
@@ -133,7 +135,7 @@ public class MainController {
             int d = (int) rootnote/2;
             int e = osc.getPlayingNoteNum(iE-1);
 
-            System.out.println(190 - d);
+            //System.out.println(190 - d);
 
             g.setFill(Color.BLACK);
 
