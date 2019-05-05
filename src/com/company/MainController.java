@@ -123,9 +123,13 @@ public class MainController {
 
             int d = osc.getPlayingNoteValue(iE-1)/2;
             g.setFill(Color.BLACK);
-
+            System.out.println(d);
                 //noder
                 g.fillOval(5 + iE * 5, 0 + d, 5, 5);
+                g.fillRect(5 + iE * 5, 0 + 3+d, 2, 15);
+                if(d>110||d<70)
+                    g.fillRect(2 + iE * 5, +2 +d, 10, 2);
+
 
                 //nodepapir
                 g.fillRect(0,75,500,1);
