@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+import javax.sound.sampled.Line;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +26,7 @@ public class MainController {
     MajorScaleTest skala;
     boolean runonce = false;
     boolean clicked=false;
+  //  ArrayList rytm = osc.getIntRhytmList();
 
     @FXML
     Canvas canvas;
@@ -140,17 +142,29 @@ public class MainController {
             } else {
                 osc.sineLineOut.stop();
             }
-            g.setFill(Color.GREY);
+            g.setFill(Color.RED);
+           // System.out.println(rytm.toString());
+            // System.out.println(osc.getNotes().toString());
+            System.out.println(iE);
 
-            System.out.println(osc.notes.toString());
+           // System.out.println(osc.getPlayingNoteValue(iE-1));
 
-            for (int i = 0; i < osc.notes.size(); i++) {
+             //ArrayList A = osc.getNotes(); //
+            //System.out.println(A.get(iE-1)); //
+
+            //System.out.println(osc.getNotes().get(iE));
+
+            int d = osc.getPlayingNoteValue(iE-1)/2;
+            g.setFill(Color.BLACK);
 
 
-                g.fillOval(5 + i * 5, 5 + i, 3, 3);
+                g.fillOval(5 + iE * 5, 0 + d, 5, 5);
 
-
-            }
+                g.fillRect(0,75,500,1);
+               g.fillRect(0,85,500,1);
+                g.fillRect(0,95,500,1);
+               g.fillRect(0,105,500,1);
+                g.fillRect(0,115,500,1);
 
         }
     }

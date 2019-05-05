@@ -6,6 +6,7 @@ import com.jsyn.unitgen.*;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class OscGenerator {
@@ -22,15 +23,20 @@ public class OscGenerator {
     private Synthesizer synthNoise = JSyn.createSynthesizer();
     private double duration = 0.1;
     private UnitOscillator sineOsc = new SineOscillator();
-    public ArrayList<Double> notes = new ArrayList<>();
+
+    private ArrayList<Double> notes = new ArrayList<>();
     boolean runonce =false;
     fileReader fR = new fileReader(".idea/data");
+
     ArrayList<Integer> intRhytmList = fR.playNote();
 
 
     public OscGenerator(){
 
 
+    }
+    public ArrayList<Double> getNotes() {
+        return notes;
     }
 
 
@@ -93,6 +99,14 @@ public class OscGenerator {
         noise.output.connect(0, noiseLineOut.input, 0);
         noise.output.connect(0, noiseLineOut.input, 1);
 
+    }
+
+    public int getPlayingNoteValue(int i) {
+
+        Double d = notes.get(i);
+        Integer u = d.intValue();
+
+        return u;
     }
 
 

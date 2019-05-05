@@ -1,11 +1,7 @@
 package com.company;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.regex.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class fileReader {
     ArrayList<Integer> playlist = new ArrayList<>();
