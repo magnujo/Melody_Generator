@@ -28,7 +28,7 @@ public class OscGenerator {
     boolean runonce =false;
     fileReader fR = new fileReader(".idea/data");
 
-    ArrayList<Integer> intRhytmList = fR.playNote();
+    ArrayList<Integer> intRhytmList = fR.getPlaylist();
 
 
     public OscGenerator(){

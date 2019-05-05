@@ -11,11 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.scene.transform.Rotate;
 
-
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class MainController {
@@ -30,7 +26,7 @@ public class MainController {
 
     private boolean runonce = false;
     private boolean clicked=false;
-    boolean isMajor;
+    private boolean isMajor;
 
     @FXML
     Canvas canvas;
@@ -100,7 +96,7 @@ public class MainController {
             long lastUpdate;
             public void handle (long now)
             {
-                if (now > lastUpdate + 50 * 1000000)
+                if (now > lastUpdate + 35 * 1000000)
                 {
                     lastUpdate = now;
                     drawCanvas();
