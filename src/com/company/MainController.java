@@ -25,9 +25,12 @@ public class MainController {
     private OscGenerator osc;
     private int iE;
     private String s = "C3";
-    private MajorScaleTest skala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
+    private MajorScaleTest majorScala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
+    private MinorScaleTest minorScala = new MinorScaleTest(13, hashTest.frequencyFinder(s));
+
     private boolean runonce = false;
     private boolean clicked=false;
+    boolean isMajor;
 
     @FXML
     Canvas canvas;
@@ -37,15 +40,14 @@ public class MainController {
     @FXML
     TextField textField;
 
-
-
     @FXML
 
     public void btn() {
 
         s = textField.getText();
         System.out.println("playing " + s);
-        skala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
+        majorScala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
+        isMajor = true;
         clicked = true;
     }
     @FXML
@@ -60,7 +62,9 @@ public class MainController {
     public void btn1() {
         String s = textField.getText();
         System.out.println("playing " + s);
-
+        minorScala = new MinorScaleTest(13,hashTest.frequencyFinder(s));
+        isMajor = false;
+        clicked = true;
 
     }
 
@@ -116,7 +120,11 @@ public class MainController {
 
             GraphicsContext g = canvas.getGraphicsContext2D();
             if (iE < osc.intRhytmList.size()) {
-                osc.RandomMelody(skala.getScale(), iE);
+                if(isMajor)
+                osc.RandomMelody(majorScala.getScale(), iE);
+                else{                osc.RandomMelody(minorScala.getScale(), iE);
+                }
+
                 iE++;
             } else {
                 osc.sineLineOut.stop();
@@ -125,21 +133,12 @@ public class MainController {
 
             int d = osc.getPlayingNoteValue(iE-1)/2;
             g.setFill(Color.BLACK);
-            System.out.println(d);
-
-            Rotate rotate = new Rotate();
-            rotate.setAngle(45);
-
-            Rectangle rect2 = new Rectangle(100,100,200,200);
 
             //noder
                 g.fillOval(5 + iE * 5, 0 + d, 6, 6);
                 g.fillRect(5 + iE * 5, 0 -12+d, 2, 15);
                 if(d>110||d<70)
                     g.fillRect(2 + iE * 5, +2 +d, 10, 2);
-
-
-
 
                 //nodepapir
                 g.fillRect(0,75,500,1);
