@@ -56,7 +56,7 @@ public class MainController {
     @FXML
 
     public void btn1() {
-        String s = textField.getText();
+        s = textField.getText();
         System.out.println("playing " + s);
         minorScala = new MinorScaleTest(13,hashTest.frequencyFinder(s));
         isMajor = false;
@@ -67,10 +67,9 @@ public class MainController {
     @FXML
     public void btn2() {
 
-        String s = textField.getText();
+        s = textField.getText();
         System.out.println("added " + s);
         textList.add(s);
-        HashTest hashTest = new HashTest();
         chosenScales.add(hashTest.frequencyFinder(s));
         textFlow.getChildren().clear();
 
@@ -116,8 +115,9 @@ public class MainController {
 
             GraphicsContext g = canvas.getGraphicsContext2D();
             if (iE < osc.intRhytmList.size()) {
-                if(isMajor)
-                osc.RandomMelody(majorScala.getScale(), iE);
+                if(isMajor) {
+                    osc.RandomMelody(majorScala.getScale(), iE);
+                }
                 else{                osc.RandomMelody(minorScala.getScale(), iE);
                 }
 

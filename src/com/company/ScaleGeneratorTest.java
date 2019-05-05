@@ -1,21 +1,18 @@
 package com.company;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ScaleGeneratorTest {
 
     //this method generates a chromatic scale from any starting frequency.
     //A frequency table can be found on http://pages.mtu.edu/~suits/notefreqs.html
     //This array of doubles stores the scale.
-    //protected double[] scale;
-    protected ArrayList<Double> scale = new ArrayList<Double>();
-    protected ArrayList<Double> scale2 = new ArrayList<Double>();
+    protected ArrayList<Double> scale = new ArrayList<>();
+    protected ArrayList<Double> scale2 = new ArrayList<>();
 
 
     //This is the constructor which can take a length (there are 12 notes in a chromatic octave), and a starting frequency.
     // I refer to the table mentioned above.
     public ScaleGeneratorTest(int scalelength, double startFreq) {
-        //scale = new double[scaleLength];
 
         for (int i = 0; i < scalelength; i++) {
             // The frequency needs to double every \{12}12 notes (because there are \{7}7 white notes and \{5}5 black notes in each octave.)
@@ -43,8 +40,6 @@ public class ScaleGeneratorTest {
     }
 
     public double CalcFreq(double rootFreq, int distanceInSemitones) {
-
-        //   double a = Math.pow(2,1.0/12.0); // same as the 12th square root of 2;
         return rootFreq * Math.pow(Math.pow(2,1.0/12.0),distanceInSemitones);
 
 

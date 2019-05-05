@@ -18,7 +18,6 @@ public class fileReader {
         setPlaylist();
     }
 
-
     public void setPlaylist() {
 
         try {
@@ -72,42 +71,32 @@ public class fileReader {
                         playlist.add(1);
                     }
                     if (m2.find()) {
-                        // System.out.println("found 2");
                         playlist.add(2);
 
                     }
                     if (m3.find()) {
-                        //   System.out.println("found 3");
                         playlist.add(3);
 
                     }
                     if (m4.find()) {
-                        // System.out.println("found 4");
                         playlist.add(4);
 
                     }
                     if (m5.find()) {
-                        // System.out.println("found 5");
                         playlist.add(5);
                     }
                     if (m6.find()) {
-                        // System.out.println("found 5");
                         playlist.add(6);
                     }
                     if (m7.find()) {
-                        // System.out.println("found 5");
                         playlist.add(7);
                     }
                     if (m8.find()) {
-                        // System.out.println("found 5");
                         playlist.add(7);
                     }
                     if (m9.find()) {
-                        // System.out.println("found 5");
                         playlist.add(0);
                     }
-                    ;
-
                 }
 
             }
@@ -119,12 +108,5 @@ public class fileReader {
 
    }
 
-    public static void main(String[] args) {
 
-        //fR.playnote();
-        //System.out.println(fR.notePlayed);
-
-            fileReader fR = new fileReader(".idea/data");
-
-    }
 }
