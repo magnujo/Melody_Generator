@@ -11,7 +11,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.scene.transform.Rotate;
 
+
+
+import java.awt.*;
 import java.util.ArrayList;
 
 public class MainController {
@@ -39,7 +43,7 @@ public class MainController {
 
     public void btn() {
 
-        String s = textField.getText();
+        s = textField.getText();
         System.out.println("playing " + s);
         skala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
         clicked = true;
@@ -82,8 +86,6 @@ public class MainController {
     @FXML
     public void initialize()
     {
-
-
         GraphicsContext g = canvas.getGraphicsContext2D();
 
         g.setFill(Color.GREY);
@@ -124,11 +126,19 @@ public class MainController {
             int d = osc.getPlayingNoteValue(iE-1)/2;
             g.setFill(Color.BLACK);
             System.out.println(d);
-                //noder
-                g.fillOval(5 + iE * 5, 0 + d, 5, 5);
-                g.fillRect(5 + iE * 5, 0 + 3+d, 2, 15);
+
+            Rotate rotate = new Rotate();
+            rotate.setAngle(45);
+
+            Rectangle rect2 = new Rectangle(100,100,200,200);
+
+            //noder
+                g.fillOval(5 + iE * 5, 0 + d, 6, 6);
+                g.fillRect(5 + iE * 5, 0 -12+d, 2, 15);
                 if(d>110||d<70)
                     g.fillRect(2 + iE * 5, +2 +d, 10, 2);
+
+
 
 
                 //nodepapir
@@ -137,6 +147,7 @@ public class MainController {
                 g.fillRect(0,95,500,1);
                 g.fillRect(0,105,500,1);
                 g.fillRect(0,115,500,1);
+
 
         }
     }
