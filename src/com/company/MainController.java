@@ -31,6 +31,7 @@ public class MainController {
     private boolean clicked=false;
     private boolean isMajor;
     private double rootnote;
+    private double rootnote2;
     private String complexity="medium complexity";
 
 
@@ -54,6 +55,8 @@ public class MainController {
         System.out.println("using: "+complexity);
         majorScala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
         rootnote =  majorScala.getScale().get(0);
+        rootnote2 = hashTest.noteFinder(rootnote);
+
         isMajor = true;
         clicked = true;
     }
@@ -74,6 +77,7 @@ public class MainController {
 
         minorScala = new MinorScaleTest(13,hashTest.frequencyFinder(s));
         rootnote =  minorScala.getScale().get(0);
+        rootnote2 = hashTest.noteFinder(rootnote);
 
         isMajor = false;
         clicked = true;
@@ -148,15 +152,20 @@ public class MainController {
 
             //int d = osc.getPlayingNoteValue(counter-1);
             int d = (int) rootnote/2;
+
+
             int e = osc.getPlayingNoteNum(counter );
+
+
+            System.out.println("rootnote2: " +rootnote2);
 
             //System.out.println(190 - d);
 
             g.setFill(Color.BLACK);
 
             //noder
-                g.fillOval(5 + counter * 5, 187 - d-e*5, 6, 6);
-                g.fillRect(5 + counter * 5, 187 -12 -d-e*5, 2, 15);
+                g.fillOval(5 + counter * 5, 215-rootnote2-e*5, 6, 6);
+                g.fillRect(5 + counter * 5, 215-rootnote2-12 -e*5, 2, 15);
                 //if(d>200||d<160)
                    // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
 
