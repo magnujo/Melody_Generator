@@ -1,14 +1,18 @@
 package com.company;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MajorScale extends ScaleGenerator {
     private double[] modifiedScale;
 
+
     public MajorScale(int scaleLength, double startFreq) {
 
-        //ScaleLength has to be +4 because there are 4 less tones in a major scale than in a Chromatic scale, and it helps the user logically if we tell them they are creating a scale of just
-        super(scaleLength+4, startFreq);
+        /*ScaleLength has to be +4 because there are 4 less tones in a major scale than in a Chromatic scale,
+        and it helps the user logically if we tell them they are creating a scale of just*/
+        super(scaleLength+5, startFreq);
+
+        //this.scale.remove(1,3,6,8,10);
 
         this.modifiedScale = new double[8];
 
@@ -22,7 +26,6 @@ public class MajorScale extends ScaleGenerator {
         this.modifiedScale[7]=scale[12];
 
         this.scale = modifiedScale;
-
     }
 
     public static void main(String[] args) {

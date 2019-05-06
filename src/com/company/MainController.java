@@ -1,8 +1,11 @@
 package com.company;
 
 
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -10,55 +13,69 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainController {
-    public static ArrayList<Double> chosenScales = new ArrayList<>();
-    HashTest hashTest = new HashTest();
-    ArrayList textList = new ArrayList();
+    private static ArrayList<Double> chosenScales = new ArrayList<>();
+    private HashTest hashTest = new HashTest();
+    private ArrayList textList = new ArrayList();
+    private OscGenerator osc;
+    private int iE;
+    private String s = "C3";
+    private MajorScaleTest majorScala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
+    private MinorScaleTest minorScala = new MinorScaleTest(13, hashTest.frequencyFinder(s));
 
+    private boolean runonce = false;
+    private boolean clicked=false;
+    private boolean isMajor;
+    private double rootnote;
+
+    @FXML
+    Canvas canvas;
     @FXML
     TextFlow textFlow;
 
     @FXML
     TextField textField;
 
+    @FXML
 
     public void btn() {
 
-        String s = textField.getText();
+        s = textField.getText();
         System.out.println("playing " + s);
-        MajorScaleTest skala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
+        majorScala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
+        rootnote =  majorScala.getScale().get(0);
+        isMajor = true;
+        clicked = true;
+    }
+    @FXML
 
-        //System.out.println(skala.getScale().size());
-        //System.out.println(Arrays.toString(skala.getScale().toArray()));
-
-       OscGenerator osc = new OscGenerator();
-        osc.RandomMelody(skala.getScale());
-
+    public void btn3(){
+        clicked = false;
+        osc.sineLineOut.stop();
     }
 
-    public void btn1() {
-        String s = textField.getText();
-        System.out.println("playing " + s);
-       // MinorScale skala = new MinorScale(9,hashTest.frequencyFinder(s));
+    @FXML
 
-      //  OscGenerator osc = new OscGenerator();
-     //   osc.RandomMelody(skala.getScale());
+    public void btn1() {
+        s = textField.getText();
+        System.out.println("playing " + s);
+        minorScala = new MinorScaleTest(13,hashTest.frequencyFinder(s));
+        rootnote =  minorScala.getScale().get(0);
+
+        isMajor = false;
+        clicked = true;
 
     }
 
     @FXML
     public void btn2() {
 
-        String s = textField.getText();
+        s = textField.getText();
         System.out.println("added " + s);
         textList.add(s);
-        HashTest hashTest = new HashTest();
         chosenScales.add(hashTest.frequencyFinder(s));
         textFlow.getChildren().clear();
-
-
 
         for (int i = 0; i < textList.size(); i++) {
             Text text = new Text(textList.get(i)+" ");
@@ -67,7 +84,76 @@ public class MainController {
             textFlow.getChildren().add(text);
        }
 
+    }
 
+    @FXML
+    public void initialize()
+    {
+        GraphicsContext g = canvas.getGraphicsContext2D();
+
+        g.setFill(Color.GREY);
+        osc = new OscGenerator();
+
+        // Start and control game loop
+        new AnimationTimer(){
+            long lastUpdate;
+            public void handle (long now)
+            {
+                if (now > lastUpdate + 35 * 1000000)
+                {
+                    lastUpdate = now;
+                    drawCanvas();
+                }             }
+        }.start();
+
+    }
+    private void drawCanvas() {
+
+        if (clicked) {
+
+            if (!runonce) {
+                osc.SetupSine();
+
+                runonce = true;
+            }
+
+            GraphicsContext g = canvas.getGraphicsContext2D();
+            if (iE < osc.intRhytmList.size()) {
+                if(isMajor) {
+                    osc.RandomMelody(majorScala.getScale(), iE);
+                }
+                else{                osc.RandomMelody(minorScala.getScale(), iE);
+                }
+
+                iE++;
+            } else {
+                osc.sineLineOut.stop();
+            }
+            g.setFill(Color.RED);
+
+            //int d = osc.getPlayingNoteValue(iE-1);
+            int d = (int) rootnote/2;
+            int e = osc.getPlayingNoteNum(iE-1);
+
+            //System.out.println(190 - d);
+
+            g.setFill(Color.BLACK);
+
+            //noder
+                g.fillOval(5 + iE * 5, 187 - d-e*5, 6, 6);
+                g.fillRect(5 + iE * 5, 187 -12 -d-e*5, 2, 15);
+                //if(d>200||d<160)
+                   // g.fillRect(2 + iE * 5, +187 -d-e*5, 10, 2);
+
+                //nodepapir
+                g.fillRect(0,75,500,1);
+                g.fillRect(0,85,500,1);
+                g.fillRect(0,95,500,1);
+                g.fillRect(0,105,500,1);
+                g.fillRect(0,115,500,1);
+
+
+        }
     }
 
 

@@ -3,14 +3,15 @@ package com.company;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.*;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class OscGenerator {
     private Synthesizer synthSaw = JSyn.createSynthesizer();
-    private Synthesizer synthSine = JSyn.createSynthesizer();
+    public Synthesizer synthSine = JSyn.createSynthesizer();
     private LineOut sawLineOut;
     private double frequency;
     double amplitude;
@@ -23,7 +24,31 @@ public class OscGenerator {
     private double duration = 0.1;
     private UnitOscillator sineOsc = new SineOscillator();
 
-    private void SetupSine(){
+    private ArrayList<Integer> playListValues = new ArrayList<>();
+    private ArrayList<Double> notes = new ArrayList<>();
+    boolean runonce =false;
+    fileReader fR = new fileReader(".idea/data");
+
+    ArrayList<Integer> intRhytmList = fR.getPlaylist();
+
+
+    public OscGenerator(){
+
+
+    }
+    public ArrayList<Double> getNotes() {
+        return notes;
+    }
+    public int getPlayingNoteNum(int i) {
+
+
+        Integer u =  playListValues.get(i);
+
+        return u;
+    }
+
+
+    public void SetupSine(){
         sineLineOut = new LineOut();
         synthSine.start();
         synthSine.add(sineOsc);
@@ -84,40 +109,32 @@ public class OscGenerator {
 
     }
 
-    public void RandomMelody(ArrayList<Double> scale) {
-        fileReader fR = new fileReader(".idea/data");
-        ArrayList<Integer> intRhytmList = fR.playNote();
+    public int getRootNote() {
 
-        SetupSine();
+        Double d = notes.get(0);
+        Integer u = d.intValue();
 
-        for (int i = 0; i < intRhytmList.size(); i++) {
+        return u;
+    }
+
+
+    public void RandomMelody(ArrayList<Double> scale, int i) {
+
                 duration = intRhytmList.get(i)*0.1;
-                System.out.println(duration);
 
-            int rndIndex = random.nextInt(scale.size());
             PlaySine(scale.get(intRhytmList.get(i)));
-            System.out.print(i+"       "+scale.get(rndIndex));
-            System.out.println();
+            //notes.add(scale.get(intRhytmList.get(i)));
+             notes.add(scale.get(intRhytmList.get(i)));
+            playListValues.add(intRhytmList.get(i));
 
-            try {
+
+        try {
                 synthSine.sleepFor(duration);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            sineLineOut.stop();
-            if (MainController.chosenScales.size()>5) {
-                if (i == 15) scale = new MajorScaleTest(9, MainController.chosenScales.get(0)).getScale();
-                if (i == 25) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
-                if (i == 35) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
-                if (i == 45) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
-                if (i == 55) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
-                if (i == 65) scale = new MajorScaleTest(9, MainController.chosenScales.get(1)).getScale();
-            }
-
-        }
-        synthSine.stop();
-
     }
+
 
    public void RandomMadness() {
         SetupSine();

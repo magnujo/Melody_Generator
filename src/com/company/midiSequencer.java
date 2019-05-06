@@ -23,7 +23,6 @@ public class midiSequencer {
             // handle or throw exception
         }
 
-
         Sequencer sequencer;
         // Get default sequencer.
         sequencer = MidiSystem.getSequencer();
