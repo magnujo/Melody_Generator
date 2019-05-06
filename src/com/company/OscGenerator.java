@@ -159,9 +159,13 @@ public class OscGenerator {
     }
 
 
-    public void RandomMelody(ArrayList<Double> scale, int i) {
-
+    public void RandomMelody(ArrayList<Double> scale, int i,String complexity) {
+        if(complexity=="low complexity")
+                duration = 0.2;
+        if (complexity=="medium complexity"||complexity==null)
                 duration = intRhytmList.get(i)*0.1;
+        if (complexity=="high complexity")
+                 duration = random.nextInt(10);
 
             PlaySine(scale.get(intRhytmList.get(i)));
             //notes.add(scale.get(intRhytmList.get(i)));
