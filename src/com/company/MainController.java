@@ -150,38 +150,38 @@ public class MainController {
             }
             g.setFill(Color.RED);
 
-            //int d = osc.getPlayingNoteValue(counter-1);
             int d = (int) rootnote/2;
 
 
-            int e = osc.getPlayingNoteNum(counter );
+            int e = osc.getPlayingNoteNum(counter);
 
 
-            System.out.println("rootnote2: " +rootnote2);
 
-            //System.out.println(190 - d);
 
-            g.setFill(Color.BLACK);
-
-            //noder
-                g.fillOval(5 + counter * 5, 215-rootnote2-e*5, 6, 6);
-                g.fillRect(5 + counter * 5, 215-rootnote2-12 -e*5, 2, 15);
-                //if(d>200||d<160)
-                   // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
-
-                //nodepapir
-                g.fillRect(0,75,500,1);
-                g.fillRect(0,85,500,1);
-                g.fillRect(0,95,500,1);
-                g.fillRect(0,105,500,1);
-                g.fillRect(0,115,500,1);
+            drawNotePaper(g, e);
 
             counter++;
 
         }
     }
 
+    private void drawNotePaper(GraphicsContext g, int e) {
+        g.setFill(Color.BLACK);
 
+        //noder
+        g.fillOval(5 + counter * 5, 215-rootnote2-e*5, 6, 6);
+        g.fillRect(5 + counter * 5, 215-rootnote2-12 -e*5, 2, 15);
+
+        //if(d>200||d<160)
+        // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
+
+        //nodepapir
+        g.fillRect(0,75,500,1);
+        g.fillRect(0,85,500,1);
+        g.fillRect(0,95,500,1);
+        g.fillRect(0,105,500,1);
+        g.fillRect(0,115,500,1);
+    }
 
 
 }

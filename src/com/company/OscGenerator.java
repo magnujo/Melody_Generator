@@ -92,6 +92,8 @@ public class OscGenerator {
         sineOsc.amplitude.set(0.5);
         sineOsc.output.connect(0, sineLineOut.input, 0);
         sineOsc.output.connect(0, sineLineOut.input, 1);
+
+
     }
 
     public void PlaySine(double frequency){
