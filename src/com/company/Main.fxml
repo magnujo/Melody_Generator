@@ -2,17 +2,20 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="750.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainController">
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="750.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainController">
    <children>
-      <TextFlow fx:id="textFlow" layoutX="24.0" layoutY="616.0" prefHeight="120.0" prefWidth="603.0" />
+      <TextFlow fx:id="textFlow" layoutX="28.0" layoutY="662.0" prefHeight="74.0" prefWidth="599.0" />
       <Canvas fx:id="canvas" height="546.0" width="659.0" />
-      <Pane layoutY="543.0" prefHeight="57.0" prefWidth="659.0">
+      <Pane layoutY="543.0" prefHeight="94.0" prefWidth="659.0">
          <children>
             <Button fx:id="btn2" layoutX="5.0" layoutY="15.0" mnemonicParsing="false" onAction="#btn2" text="Add Scale">
                <font>
@@ -36,6 +39,16 @@
                </font>
             </Button>
             <TextField fx:id="textField" layoutX="452.0" layoutY="22.0" text="C3" />
+            <ChoiceBox fx:id="choiceBox" layoutY="54.0" prefWidth="150.0">
+            <items>
+               <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="low complexity" />
+                  <String fx:value="medium complexity" />
+                  <String fx:value="high complexity" />
+               </FXCollections>
+            </items>
+             </ChoiceBox>
+
          </children>
       </Pane>
    </children>

@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.scene.control.ChoiceBox;
+
 
 import java.util.ArrayList;
 
@@ -19,6 +21,7 @@ public class MainController {
     private HashTest hashTest = new HashTest();
     private ArrayList textList = new ArrayList();
     private OscGenerator osc;
+
     private int counter;
     private String s = "C3";
     private MajorScaleTest majorScala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
@@ -28,6 +31,10 @@ public class MainController {
     private boolean clicked=false;
     private boolean isMajor;
     private double rootnote;
+    private String complexity="medium complexity";
+
+
+    @FXML ChoiceBox<String> choiceBox;
 
     @FXML
     Canvas canvas;
@@ -43,6 +50,8 @@ public class MainController {
 
         s = textField.getText();
         System.out.println("playing " + s);
+        complexity = choiceBox.getSelectionModel().getSelectedItem();
+        System.out.println("using: "+complexity);
         majorScala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
         rootnote =  majorScala.getScale().get(0);
         isMajor = true;
@@ -60,6 +69,8 @@ public class MainController {
     public void btn1() {
         s = textField.getText();
         System.out.println("playing " + s);
+        complexity = choiceBox.getSelectionModel().getSelectedItem();
+
         minorScala = new MinorScaleTest(13,hashTest.frequencyFinder(s));
         rootnote =  minorScala.getScale().get(0);
 
@@ -73,6 +84,7 @@ public class MainController {
 
         s = textField.getText();
         System.out.println("added " + s);
+
         textList.add(s);
         chosenScales.add(hashTest.frequencyFinder(s));
         textFlow.getChildren().clear();
@@ -114,15 +126,17 @@ public class MainController {
             if (!runonce) {
                 osc.SetupSine();
 
+
                 runonce = true;
             }
 
             GraphicsContext g = canvas.getGraphicsContext2D();
             if (counter < osc.intRhytmList.size()) {
                 if(isMajor) {
-                    osc.RandomMelody(majorScala.getScale(), counter);
+                    osc.RandomMelody(majorScala.getScale(), counter,complexity);
+
                 }
-                else{                osc.RandomMelody(minorScala.getScale(), counter);
+                else{  osc.RandomMelody(minorScala.getScale(), counter, complexity);
                 }
 
             } else {
