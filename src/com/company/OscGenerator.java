@@ -10,12 +10,15 @@ import java.util.List;
 import java.util.Random;
 
 public class OscGenerator {
+    Synthesizer synth = JSyn.createSynthesizer();
+
     private Synthesizer synthSaw = JSyn.createSynthesizer();
     public Synthesizer synthSine = JSyn.createSynthesizer();
     private LineOut sawLineOut;
     private double frequency;
     double amplitude;
     public LineOut sineLineOut;
+    LineOut lineOut = new LineOut();
     private LineOut squareLineOut;
     private Random random = new Random();
     private LineOut noiseLineOut;
@@ -23,19 +26,54 @@ public class OscGenerator {
     private Synthesizer synthNoise = JSyn.createSynthesizer();
     private double duration = 0.1;
     private UnitOscillator sineOsc = new SineOscillator();
-
+    private UnitOscillator oscillator;
     private ArrayList<Integer> playListValues = new ArrayList<>();
     private ArrayList<Double> notes = new ArrayList<>();
     boolean runonce =false;
     fileReader fR = new fileReader(".idea/data");
+    HashTest noteList = new HashTest();
 
     ArrayList<Integer> intRhytmList = fR.getPlaylist();
 
+    public void OscSetup (UnitOscillator oscillator){
+        this.oscillator = oscillator;
 
-    public OscGenerator(){
+        synth.start();
+        synth.add(oscillator);
+        synth.add(lineOut);
+        oscillator.amplitude.set(0.5);
+        oscillator.output.connect(0, lineOut.input, 0);
+        oscillator.output.connect(0, lineOut.input, 1);
+    }
 
+    public void Play(String note, double time){
+        try{
+        this.frequency = noteList.frequencyFinder(note.toUpperCase());}
+        catch (NullPointerException e){
+            System.out.println("ERROR 401: You propably didnt enter a valid note name. Enter something like 'A4' og 'C#4'");
+        }
+        oscillator.frequency.set(frequency);
+        lineOut.start();
+
+        try {
+            synth.sleepFor(time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
+//Kunne være fedt at have den her inde i Play metoden så man kunne kalde osc.Play.stop()?
+    public void StopLineOut(){
+        lineOut.stop();
+    }
+
+    public void StopSynth(){
+        synth.stop();
+    }
+
+    //skal vi slette den her constructor?
+    public OscGenerator(){}
+
     public ArrayList<Double> getNotes() {
         return notes;
     }
@@ -63,6 +101,9 @@ public class OscGenerator {
         this.frequency = frequency;
         sineOsc.frequency.set(frequency);
         sineLineOut.start();
+
+
+
     }
 
     public void SetupSaw(){
@@ -88,7 +129,7 @@ public class OscGenerator {
         synthSquare.add(squareOsc);
         synthSquare.add(squareLineOut);
 
-        squareOsc.frequency.set(400);
+        squareOsc.frequency.set(300);
         squareOsc.amplitude.set(0.4);
         squareOsc.output.connect(0, squareLineOut.input, 0);
         squareOsc.output.connect(0, squareLineOut.input, 1);
@@ -136,64 +177,6 @@ public class OscGenerator {
     }
 
 
-   public void RandomMadness() {
-        SetupSine();
-        SetupSaw();
-        SetupSquare();
-        SetupRedNoise();
-
-        for (int i = 0; i < 100; i++) {
-            switch (random.nextInt(2)) {
-                case 0:
-                    sawLineOut.start();
-                    try {
-                        synthSaw.sleepFor(duration);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    sawLineOut.stop();
-                    System.out.println("1");
-                    i++;
-                case 1:
-                    sineLineOut.start();
-                    try {
-                        synthSaw.sleepFor(duration);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    sineLineOut.stop();
-                    System.out.println("2");
-                    i++;
-
-                case 2:
-                    squareLineOut.start();
-                    try {
-                        synthSquare.sleepFor(duration);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    squareLineOut.stop();
-                    System.out.println("3");
-                    i++;
-
-                case 3:
-                    noiseLineOut.start();
-                    try {
-                        synthNoise.sleepFor(duration);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    noiseLineOut.stop();
-                    System.out.println("4");
-                    i++;
-
-            }
-        }
-        synthSquare.stop();
-        synthSaw.stop();
-        synthNoise.stop();
-        synthSine.stop();
-    }
 
 }
 
