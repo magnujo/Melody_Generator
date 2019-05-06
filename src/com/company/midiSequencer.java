@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.sound.midi.*;
+import javax.sound.midi.Track;
 import java.io.File;
 
 public class midiSequencer {
@@ -35,7 +36,7 @@ public class midiSequencer {
             // Acquire resources and make operational.
             sequencer.open(); }
 
-        try {
+        /*try {
             File myMidiFile = new File("./midi/chords1.mid");
             // Construct a Sequence object, and
             // load it into my sequencer.
@@ -46,7 +47,17 @@ public class midiSequencer {
             // Handle error and/or return
         }
 
-        sequencer.start();
+        sequencer.start(); */
+
+        Track myTrack = null;
+        sequencer.recordEnable(myTrack,5);
+
+        ShortMessage msg = new ShortMessage();
+
+        //MidiEvent me = new MidiEvent(msg.NOTE_ON, 5);
+
+
+
 
     }
 }

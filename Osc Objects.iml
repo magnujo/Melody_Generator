@@ -10,5 +10,14 @@
     <orderEntry type="library" name="jsyn-20171016" level="application" />
     <orderEntry type="library" name="jsyn-20171016" level="project" />
     <orderEntry type="library" name="jsyn-20171016 (3)" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Documents/Universitet/4. semester CS/Projekt/Jsyn library/jsyn-20171016.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
