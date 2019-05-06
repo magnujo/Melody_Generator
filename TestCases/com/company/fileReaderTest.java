@@ -7,11 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class fileReaderTest {
 
     @Test
-    void playNote() {
-
-        fileReader fR = new fileReader("C:\\Users\\Gem\\Documents\\GitHub\\Osc_Objects_2\\TestCases\\TestData");
-        assertEquals(3,fR.getPlaylist().size());
+    void getPlaylist() {
+        fileReader fileReader = new fileReader("C:\\Users\\magnu\\IdeaProjects\\SynthProject\\TestCases\\TestData");
+        assertEquals(5,fileReader.getPlaylist().size());
 
     }
 
+    @Test
+    void generatePlaylist() {
+    }
 }
