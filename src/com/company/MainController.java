@@ -19,7 +19,7 @@ public class MainController {
     private HashTest hashTest = new HashTest();
     private ArrayList textList = new ArrayList();
     private OscGenerator osc;
-    private int iE;
+    private int counter;
     private String s = "C3";
     private MajorScaleTest majorScala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
     private MinorScaleTest minorScala = new MinorScaleTest(13, hashTest.frequencyFinder(s));
@@ -39,7 +39,7 @@ public class MainController {
 
     @FXML
 
-    public void btn() {
+    public void playMajor() {
 
         s = textField.getText();
         System.out.println("playing " + s);
@@ -99,7 +99,7 @@ public class MainController {
             long lastUpdate;
             public void handle (long now)
             {
-                if (now > lastUpdate + 35 * 1000000)
+                if (now > lastUpdate + 30 * 1000000)
                 {
                     lastUpdate = now;
                     drawCanvas();
@@ -108,7 +108,7 @@ public class MainController {
 
     }
     private void drawCanvas() {
-
+//if the button major or minor are pressed
         if (clicked) {
 
             if (!runonce) {
@@ -118,32 +118,32 @@ public class MainController {
             }
 
             GraphicsContext g = canvas.getGraphicsContext2D();
-            if (iE < osc.intRhytmList.size()) {
+            if (counter < osc.intRhytmList.size()) {
                 if(isMajor) {
-                    osc.RandomMelody(majorScala.getScale(), iE);
+                    osc.RandomMelody(majorScala.getScale(), counter);
                 }
-                else{                osc.RandomMelody(minorScala.getScale(), iE);
+                else{                osc.RandomMelody(minorScala.getScale(), counter);
                 }
 
-                iE++;
             } else {
                 osc.sineLineOut.stop();
+                clicked=false;
             }
             g.setFill(Color.RED);
 
-            //int d = osc.getPlayingNoteValue(iE-1);
+            //int d = osc.getPlayingNoteValue(counter-1);
             int d = (int) rootnote/2;
-            int e = osc.getPlayingNoteNum(iE-1);
+            int e = osc.getPlayingNoteNum(counter );
 
             //System.out.println(190 - d);
 
             g.setFill(Color.BLACK);
 
             //noder
-                g.fillOval(5 + iE * 5, 187 - d-e*5, 6, 6);
-                g.fillRect(5 + iE * 5, 187 -12 -d-e*5, 2, 15);
+                g.fillOval(5 + counter * 5, 187 - d-e*5, 6, 6);
+                g.fillRect(5 + counter * 5, 187 -12 -d-e*5, 2, 15);
                 //if(d>200||d<160)
-                   // g.fillRect(2 + iE * 5, +187 -d-e*5, 10, 2);
+                   // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
 
                 //nodepapir
                 g.fillRect(0,75,500,1);
@@ -152,6 +152,7 @@ public class MainController {
                 g.fillRect(0,105,500,1);
                 g.fillRect(0,115,500,1);
 
+            counter++;
 
         }
     }

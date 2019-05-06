@@ -41,8 +41,6 @@ public class ScaleGeneratorTest {
 
     public double CalcFreq(double rootFreq, int distanceInSemitones) {
         return rootFreq * Math.pow(Math.pow(2,1.0/12.0),distanceInSemitones);
-
-
     }
 
 

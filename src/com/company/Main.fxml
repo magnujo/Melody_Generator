@@ -20,7 +20,7 @@
                </font>
             </Button>
       
-                  <Button fx:id="btn" layoutX="108.0" layoutY="15.0" mnemonicParsing="false" onAction="#btn" text="Play Major">
+                  <Button fx:id="playMajor" layoutX="108.0" layoutY="15.0" mnemonicParsing="false" onAction="#playMajor" text="Play Major">
                <font>
                   <Font name="Britannic Bold" size="18.0" />
                </font>

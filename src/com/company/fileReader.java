@@ -8,17 +8,19 @@ public class fileReader {
         return playlist;
     }
 
+    //stores the notes to be played from a scale
     ArrayList<Integer> playlist = new ArrayList<>();
-    int notePlayed=0;
+    //stores the path to the file
     private String path;
-    String aline = null;
+    //Stores the textline to be read
+    private String textLine = null;
 
     public fileReader(String path) {
         this.path = path;
-        setPlaylist();
+        generatePlaylist();
     }
 
-    public void setPlaylist() {
+    private void generatePlaylist() {
 
         try {
             // FileReader reads text files in the default encoding.
@@ -29,13 +31,13 @@ public class fileReader {
             BufferedReader bufferedReader =
                     new BufferedReader(fileReader);
 
-            while((aline = bufferedReader.readLine()) != null) {
+            while((textLine = bufferedReader.readLine()) != null) {
 
 
                 char a;
-                for (int i=0; i < aline.length(  ); i++) {
+                for (int i = 0; i < textLine.length(  ); i++) {
 
-                    a = aline.charAt(i);
+                    a = textLine.charAt(i);
                     String b = new StringBuilder().append(a).toString();
 
                     Pattern ae = Pattern.compile("[a-d]");   // the pattern to search for
