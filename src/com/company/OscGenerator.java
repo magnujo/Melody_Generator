@@ -60,12 +60,9 @@ public class OscGenerator {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-    }
-//Kunne være fedt at have den her inde i Play metoden så man kunne kalde osc.Play.stop()?
-    public void StopLineOut(){
         lineOut.stop();
     }
+
 
     public void StopSynth(){
         synth.stop();

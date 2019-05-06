@@ -62,6 +62,7 @@ public class MainController {
     public void btn3(){
         clicked = false;
         osc.sineLineOut.stop();
+
     }
 
     @FXML
