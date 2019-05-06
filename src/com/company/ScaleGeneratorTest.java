@@ -1,4 +1,6 @@
 package com.company;
+import com.jsyn.unitgen.SineOscillator;
+
 import java.util.ArrayList;
 
 public class ScaleGeneratorTest {
@@ -55,9 +57,13 @@ public class ScaleGeneratorTest {
     }
 
     public static void main(String[] args) {
+        OscGenerator osc = new OscGenerator();
+ osc.OscSetup(new SineOscillator());
+ osc.Play("a4",2.0);
+        osc.StopLineOut();
+        osc.Play("d4",2.0);
+        osc.StopLineOut();
 
-        ScaleGeneratorTest scaleGenerator = new ScaleGeneratorTest(8, 440);
-        System.out.println(scaleGenerator.CalcFreq(55.0,-21));
 
     }
 }
