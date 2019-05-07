@@ -33,6 +33,7 @@ public class MainController {
     private double rootnote;
     private double rootnote2;
     private String complexity="medium complexity";
+    private boolean toClear;
 
 
     @FXML ChoiceBox<String> choiceBox;
@@ -65,6 +66,18 @@ public class MainController {
     public void btn3(){
         clicked = false;
         osc.sineLineOut.stop();
+
+    }
+
+    @FXML
+    public void btn4(){
+
+        //reset
+
+        clicked = false;
+        osc.sineLineOut.stop();
+        counter=0;
+        toClear=true;
 
     }
 
@@ -108,6 +121,8 @@ public class MainController {
     {
         GraphicsContext g = canvas.getGraphicsContext2D();
 
+
+
         g.setFill(Color.GREY);
         osc = new OscGenerator();
 
@@ -125,6 +140,7 @@ public class MainController {
 
     }
     private void drawCanvas() {
+
 //if the button major or minor are pressed
         if (clicked) {
 
@@ -166,6 +182,11 @@ public class MainController {
     }
 
     private void drawNotePaper(GraphicsContext g, int e) {
+        if(toClear){g.clearRect(0,0,1000,1000);
+        toClear=false;
+        }
+
+
         g.setFill(Color.BLACK);
          int row=0;
          int offset=0;
