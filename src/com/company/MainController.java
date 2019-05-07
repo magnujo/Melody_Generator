@@ -167,20 +167,45 @@ public class MainController {
 
     private void drawNotePaper(GraphicsContext g, int e) {
         g.setFill(Color.BLACK);
+         int row=0;
+         int offset=0;
+         int xPos;
+
+        if(counter>100) {
+            row = 1;
+            offset=100;
+        }
+        if(counter>200) {
+            row = 2;
+        }
+        if(counter>300) {
+            row = 3;
+        }
+        if(counter>400) {
+            row = 4;
+        }
+        xPos = counter-offset*row;
+
+
 
         //noder
-        g.fillOval(5 + counter * 5, 215-rootnote2-e*5, 6, 6);
-        g.fillRect(5 + counter * 5, 215-rootnote2-12 -e*5, 2, 15);
+            g.fillOval(5 + xPos * 5, 215 - rootnote2 - e * 5+row*offset, 6, 6);
+            g.fillRect(5 + xPos * 5, 215 - rootnote2 - 12 - e * 5+row*offset, 2, 15);
 
-        //if(d>200||d<160)
-        // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
+            //if(d>200||d<160)
+            // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
 
-        //nodepapir
-        g.fillRect(0,75,500,1);
-        g.fillRect(0,85,500,1);
-        g.fillRect(0,95,500,1);
-        g.fillRect(0,105,500,1);
-        g.fillRect(0,115,500,1);
+            //nodepapir
+            g.fillRect(0, 75+row*offset, 500, 1);
+            g.fillRect(0, 85+row*offset, 500, 1);
+            g.fillRect(0, 95+row*offset, 500, 1);
+            g.fillRect(0, 105+row*offset, 500, 1);
+            g.fillRect(0, 115+row*offset, 500, 1);
+
+
+
+
+
     }
 
 
