@@ -166,13 +166,7 @@ public class MainController {
             }
             g.setFill(Color.RED);
 
-            int d = (int) rootnote/2;
-
-
             int e = osc.getPlayingNoteNum(counter);
-
-
-
 
             drawNotePaper(g, e);
 
@@ -185,7 +179,6 @@ public class MainController {
         if(toClear){g.clearRect(0,0,1000,1000);
         toClear=false;
         }
-
 
         g.setFill(Color.BLACK);
          int row=0;
