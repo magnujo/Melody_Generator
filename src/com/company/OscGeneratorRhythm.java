@@ -83,7 +83,7 @@ public class OscGeneratorRhythm {
         try {
             for (int i = 0; i < 1; i++) {       /*this for loop decides how many measures to play.
                                                     right now 1 measure will be played*/
-                doRythm(timeNow, tonicNote);
+               // doRythm(timeNow, tonicNote);
                 timeNow += measure;
                 synth.sleepUntil(timeNow);
             }

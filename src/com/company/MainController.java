@@ -26,16 +26,17 @@ public class MainController {
     private MinorScaleTest minorScala = new MinorScaleTest(13, hashTest.frequencyFinder(s));
 
     private boolean runonce = false;
-    private boolean clicked=false;
+    private boolean clicked = false;
     private boolean isMajor;
     private double rootnote;
     private double rootnote2;
-    private String complexity="medium complexity";
+    private String complexity = "medium complexity";
     private boolean toClear;
     ArrayList<note> notes = new ArrayList<>();
 
 
-    @FXML ChoiceBox<String> choiceBox;
+    @FXML
+    ChoiceBox<String> choiceBox;
 
     @FXML
     Canvas canvas;
@@ -52,31 +53,32 @@ public class MainController {
         s = textField.getText();
         System.out.println("playing " + s);
         complexity = choiceBox.getSelectionModel().getSelectedItem();
-        System.out.println("using: "+complexity);
-        majorScala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
-        rootnote =  majorScala.getScale().get(0);
+        System.out.println("using: " + complexity);
+        majorScala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
+        rootnote = majorScala.getScale().get(0);
         rootnote2 = hashTest.noteFinder(rootnote);
 
         isMajor = true;
         clicked = true;
     }
+
     @FXML
 
-    public void btn3(){
+    public void btn3() {
         clicked = false;
         osc.sineLineOut.stop();
 
     }
 
     @FXML
-    public void btn4(){
+    public void btn4() {
 
         //reset
 
         clicked = false;
         osc.sineLineOut.stop();
-        counter=0;
-        toClear=true;
+        counter = 0;
+        toClear = true;
 
     }
 
@@ -87,8 +89,8 @@ public class MainController {
         System.out.println("playing " + s);
         complexity = choiceBox.getSelectionModel().getSelectedItem();
 
-        minorScala = new MinorScaleTest(13,hashTest.frequencyFinder(s));
-        rootnote =  minorScala.getScale().get(0);
+        minorScala = new MinorScaleTest(13, hashTest.frequencyFinder(s));
+        rootnote = minorScala.getScale().get(0);
         rootnote2 = hashTest.noteFinder(rootnote);
 
         isMajor = false;
@@ -107,37 +109,36 @@ public class MainController {
         textFlow.getChildren().clear();
 
         for (int i = 0; i < textList.size(); i++) {
-            Text text = new Text(textList.get(i)+" ");
+            Text text = new Text(textList.get(i) + " ");
             text.setFont(new Font(25));
             text.setFill(Color.DARKORCHID);
             textFlow.getChildren().add(text);
-       }
+        }
 
     }
 
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
         GraphicsContext g = canvas.getGraphicsContext2D();
-
 
 
         g.setFill(Color.GREY);
         osc = new OscGenerator();
 
         // Start and control game loop
-        new AnimationTimer(){
+        new AnimationTimer() {
             long lastUpdate;
-            public void handle (long now)
-            {
-                if (now > lastUpdate + 30 * 1000000)
-                {
+
+            public void handle(long now) {
+                if (now > lastUpdate + 30 * 1000000) {
                     lastUpdate = now;
                     drawCanvas();
-                }             }
+                }
+            }
         }.start();
 
     }
+
     private void drawCanvas() {
 
 //if the button major or minor are pressed
@@ -152,17 +153,17 @@ public class MainController {
 
             GraphicsContext g = canvas.getGraphicsContext2D();
             if (counter < osc.intRhytmList.size()) {
-                if(isMajor) {
-                    osc.RandomMelody(majorScala.getScale(), counter,complexity);
-                    notes.add(new note(majorScala.getScale(), counter,complexity));
+                if (isMajor) {
+                    osc.RandomMelody(majorScala.getScale(), counter, complexity);
+                    notes.add(new note(majorScala.getScale(), counter, complexity));
 
-                }
-                else{  osc.RandomMelody(minorScala.getScale(), counter, complexity);
+                } else {
+                    osc.RandomMelody(minorScala.getScale(), counter, complexity);
                 }
 
             } else {
                 osc.sineLineOut.stop();
-                clicked=false;
+                clicked = false;
             }
             g.setFill(Color.RED);
 
@@ -177,53 +178,77 @@ public class MainController {
     }
 
     private void drawNotePaper(GraphicsContext g, int e) {
-        if(toClear){g.clearRect(0,0,1000,1000);
-        toClear=false;
+        if (toClear) {
+            g.clearRect(0, 0, 1000, 1000);
+            toClear = false;
         }
 
         g.setFill(Color.BLACK);
-         int row=0;
-         int offset=0;
-         int xPos;
+        int row = 0;
+        int offset = 0;
+        int xPos;
 
-        if(counter>100) {
+        if (counter > 100) {
             row = 1;
-            offset=100;
+            offset = 100;
         }
-        if(counter>200) {
+        if (counter > 200) {
             row = 2;
         }
-        if(counter>300) {
+        if (counter > 300) {
             row = 3;
         }
-        if(counter>400) {
+        if (counter > 400) {
             row = 4;
         }
-        xPos = counter-offset*row;
+        xPos = counter - offset * row;
 
-            //noder
-            notes.get(counter).setxPos(5 + xPos * 5);
-            notes.get(counter).setyPos(215 - rootnote2 - e * 5+row*offset);
+        //noder
+        notes.get(counter).setxPos(5 + xPos * 5);
+        notes.get(counter).setyPos(215 - rootnote2 - e * 5 + row * offset);
 
-            g.fillOval(notes.get(counter).getxPos(), notes.get(counter).getyPos(), 6, 6);
-            g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos()-12, 2, 15);
+        g.fillOval(notes.get(counter).getxPos(), notes.get(counter).getyPos(), 6, 6);
+        g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos() - 12, 2, 15);
 
-            //if(d>200||d<160)
-            // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
+        //if(d>200||d<160)
+        // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
 
-            //nodepapir
-            g.fillRect(0, 75+row*offset, 542, 1);
-            g.fillRect(0, 85+row*offset, 542, 1);
-            g.fillRect(0, 95+row*offset, 542, 1);
-            g.fillRect(0, 105+row*offset,542, 1);
-            g.fillRect(0, 115+row*offset,542, 1);
+        //nodepapir
+        g.fillRect(0, 75 + row * offset, 542, 1);
+        g.fillRect(0, 85 + row * offset, 542, 1);
+        g.fillRect(0, 95 + row * offset, 542, 1);
+        g.fillRect(0, 105 + row * offset, 542, 1);
+        g.fillRect(0, 115 + row * offset, 542, 1);
 
-            if(counter%15==0){
-                g.fillRect(counter+xPos*5-row*45, 75+row*offset, 3, 40);
+        if (counter % 15 == 0) {
+            g.fillRect(counter + xPos * 5 - row * 45, 75 + row * offset, 3, 40);
+        }
+        g.clearRect(0, 0, 100, 20);
+        g.fillText("beats: " + Integer.toString(counter), 15, 15);
+
+
+
+
+        g.setFill(Color.GREEN);
+
+            //kryds
+            if(isMajor) {
+                String txt = s;
+
+                if (txt.contains("D")) {
+
+                    g.fillRect(0, 72 + row * offset, 16, 2);
+                    g.fillRect(0, 72 + row * offset + 5, 16, 2);
+                    g.fillRect(0 + 5, 72 + row * offset - 4, 2, 17);
+                    g.fillRect(0 + 10, 72 + row * offset - 4, 2, 17);
+
+                    g.fillRect(0+2, 87 + row * offset, 16, 2);
+                    g.fillRect(0+2, 87 + row * offset + 5, 16, 2);
+                    g.fillRect(0 + 5+2, 87 + row * offset - 4, 2, 17);
+                    g.fillRect(0 + 10+2, 87 + row * offset - 4, 2, 17);
+                }
             }
-                g.clearRect(0,0,100,20);
-                g.fillText("beats: "+ Integer.toString(counter),15,15);
-    }
 
 
+}
 }

@@ -10,6 +10,6 @@ public class NoteLength {
     private double measure = milliseconds / bpm * pulse;
 
 
-    public double getQuarterNote()
+   // public double getQuarterNote()
 
 }
