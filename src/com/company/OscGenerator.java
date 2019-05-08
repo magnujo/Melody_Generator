@@ -93,7 +93,7 @@ public class OscGenerator {
         this.frequency = frequency;
         sineOsc.frequency.set(frequency);
         sineLineOut.start();
-        
+
     }
 
     public void SetupSaw(){

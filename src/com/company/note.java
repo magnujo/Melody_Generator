@@ -36,24 +36,6 @@ public class note {
 
 
     }
- g.setFill(Color.GREEN);
 
-    //kryds
-            if(isMajor) {
-        String txt = s;
-
-        if (txt.contains("D")) {
-
-            g.fillRect(0, 72 + row * offset, 16, 2);
-            g.fillRect(0, 72 + row * offset + 5, 16, 2);
-            g.fillRect(0 + 5, 72 + row * offset - 4, 2, 17);
-            g.fillRect(0 + 10, 72 + row * offset - 4, 2, 17);
-
-            g.fillRect(0+2, 87 + row * offset, 16, 2);
-            g.fillRect(0+2, 87 + row * offset + 5, 16, 2);
-            g.fillRect(0 + 5+2, 87 + row * offset - 4, 2, 17);
-            g.fillRect(0 + 10+2, 87 + row * offset - 4, 2, 17);
-        }
-    }
 
 }
