@@ -36,5 +36,15 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$USER_HOME$/Documents/Universitet/4. semester CS/Projekt/Jsyn library" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$USER_HOME$/Documents/Universitet/4. semester CS/Projekt/Jsyn library" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -1,23 +1,34 @@
 package com.company;
 
+import com.jsyn.midi.MidiSynthesizer;
+import com.jsyn.util.MultiChannelSynthesizer;
+
 import javax.sound.midi.*;
 import javax.sound.midi.Track;
 import java.io.File;
+
+import static javax.sound.midi.ShortMessage.NOTE_ON;
 
 public class midiSequencer {
 
     public static void main(String[] args) throws MidiUnavailableException {
 
-        Sequencer          seq;
+        Sequencer seq;
         Transmitter seqTrans;
-        Synthesizer         synth;
-        Receiver         synthRcvr;
+        Synthesizer synthJava;
+
+        MultiChannelSynthesizer synthMulti = new MultiChannelSynthesizer();
+
+        MidiSynthesizer synthMidi = new MidiSynthesizer(synthMulti);
+        Receiver synthRcvr;
+
         try {
-            seq     = MidiSystem.getSequencer();
+            seq = MidiSystem.getSequencer();
             seqTrans = seq.getTransmitter();
-            synth   = MidiSystem.getSynthesizer();
-            synthRcvr = synth.getReceiver();
+            synthJava = MidiSystem.getSynthesizer();
+            synthRcvr = synthJava.getReceiver();
             seqTrans.setReceiver(synthRcvr);
+
         } catch (MidiUnavailableException e) {
             System.out.println("midi unavailable");
             // handle or throw exception
@@ -36,7 +47,7 @@ public class midiSequencer {
             sequencer.open(); }
 
         /*try {
-            File myMidiFile = new File("./midi/chords1.mid");
+            File myMidiFile = new File("./data/chords1.mid");
             // Construct a Sequence object, and
             // load it into my sequencer.
             Sequence mySeq = MidiSystem.getSequence(myMidiFile);
@@ -48,15 +59,37 @@ public class midiSequencer {
 
         sequencer.start(); */
 
-        Track myTrack = null;
-        sequencer.recordEnable(myTrack,5);
+        class CustomReceiver implements Receiver {
+            @Override
+            public void send(MidiMessage message, long timeStamp) {
+                byte[] bytes = message.getMessage();
+                synthMidi.onReceive(bytes, 0, bytes.length);
+            }
+            @Override
+            public void close() {
+                System.out.println("closed");
+            }
+        }
 
-        ShortMessage msg = new ShortMessage();
+        /*
+        //TODO: create a new sequence with our data somehow
+        public void writeSequence() {
+        Sequence mySeq = null;
+        try {
+            mySeq = new Sequence(3,2);
+        } catch (InvalidMidiDataException e) {
+            e.printStackTrace();
+        }
+        if (mySeq != null) {
+            mySeq.createTrack();
+            ShortMessage message = new ShortMessage();
+            try {
+                MidiEvent midiEvent = new MidiEvent(message.setMessage(NOTE_ON), 2);
+            } catch (InvalidMidiDataException e) {
+                e.printStackTrace();
+            }
+        }
 
-        //MidiEvent me = new MidiEvent(msg.NOTE_ON, 5);
-
-
-
-
+        }*/
     }
 }
