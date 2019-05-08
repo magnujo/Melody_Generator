@@ -1,9 +1,7 @@
 package com.company;
 
-
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
@@ -200,8 +198,6 @@ public class MainController {
         }
         xPos = counter-offset*row;
 
-
-
         //noder
             g.fillOval(5 + xPos * 5, 215 - rootnote2 - e * 5+row*offset, 6, 6);
             g.fillRect(5 + xPos * 5, 215 - rootnote2 - 12 - e * 5+row*offset, 2, 15);
@@ -215,11 +211,6 @@ public class MainController {
             g.fillRect(0, 95+row*offset, 500, 1);
             g.fillRect(0, 105+row*offset, 500, 1);
             g.fillRect(0, 115+row*offset, 500, 1);
-
-
-
-
-
     }
 
 
