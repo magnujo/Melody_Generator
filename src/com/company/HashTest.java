@@ -24,6 +24,8 @@ public class HashTest {
         }
     }
 
+    //frequency map
     public double frequencyFinder (String noteValue){return freqMap.get(noteValue);}
+    //pitch map
     public double noteFinder (double frequencyValue){return noteMap.get(frequencyValue);}
 }
