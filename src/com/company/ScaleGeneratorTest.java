@@ -57,6 +57,7 @@ public class ScaleGeneratorTest {
     }
 
     public static void main(String[] args) {
+        /*
         OscGenerator osc = new OscGenerator();
  osc.OscSetup(new SineOscillator());
  osc.Play("a4",2.0);
@@ -64,7 +65,7 @@ public class ScaleGeneratorTest {
         osc.Play("d4",2.0);
         osc.StopLineOut();
 
-
+*/
     }
 }
 

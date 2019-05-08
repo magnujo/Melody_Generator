@@ -68,18 +68,14 @@ public class OscGenerator {
         synth.stop();
     }
 
-    //skal vi slette den her constructor?
-    public OscGenerator(){}
+
 
     public ArrayList<Double> getNotes() {
         return notes;
     }
     public int getPlayingNoteNum(int i) {
 
-
-        Integer u =  playListValues.get(i);
-
-        return u;
+        return playListValues.get(i);
     }
 
 
@@ -92,15 +88,15 @@ public class OscGenerator {
         sineOsc.amplitude.set(0.5);
         sineOsc.output.connect(0, sineLineOut.input, 0);
         sineOsc.output.connect(0, sineLineOut.input, 1);
+
+
     }
 
     public void PlaySine(double frequency){
         this.frequency = frequency;
         sineOsc.frequency.set(frequency);
         sineLineOut.start();
-
-
-
+        
     }
 
     public void SetupSaw(){

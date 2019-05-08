@@ -1,9 +1,7 @@
 package com.company;
 
-
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
-
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
@@ -31,7 +29,9 @@ public class MainController {
     private boolean clicked=false;
     private boolean isMajor;
     private double rootnote;
+    private double rootnote2;
     private String complexity="medium complexity";
+    private boolean toClear;
 
 
     @FXML ChoiceBox<String> choiceBox;
@@ -54,6 +54,8 @@ public class MainController {
         System.out.println("using: "+complexity);
         majorScala = new MajorScaleTest(13,hashTest.frequencyFinder(s));
         rootnote =  majorScala.getScale().get(0);
+        rootnote2 = hashTest.noteFinder(rootnote);
+
         isMajor = true;
         clicked = true;
     }
@@ -66,6 +68,18 @@ public class MainController {
     }
 
     @FXML
+    public void btn4(){
+
+        //reset
+
+        clicked = false;
+        osc.sineLineOut.stop();
+        counter=0;
+        toClear=true;
+
+    }
+
+    @FXML
 
     public void btn1() {
         s = textField.getText();
@@ -74,6 +88,7 @@ public class MainController {
 
         minorScala = new MinorScaleTest(13,hashTest.frequencyFinder(s));
         rootnote =  minorScala.getScale().get(0);
+        rootnote2 = hashTest.noteFinder(rootnote);
 
         isMajor = false;
         clicked = true;
@@ -104,6 +119,8 @@ public class MainController {
     {
         GraphicsContext g = canvas.getGraphicsContext2D();
 
+
+
         g.setFill(Color.GREY);
         osc = new OscGenerator();
 
@@ -121,6 +138,7 @@ public class MainController {
 
     }
     private void drawCanvas() {
+
 //if the button major or minor are pressed
         if (clicked) {
 
@@ -146,33 +164,54 @@ public class MainController {
             }
             g.setFill(Color.RED);
 
-            //int d = osc.getPlayingNoteValue(counter-1);
-            int d = (int) rootnote/2;
-            int e = osc.getPlayingNoteNum(counter );
+            int e = osc.getPlayingNoteNum(counter);
 
-            //System.out.println(190 - d);
-
-            g.setFill(Color.BLACK);
-
-            //noder
-                g.fillOval(5 + counter * 5, 187 - d-e*5, 6, 6);
-                g.fillRect(5 + counter * 5, 187 -12 -d-e*5, 2, 15);
-                //if(d>200||d<160)
-                   // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
-
-                //nodepapir
-                g.fillRect(0,75,500,1);
-                g.fillRect(0,85,500,1);
-                g.fillRect(0,95,500,1);
-                g.fillRect(0,105,500,1);
-                g.fillRect(0,115,500,1);
+            drawNotePaper(g, e);
 
             counter++;
 
         }
     }
 
+    private void drawNotePaper(GraphicsContext g, int e) {
+        if(toClear){g.clearRect(0,0,1000,1000);
+        toClear=false;
+        }
 
+        g.setFill(Color.BLACK);
+         int row=0;
+         int offset=0;
+         int xPos;
+
+        if(counter>100) {
+            row = 1;
+            offset=100;
+        }
+        if(counter>200) {
+            row = 2;
+        }
+        if(counter>300) {
+            row = 3;
+        }
+        if(counter>400) {
+            row = 4;
+        }
+        xPos = counter-offset*row;
+
+        //noder
+            g.fillOval(5 + xPos * 5, 215 - rootnote2 - e * 5+row*offset, 6, 6);
+            g.fillRect(5 + xPos * 5, 215 - rootnote2 - 12 - e * 5+row*offset, 2, 15);
+
+            //if(d>200||d<160)
+            // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
+
+            //nodepapir
+            g.fillRect(0, 75+row*offset, 500, 1);
+            g.fillRect(0, 85+row*offset, 500, 1);
+            g.fillRect(0, 95+row*offset, 500, 1);
+            g.fillRect(0, 105+row*offset, 500, 1);
+            g.fillRect(0, 115+row*offset, 500, 1);
+    }
 
 
 }
