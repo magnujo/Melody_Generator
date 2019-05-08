@@ -1,10 +1,15 @@
 package com.company;
 
 import javafx.animation.AnimationTimer;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -12,6 +17,16 @@ import javafx.scene.text.TextFlow;
 import javafx.scene.control.ChoiceBox;
 
 
+import javax.imageio.*;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
+import javax.swing.*;
+import javax.swing.text.Utilities;
+import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MainController {
@@ -113,6 +128,24 @@ public class MainController {
             text.setFont(new Font(25));
             text.setFill(Color.DARKORCHID);
             textFlow.getChildren().add(text);
+        }
+
+    }
+
+    //Button to print image
+    @FXML
+    public void pictureBtn() {
+        WritableImage snapshot = canvas.getScene().snapshot(null);
+
+        //RenderedImage renderedImage = snapshot
+
+        File picFile = new File("./data/canvasPicture.png");
+
+        try {
+
+            ImageIO.write((RenderedImage) snapshot,"canvasPicture",picFile);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -248,7 +281,6 @@ public class MainController {
                     g.fillRect(0 + 10+2, 87 + row * offset - 4, 2, 17);
                 }
             }
-
 
 }
 }

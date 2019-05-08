@@ -11,7 +11,7 @@ import com.softsynth.shared.time.TimeStamp;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class OscGeneratorRhythm {
+public class OscGeneratorRhythm2 {
     Synthesizer synth = JSyn.createSynthesizer();
     private UnitOscillator osc;
     private Synthesizer synthSaw = JSyn.createSynthesizer();
@@ -42,61 +42,56 @@ public class OscGeneratorRhythm {
 
     private VoiceAllocator allocator;
     private UnitVoice[] voices;
+    int tonicNote = 60;                     //shall be replaced with randomness
 
 
-    public void OscSetup (UnitOscillator oscillator){
-        this.oscillator = oscillator;
 
-        synth.start();
-        synth.add(oscillator);
-        synth.add(lineOut);
-        oscillator.amplitude.set(0.5);
-        oscillator.output.connect(0, lineOut.input, 0);
-        oscillator.output.connect(0, lineOut.input, 1);
-    }
+    SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
 
-    public void Play(double decay, int measures){
-        this.dutyCycle = decay;
+    //voices[MAX_VOICES] = voice;
+
+
+    public void OscSetup (){
         synth = JSyn.createSynthesizer();
         synth.add(osc = new SawtoothOscillatorBL());
         synth.add(lineOut = new LineOut());
-
-        SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
         synth.add(voice);
         voice.getOutput().connect(0, lineOut.input, 0);
         voice.getOutput().connect(0, lineOut.input, 1);
-        //voices[MAX_VOICES] = voice;
         voices = new UnitVoice[1];
         voices[0] = voice;
 
         allocator = new VoiceAllocator(voices);
-        int tonicNote = 60;                     //shall be replaced with randomness
 
         synth.start();
+
+    }
+
+    public void Play(double decay, int measures, int timeSignature){
+        this.dutyCycle = decay;
         lineOut.start();
 
         double timeNow = synth.getCurrentTime();
 
         try {
-            for (int i = 0; i < measures; i++) {       //this for loop decides how many measures to play.
+            //this for loop decides how many measures to play.
                                                        // right now 1 measure will be played*/
-                doRythm(timeNow, tonicNote);
+                doRythm(timeNow, tonicNote,timeSignature);
                 timeNow += rhythm.getMeasure();
                 synth.sleepUntil(timeNow);
-            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        synth.stop();
+        //synth.stop();
         lineOut.stop();
     }
 
-    public void doRythm(double time, int note) {
+    public void doRythm(double time, int note, int timeSignature) {
 
 
         //this loop decides how many times the note should be played. Right now it will be played 4 times
-        for (int i = 0; i < 4; i++) {
-           double localNoteLength = rhythm.getRandomNoteLength();
+        for (int i = 0; i < timeSignature; i++) {
+            double localNoteLength = rhythm.getRandomNoteLength();
             noteOn(time, note);
             noteOff(time + dutyCycle * localNoteLength, note);
             time += localNoteLength;
@@ -224,8 +219,15 @@ public class OscGeneratorRhythm {
     }
 
     public static void main(String[] args) {
-        OscGeneratorRhythm osc = new OscGeneratorRhythm();
-        osc.Play(0.1,2);
+        OscGeneratorRhythm2 osc = new OscGeneratorRhythm2();
+        osc.OscSetup();
+
+        for (int i = 0; i <1; i++) {
+
+            osc.Play(0.1,2,32);
+
+        }
+        osc.synth.stop();
 
 
     }
