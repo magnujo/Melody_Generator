@@ -32,7 +32,7 @@ public class OscGeneratorRhythm {
     private ArrayList<Integer> playListValues = new ArrayList<>();
     private ArrayList<Double> notes = new ArrayList<>();
     boolean runonce =false;
-    fileReader fR = new fileReader(".idea/data");
+    FileReader fR = new FileReader(".idea/data");
     HashTest noteList = new HashTest();
     private double milliseconds = 60.000;
     private double bpm = 120.0;

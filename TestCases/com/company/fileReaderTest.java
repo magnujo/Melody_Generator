@@ -8,7 +8,7 @@ class fileReaderTest {
 
     @Test
     void getPlaylist() {
-        fileReader fileReader = new fileReader("C:\\Users\\magnu\\IdeaProjects\\SynthProject\\TestCases\\TestData");
+        FileReader fileReader = new FileReader("C:\\Users\\magnu\\IdeaProjects\\SynthProject\\TestCases\\TestData");
         assertEquals(5,fileReader.getPlaylist().size());
 
     }

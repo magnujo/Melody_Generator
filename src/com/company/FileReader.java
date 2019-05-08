@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.*;
 
-public class fileReader {
+public class FileReader {
     public ArrayList<Integer> getPlaylist() {
         return playlist;
     }
@@ -15,7 +15,7 @@ public class fileReader {
     //Stores the textline to be read
     private String textLine = null;
 
-    public fileReader(String path) {
+    public FileReader(String path) {
         this.path = path;
         generatePlaylist();
     }
@@ -24,8 +24,8 @@ public class fileReader {
 
         try {
             // FileReader reads text files in the default encoding.
-            FileReader fileReader =
-                    new FileReader(path );
+            java.io.FileReader fileReader =
+                    new java.io.FileReader(path );
 
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader =
