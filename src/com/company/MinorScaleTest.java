@@ -1,8 +1,12 @@
 package com.company;
 
+import com.jsyn.unitgen.SawtoothOscillator;
+
 import java.util.Arrays;
 
 public class MinorScaleTest extends ScaleGeneratorTest{
+
+
 
     public MinorScaleTest(int scaleLength, double startFreq) {
         super(scaleLength, startFreq);
@@ -15,8 +19,9 @@ public class MinorScaleTest extends ScaleGeneratorTest{
     }
 
     public static void main(String[] args) {
+        OscGeneratorRhythm osc = new OscGeneratorRhythm();
+osc.Play(0.1);
+osc.Play(0.1);
 
-        MajorScaleTest scaleGenerator = new MajorScaleTest(12, 65.41);
-        System.out.println(Arrays.toString(scaleGenerator.getScale().toArray()));
     }
 }
