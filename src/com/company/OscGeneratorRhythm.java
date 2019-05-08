@@ -2,14 +2,18 @@ package com.company;
 
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import com.jsyn.instruments.SubtractiveSynthVoice;
 import com.jsyn.unitgen.*;
+import com.jsyn.util.VoiceAllocator;
+import com.softsynth.math.AudioMath;
+import com.softsynth.shared.time.TimeStamp;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class OscGeneratorRhythm {
     Synthesizer synth = JSyn.createSynthesizer();
-
+    private UnitOscillator osc;
     private Synthesizer synthSaw = JSyn.createSynthesizer();
     public Synthesizer synthSine = JSyn.createSynthesizer();
     private LineOut sawLineOut;
@@ -30,8 +34,18 @@ public class OscGeneratorRhythm {
     boolean runonce =false;
     FileReader fR = new FileReader(".idea/data");
     HashTest noteList = new HashTest();
+    private double milliseconds = 60.000;
+    private double bpm = 120.0;
+    private double pulse = 4.0;
+    private double measure = milliseconds / bpm * pulse;
 
     ArrayList<Integer> intRhytmList = fR.getPlaylist();
+    private double dutyCycle = 0.8;
+
+    private VoiceAllocator allocator;
+    private UnitVoice[] voices;
+    double quarterNote = milliseconds / bpm;
+    double eighthNote = milliseconds/bpm/2;
 
     public void OscSetup (UnitOscillator oscillator){
         this.oscillator = oscillator;
@@ -44,21 +58,62 @@ public class OscGeneratorRhythm {
         oscillator.output.connect(0, lineOut.input, 1);
     }
 
-    public void Play(String note, double time){
-        try{
-            this.frequency = noteList.frequencyFinder(note.toUpperCase());}
-        catch (NullPointerException e){
-            System.out.println("ERROR 401: You propably didnt enter a valid note name. Enter something like 'A4' og 'C#4'");
-        }
-        oscillator.frequency.set(frequency);
+    public void Play(double decay){
+        this.dutyCycle = decay;
+        synth = JSyn.createSynthesizer();
+        synth.add(osc = new SawtoothOscillatorBL());
+        synth.add(lineOut = new LineOut());
+
+        SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
+        synth.add(voice);
+        voice.getOutput().connect(0, lineOut.input, 0);
+        voice.getOutput().connect(0, lineOut.input, 1);
+        //voices[MAX_VOICES] = voice;
+        voices = new UnitVoice[1];
+        voices[0] = voice;
+
+        allocator = new VoiceAllocator(voices);
+        int tonicNote = 60;                     //shall be replaced with randomness
+
+        synth.start();
         lineOut.start();
 
+        double timeNow = synth.getCurrentTime();
+
         try {
-            synth.sleepFor(time);
+            for (int i = 0; i < 1; i++) {       /*this for loop decides how many measures to play.
+                                                    right now 1 measure will be played*/
+                doRythm(timeNow, tonicNote);
+                timeNow += measure;
+                synth.sleepUntil(timeNow);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        synth.stop();
         lineOut.stop();
+    }
+
+    public void doRythm(double time, int note, double noteLength) {
+
+
+
+        //this loop decides how many times the note should be played. Right now it will be played 4 times
+        for (int i = 0; i < 8; i++) {
+            noteOn(time, note);
+            noteOff(time + dutyCycle * noteLength, note);
+            time += noteLength;
+        }
+    }
+    private void noteOff(double time, int note) {
+        allocator.noteOff(note, new TimeStamp(time));
+    }
+
+    private void noteOn(double time, int note) {
+        double frequency = AudioMath.pitchToFrequency(note);
+        double amplitude = 0.2;
+        TimeStamp timeStamp = new TimeStamp(time);
+        allocator.noteOn(note, frequency, amplitude, timeStamp);
     }
 
 
