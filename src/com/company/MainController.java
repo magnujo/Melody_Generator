@@ -32,6 +32,7 @@ public class MainController {
     private double rootnote2;
     private String complexity="medium complexity";
     private boolean toClear;
+    ArrayList<note> notes = new ArrayList<>();
 
 
     @FXML ChoiceBox<String> choiceBox;
@@ -153,6 +154,7 @@ public class MainController {
             if (counter < osc.intRhytmList.size()) {
                 if(isMajor) {
                     osc.RandomMelody(majorScala.getScale(), counter,complexity);
+                    notes.add(new note(majorScala.getScale(), counter,complexity));
 
                 }
                 else{  osc.RandomMelody(minorScala.getScale(), counter, complexity);
@@ -167,6 +169,7 @@ public class MainController {
             int e = osc.getPlayingNoteNum(counter);
 
             drawNotePaper(g, e);
+
 
             counter++;
 
@@ -198,19 +201,28 @@ public class MainController {
         }
         xPos = counter-offset*row;
 
-        //noder
-            g.fillOval(5 + xPos * 5, 215 - rootnote2 - e * 5+row*offset, 6, 6);
-            g.fillRect(5 + xPos * 5, 215 - rootnote2 - 12 - e * 5+row*offset, 2, 15);
+            //noder
+            notes.get(counter).setxPos(5 + xPos * 5);
+            notes.get(counter).setyPos(215 - rootnote2 - e * 5+row*offset);
+
+            g.fillOval(notes.get(counter).getxPos(), notes.get(counter).getyPos(), 6, 6);
+            g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos()-12, 2, 15);
 
             //if(d>200||d<160)
             // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
 
             //nodepapir
-            g.fillRect(0, 75+row*offset, 500, 1);
-            g.fillRect(0, 85+row*offset, 500, 1);
-            g.fillRect(0, 95+row*offset, 500, 1);
-            g.fillRect(0, 105+row*offset, 500, 1);
-            g.fillRect(0, 115+row*offset, 500, 1);
+            g.fillRect(0, 75+row*offset, 542, 1);
+            g.fillRect(0, 85+row*offset, 542, 1);
+            g.fillRect(0, 95+row*offset, 542, 1);
+            g.fillRect(0, 105+row*offset,542, 1);
+            g.fillRect(0, 115+row*offset,542, 1);
+
+            if(counter%15==0){
+                g.fillRect(counter+xPos*5-row*45, 75+row*offset, 3, 40);
+            }
+                g.clearRect(0,0,100,20);
+                g.fillText("beats: "+ Integer.toString(counter),15,15);
     }
 
 

@@ -2,14 +2,18 @@ package com.company;
 
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
+import com.jsyn.instruments.SubtractiveSynthVoice;
 import com.jsyn.unitgen.*;
+import com.jsyn.util.VoiceAllocator;
+import com.softsynth.math.AudioMath;
+import com.softsynth.shared.time.TimeStamp;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class OscGenerator {
+public class OscGeneratorRhythm2 {
     Synthesizer synth = JSyn.createSynthesizer();
-
+    private UnitOscillator osc;
     private Synthesizer synthSaw = JSyn.createSynthesizer();
     public Synthesizer synthSine = JSyn.createSynthesizer();
     private LineOut sawLineOut;
@@ -27,37 +31,81 @@ public class OscGenerator {
     private UnitOscillator oscillator;
     private ArrayList<Integer> playListValues = new ArrayList<>();
     private ArrayList<Double> notes = new ArrayList<>();
-    private FileReader fileReader = new FileReader(".idea/data");
+    boolean runonce =false;
+    FileReader fR = new FileReader(".idea/data");
     HashTest noteList = new HashTest();
 
-    ArrayList<Integer> intRhytmList = fileReader.getPlaylist();
+    private Rhythm rhythm = new Rhythm(90,4.0,60.000);
 
-    public void OscSetup (UnitOscillator oscillator){
-        this.oscillator = oscillator;
+    ArrayList<Integer> intRhytmList = fR.getPlaylist();
+    private double dutyCycle = 0.8;
+
+    private VoiceAllocator allocator;
+    private UnitVoice[] voices;
+    int tonicNote = 60;                     //shall be replaced with randomness
+
+
+
+    SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
+
+    //voices[MAX_VOICES] = voice;
+
+
+    public void OscSetup (){
+        synth = JSyn.createSynthesizer();
+        synth.add(osc = new SawtoothOscillatorBL());
+        synth.add(lineOut = new LineOut());
+        synth.add(voice);
+        voice.getOutput().connect(0, lineOut.input, 0);
+        voice.getOutput().connect(0, lineOut.input, 1);
+        voices = new UnitVoice[1];
+        voices[0] = voice;
+
+        allocator = new VoiceAllocator(voices);
 
         synth.start();
-        synth.add(oscillator);
-        synth.add(lineOut);
-        oscillator.amplitude.set(0.5);
-        oscillator.output.connect(0, lineOut.input, 0);
-        oscillator.output.connect(0, lineOut.input, 1);
+
     }
 
-    public void Play(String note, double time){
-        try{
-        this.frequency = noteList.frequencyFinder(note.toUpperCase());}
-        catch (NullPointerException e){
-            System.out.println("ERROR 401: You propably didnt enter a valid note name. Enter something like 'A4' og 'C#4'");
-        }
-        oscillator.frequency.set(frequency);
+    public void Play(double decay, int measures, int timeSignature){
+        this.dutyCycle = decay;
         lineOut.start();
 
+        double timeNow = synth.getCurrentTime();
+
         try {
-            synth.sleepFor(time);
+            //this for loop decides how many measures to play.
+                                                       // right now 1 measure will be played*/
+                doRythm(timeNow, tonicNote,timeSignature);
+                timeNow += rhythm.getMeasure();
+                synth.sleepUntil(timeNow);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        //synth.stop();
         lineOut.stop();
+    }
+
+    public void doRythm(double time, int note, int timeSignature) {
+
+
+        //this loop decides how many times the note should be played. Right now it will be played 4 times
+        for (int i = 0; i < timeSignature; i++) {
+            double localNoteLength = rhythm.getRandomNoteLength();
+            noteOn(time, note);
+            noteOff(time + dutyCycle * localNoteLength, note);
+            time += localNoteLength;
+        }
+    }
+    private void noteOff(double time, int note) {
+        allocator.noteOff(note, new TimeStamp(time));
+    }
+
+    private void noteOn(double time, int note) {
+        double frequency = AudioMath.pitchToFrequency(note);
+        double amplitude = 0.2;
+        TimeStamp timeStamp = new TimeStamp(time);
+        allocator.noteOn(note, frequency, amplitude, timeStamp);
     }
 
 
@@ -93,7 +141,7 @@ public class OscGenerator {
         this.frequency = frequency;
         sineOsc.frequency.set(frequency);
         sineLineOut.start();
-        
+
     }
 
     public void SetupSaw(){
@@ -151,26 +199,36 @@ public class OscGenerator {
 
     public void RandomMelody(ArrayList<Double> scale, int i,String complexity) {
         if(complexity=="low complexity")
-                duration = 0.2;
+            duration = 0.2;
         if (complexity=="medium complexity"||complexity==null)
-                duration = intRhytmList.get(i)*0.1;
+            duration = intRhytmList.get(i)*0.1;
         if (complexity=="high complexity")
-                 duration = random.nextInt(10);
+            duration = random.nextInt(10);
 
-            PlaySine(scale.get(intRhytmList.get(i)));
-            //notes.add(scale.get(intRhytmList.get(i)));
-             notes.add(scale.get(intRhytmList.get(i)));
-             playListValues.add(intRhytmList.get(i));
+        PlaySine(scale.get(intRhytmList.get(i)));
+        //notes.add(scale.get(intRhytmList.get(i)));
+        notes.add(scale.get(intRhytmList.get(i)));
+        playListValues.add(intRhytmList.get(i));
 
 
         try {
-                synthSine.sleepFor(duration);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            synthSine.sleepFor(duration);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
+    public static void main(String[] args) {
+        OscGeneratorRhythm2 osc = new OscGeneratorRhythm2();
+        osc.OscSetup();
+
+        for (int i = 0; i <1; i++) {
+
+            osc.Play(0.1,2,32);
+
+        }
+        osc.synth.stop();
 
 
+    }
 }
-
