@@ -3,10 +3,8 @@ package com.company;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.unitgen.*;
-import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class OscGenerator {
@@ -29,11 +27,10 @@ public class OscGenerator {
     private UnitOscillator oscillator;
     private ArrayList<Integer> playListValues = new ArrayList<>();
     private ArrayList<Double> notes = new ArrayList<>();
-    boolean runonce =false;
-    fileReader fR = new fileReader(".idea/data");
+    private FileReader fileReader = new FileReader(".idea/data");
     HashTest noteList = new HashTest();
 
-    ArrayList<Integer> intRhytmList = fR.getPlaylist();
+    ArrayList<Integer> intRhytmList = fileReader.getPlaylist();
 
     public void OscSetup (UnitOscillator oscillator){
         this.oscillator = oscillator;

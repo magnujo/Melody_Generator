@@ -219,12 +219,10 @@ public class MainController {
             g.fillRect(0, 115+row*offset,500, 1);
 
             if(counter%15==0){
-                int newCount =  counter;
-
-                g.fillRect(counter+xPos*5-row*40, 75+row*offset, 3, 40);
+                g.fillRect(counter+xPos*5-row*45, 75+row*offset, 3, 40);
             }
-        g.clearRect(0,0,40,20);
-        g.fillText(Integer.toString(counter),15,15);
+                g.clearRect(0,0,40,20);
+            g.fillText("beats: "+ Integer.toString(counter),15,15);
     }
 
 
