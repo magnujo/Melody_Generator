@@ -18,10 +18,5 @@ public class MinorScaleTest extends ScaleGeneratorTest{
         scale.remove(7);
     }
 
-    public static void main(String[] args) {
-        OscGeneratorRhythm osc = new OscGeneratorRhythm();
-osc.Play(0.1);
-osc.Play(0.1);
 
-    }
 }
