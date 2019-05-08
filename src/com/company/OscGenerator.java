@@ -30,7 +30,7 @@ public class OscGenerator {
     private FileReader fileReader = new FileReader(".idea/data");
     HashTest noteList = new HashTest();
 
-    ArrayList<Integer> intPlayList = fileReader.getPlaylist();
+    ArrayList<Integer> intRhytmList = fileReader.getPlaylist();
 
     public void OscSetup (UnitOscillator oscillator){
         this.oscillator = oscillator;
@@ -153,14 +153,14 @@ public class OscGenerator {
         if(complexity=="low complexity")
                 duration = 0.2;
         if (complexity=="medium complexity"||complexity==null)
-                duration = intPlayList.get(i)*0.1;
+                duration = intRhytmList.get(i)*0.1;
         if (complexity=="high complexity")
                  duration = random.nextInt(10);
 
-            PlaySine(scale.get(intPlayList.get(i)));
+            PlaySine(scale.get(intRhytmList.get(i)));
             //notes.add(scale.get(intRhytmList.get(i)));
-             notes.add(scale.get(intPlayList.get(i)));
-             playListValues.add(intPlayList.get(i));
+             notes.add(scale.get(intRhytmList.get(i)));
+             playListValues.add(intRhytmList.get(i));
 
 
         try {
