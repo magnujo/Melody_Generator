@@ -89,6 +89,10 @@ public class OscGenerator {
 
     }
 
+    public UnitOscillator getSineOsc() {
+        return sineOsc;
+    }
+
     public void PlaySine(double frequency){
         this.frequency = frequency;
         sineOsc.frequency.set(frequency);

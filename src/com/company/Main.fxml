@@ -58,7 +58,12 @@
             </Button>
             <Button id="pictureBtn" fx:id="pictureBtn" layoutX="175.0" layoutY="52.0" mnemonicParsing="false" onAction="#pictureBtn" text="Take Picture">
                <font>
-                  <Font name="Britannic Bold" size="17.0" />
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button id="recBtn" fx:id="recBtn" layoutX="290.0" layoutY="52.0" mnemonicParsing="false" onAction="#recBtn" text="Get Sample">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
                </font>
             </Button>
 

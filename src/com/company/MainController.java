@@ -16,6 +16,7 @@ import javafx.scene.control.ChoiceBox;
 import javax.imageio.*;
 import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -133,12 +134,17 @@ public class MainController {
         File picFile = new File("./data/canvasPicture.png");
 
         try {
-
             ImageIO.write((RenderedImage) snapshot,"canvasPicture",picFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    public void recBtn() throws FileNotFoundException {
+        SampleRecorder recorder = new SampleRecorder();
+        recorder.startRecording(osc);
     }
 
     @FXML
