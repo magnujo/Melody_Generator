@@ -1,14 +1,10 @@
 package com.company;
 
 import javafx.animation.AnimationTimer;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -18,15 +14,9 @@ import javafx.scene.control.ChoiceBox;
 
 
 import javax.imageio.*;
-import javax.imageio.metadata.IIOMetadata;
-import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
-import javax.swing.*;
-import javax.swing.text.Utilities;
 import java.awt.image.RenderedImage;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MainController {
@@ -259,28 +249,72 @@ public class MainController {
         g.clearRect(0, 0, 100, 20);
         g.fillText("beats: " + Integer.toString(counter), 15, 15);
 
-
-
-
-        g.setFill(Color.GREEN);
+        g.setFill(Color.RED);
 
             //kryds
-            if(isMajor) {
-                String txt = s;
+        kryds(g, row, offset);
 
-                if (txt.contains("D")) {
+    }
 
-                    g.fillRect(0, 72 + row * offset, 16, 2);
-                    g.fillRect(0, 72 + row * offset + 5, 16, 2);
-                    g.fillRect(0 + 5, 72 + row * offset - 4, 2, 17);
-                    g.fillRect(0 + 10, 72 + row * offset - 4, 2, 17);
+    private void kryds(GraphicsContext g, int row, int offset) {
+        if(isMajor) {
+            String txt = s;
 
-                    g.fillRect(0+2, 87 + row * offset, 16, 2);
-                    g.fillRect(0+2, 87 + row * offset + 5, 16, 2);
-                    g.fillRect(0 + 5+2, 87 + row * offset - 4, 2, 17);
-                    g.fillRect(0 + 10+2, 87 + row * offset - 4, 2, 17);
-                }
+            //øverste linje = 0, for hver 10 man går op går man en linje ned.
+
+            if (txt.contains("B")) {
+                new Kryds(g, row, offset,15, -5).invoke();
+                new Kryds(g, row, offset,0, 0).invoke();
+                new Kryds(g, row, offset,25, 10).invoke();
+                new Kryds(g, row, offset,11, 15).invoke();
+                new Kryds(g, row, offset,35, 25).invoke();
             }
 
-}
+
+            if (txt.contains("D")) {
+                new Kryds(g, row, offset,15, 0).invoke();
+                new Kryds(g, row, offset,0, 15).invoke();
+            }
+
+            if (txt.contains("E")) {
+                new Kryds(g, row, offset,15, -5).invoke();
+                new Kryds(g, row, offset,0, 0).invoke();
+                new Kryds(g, row, offset,25, 10).invoke();
+                new Kryds(g, row, offset,11, 15).invoke();
+
+            }
+
+            if (txt.contains("F")) {
+               //skal være et B
+            }
+            if (txt.contains("G")) {
+                new Kryds(g, row, offset,0, 0).invoke();
+            }
+
+        }
+    }
+
+    private class Kryds {
+        private GraphicsContext g;
+        private int row;
+        private int offset;
+        private int startX;
+        private int startY;
+
+        public Kryds(GraphicsContext g, int row, int offset, int startX, int startY) {
+            this.g = g;
+            this.row = row;
+            this.offset = offset;
+            this.startX = startX;
+            this.startY = startY+72;
+        }
+
+        public void invoke() {
+
+            g.fillRect(startX+2, startY + row * offset, 16, 2);
+            g.fillRect(startX+2, startY + row * offset + 5, 16, 2);
+            g.fillRect(startX + 5+2, startY + row * offset - 4, 2, 17);
+            g.fillRect(startX + 10+2, startY + row * offset - 4, 2, 17);
+        }
+    }
 }
