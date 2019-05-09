@@ -285,7 +285,7 @@ public class MainController {
             }
 
             if (txt.contains("F")) {
-               //skal være et B
+                new Kryds(g, row, offset,0, 20,true).invoke();
             }
             if (txt.contains("G")) {
                 new Kryds(g, row, offset,0, 0).invoke();
@@ -300,6 +300,7 @@ public class MainController {
         private int offset;
         private int startX;
         private int startY;
+        private boolean B; //if its a B....
 
         public Kryds(GraphicsContext g, int row, int offset, int startX, int startY) {
             this.g = g;
@@ -309,12 +310,27 @@ public class MainController {
             this.startY = startY+72;
         }
 
-        public void invoke() {
+        public Kryds(GraphicsContext g, int row, int offset, int startX, int startY, boolean B) {
+            this.g = g;
+            this.row = row;
+            this.offset = offset;
+            this.startX = startX;
+            this.startY = startY+72;
+            this.B=B;
 
-            g.fillRect(startX+2, startY + row * offset, 16, 2);
-            g.fillRect(startX+2, startY + row * offset + 5, 16, 2);
-            g.fillRect(startX + 5+2, startY + row * offset - 4, 2, 17);
-            g.fillRect(startX + 10+2, startY + row * offset - 4, 2, 17);
+        }
+
+        public void invoke() {
+            if(!B) {
+                g.fillRect(startX + 2, startY + row * offset, 16, 2);
+                g.fillRect(startX + 2, startY + row * offset + 5, 16, 2);
+                g.fillRect(startX + 5 + 2, startY + row * offset - 4, 2, 17);
+                g.fillRect(startX + 10 + 2, startY + row * offset - 4, 2, 17);
+            }
+            if(B){
+                g.fillRect(startX , startY + row * offset-13, 2, 18);
+                g.fillRect(startX + 2, startY + row * offset , 6, 6);
+            }
         }
     }
 }
