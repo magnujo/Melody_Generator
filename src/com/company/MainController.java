@@ -17,6 +17,7 @@ import javax.imageio.*;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainController {
@@ -259,38 +260,50 @@ public class MainController {
     private void kryds(GraphicsContext g, int row, int offset) {
         if(isMajor) {
             String txt = s;
+            ArrayList<Kryds> krydser = new ArrayList<>();
 
             //øverste linje = 0, for hver 10 man går op går man en linje ned.
 
+            if (txt.contains("A")) {
+                krydser.add(new Kryds(g, row, offset,15, -5));
+                krydser.add(new Kryds(g, row, offset,25, 0));
+                krydser.add( new Kryds(g, row, offset,0, 15));
+            }
+
             if (txt.contains("B")) {
-                new Kryds(g, row, offset,15, -5).invoke();
-                new Kryds(g, row, offset,0, 0).invoke();
-                new Kryds(g, row, offset,25, 10).invoke();
-                new Kryds(g, row, offset,11, 15).invoke();
-                new Kryds(g, row, offset,35, 25).invoke();
+                 krydser.add(new Kryds(g, row, offset,15, -5));
+                krydser.add( new Kryds(g, row, offset,0, 0));
+                krydser.add( new Kryds(g, row, offset,25, 10));
+                krydser.add(  new Kryds(g, row, offset,11, 15));
+                krydser.add( new Kryds(g, row, offset,35, 25));
             }
 
 
             if (txt.contains("D")) {
-                new Kryds(g, row, offset,15, 0).invoke();
-                new Kryds(g, row, offset,0, 15).invoke();
+                krydser.add(new Kryds(g, row, offset,15, 0));
+                krydser.add( new Kryds(g, row, offset,0, 15));
             }
 
             if (txt.contains("E")) {
-                new Kryds(g, row, offset,15, -5).invoke();
-                new Kryds(g, row, offset,0, 0).invoke();
-                new Kryds(g, row, offset,25, 10).invoke();
-                new Kryds(g, row, offset,11, 15).invoke();
+                krydser.add( new Kryds(g, row, offset,15, -5));
+                krydser.add( new Kryds(g, row, offset,0, 0));
+                krydser.add( new Kryds(g, row, offset,25, 10));
+                krydser.add( new Kryds(g, row, offset,11, 15));
 
             }
 
             if (txt.contains("F")) {
-                new Kryds(g, row, offset,0, 20,true).invoke();
+                krydser.add( new Kryds(g, row, offset,0, 20,true));
             }
             if (txt.contains("G")) {
-                new Kryds(g, row, offset,0, 0).invoke();
+                krydser.add( new Kryds(g, row, offset,0, 0));
+            }
+            for (Kryds krydser1 : krydser){
+                krydser1.invoke();
             }
 
+            krydser.clear();
+            System.out.println(krydser.size());
         }
     }
 
