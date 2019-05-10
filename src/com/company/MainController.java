@@ -54,7 +54,7 @@ public class MainController {
 
     @FXML
 
-    public void playMajor() {
+    public void majorScaleButton() {
 
         s = textField.getText();
         System.out.println("playing " + s);
@@ -70,14 +70,14 @@ public class MainController {
 
     @FXML
 
-    public void btn3() {
+    public void stopButton() {
         clicked = false;
         osc.sineLineOut.stop();
 
     }
 
     @FXML
-    public void btn4() {
+    public void resetButton() {
 
         //reset
 
@@ -90,11 +90,11 @@ public class MainController {
 
     @FXML
 
-    public void btn1() {
+    public void minorScaleButton() {
         s = textField.getText();
         System.out.println("playing " + s);
         complexity = choiceBox.getSelectionModel().getSelectedItem();
-
+        System.out.println("using: " + complexity);
         minorScala = new MinorScaleTest(13, hashTest.frequencyFinder(s));
         rootnote = minorScala.getScale().get(0);
         rootnote2 = hashTest.noteFinder(rootnote);
@@ -183,6 +183,8 @@ public class MainController {
 
                 } else {
                     osc.RandomMelody(minorScala.getScale(), counter, complexity);
+                    notes.add(new note(minorScala.getScale(), counter, complexity));
+
                 }
 
             } else {
@@ -258,52 +260,97 @@ public class MainController {
     }
 
     private void kryds(GraphicsContext g, int row, int offset) {
-        if(isMajor) {
-            String txt = s;
+        if (isMajor) {
             ArrayList<Kryds> krydser = new ArrayList<>();
 
             //øverste linje = 0, for hver 10 man går op går man en linje ned.
-
-            if (txt.contains("A")) {
-                krydser.add(new Kryds(g, row, offset,15, -5));
-                krydser.add(new Kryds(g, row, offset,25, 0));
-                krydser.add( new Kryds(g, row, offset,0, 15));
+            if (s.contains("A")) {
+                krydser.add(new Kryds(g, row, offset, 15, -5));
+                krydser.add(new Kryds(g, row, offset, 25, 0));
+                krydser.add(new Kryds(g, row, offset, 0, 15));
             }
 
-            if (txt.contains("B")) {
-                 krydser.add(new Kryds(g, row, offset,15, -5));
-                krydser.add( new Kryds(g, row, offset,0, 0));
-                krydser.add( new Kryds(g, row, offset,25, 10));
-                krydser.add(  new Kryds(g, row, offset,11, 15));
-                krydser.add( new Kryds(g, row, offset,35, 25));
+            if (s.contains("B")) {
+                krydser.add(new Kryds(g, row, offset, 15, -5));
+                krydser.add(new Kryds(g, row, offset, 0, 0));
+                krydser.add(new Kryds(g, row, offset, 25, 10));
+                krydser.add(new Kryds(g, row, offset, 11, 15));
+                krydser.add(new Kryds(g, row, offset, 35, 25));
             }
 
 
-            if (txt.contains("D")) {
-                krydser.add(new Kryds(g, row, offset,15, 0));
-                krydser.add( new Kryds(g, row, offset,0, 15));
+            if (s.contains("D")) {
+                krydser.add(new Kryds(g, row, offset, 15, 0));
+                krydser.add(new Kryds(g, row, offset, 0, 15));
             }
 
-            if (txt.contains("E")) {
-                krydser.add( new Kryds(g, row, offset,15, -5));
-                krydser.add( new Kryds(g, row, offset,0, 0));
-                krydser.add( new Kryds(g, row, offset,25, 10));
-                krydser.add( new Kryds(g, row, offset,11, 15));
+            if (s.contains("E")) {
+                krydser.add(new Kryds(g, row, offset, 15, -5));
+                krydser.add(new Kryds(g, row, offset, 0, 0));
+                krydser.add(new Kryds(g, row, offset, 25, 10));
+                krydser.add(new Kryds(g, row, offset, 11, 15));
 
             }
 
-            if (txt.contains("F")) {
-                krydser.add( new Kryds(g, row, offset,0, 20,true));
+            if (s.contains("F")) {
+                krydser.add(new Kryds(g, row, offset, 0, 20, true));
             }
-            if (txt.contains("G")) {
-                krydser.add( new Kryds(g, row, offset,0, 0));
+            if (s.contains("G")) {
+                krydser.add(new Kryds(g, row, offset, 0, 0));
             }
-            for (Kryds krydser1 : krydser){
+            for (Kryds krydser1 : krydser) {
                 krydser1.invoke();
             }
 
             krydser.clear();
             System.out.println(krydser.size());
+        }
+//minor
+        if (!isMajor) {
+            ArrayList<Kryds> krydser = new ArrayList<>();
+
+            if (s.contains("B")) {
+
+                krydser.add(new Kryds(g, row, offset, 0, 0));
+
+                krydser.add(new Kryds(g, row, offset, 0, 15));
+
+            }
+            if (s.contains("D")) {
+
+                krydser.add(new Kryds(g, row, offset, 0, 20,true));
+
+            }
+
+
+            if (s.contains("E")) {
+
+                krydser.add(new Kryds(g, row, offset, 0, 0));
+
+            }
+
+            if (s.contains("F")) {
+                krydser.add(new Kryds(g, row, offset, 5, 5,true));
+
+                krydser.add(new Kryds(g, row, offset, 15, 10,true));
+
+                krydser.add(new Kryds(g, row, offset, 0, 25,true));
+
+                krydser.add(new Kryds(g, row, offset, 10, 30,true));
+            }
+            if (s.contains("G")) {
+
+                krydser.add(new Kryds(g, row, offset, 5, 5,true));
+
+
+                krydser.add(new Kryds(g, row, offset, 0, 20,true));
+            }
+
+            for (Kryds krydser1 : krydser) {
+                krydser1.invoke();
+            }
+            krydser.clear();
+
         }
     }
 
@@ -345,5 +392,19 @@ public class MainController {
                 g.fillRect(startX + 2, startY + row * offset , 6, 6);
             }
         }
+
     }
+
+    public static void main(String[] args) {
+        String strVal = "Ac";
+        switch (strVal){
+            case "A": System.out.print("A PICK"); break;
+            case "B": System.out.print("B PICK"); break;
+            case "C": System.out.print("C PICK"); break;
+            default: System.out.print("DEF"); break;
+        }
+    }
+
+
+
 }
