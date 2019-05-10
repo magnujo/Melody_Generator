@@ -35,7 +35,7 @@ public class OscGeneratorRhythm {
     FileReader fR = new FileReader(".idea/data");
     HashTest noteList = new HashTest();
 
-    private Rhythm rhythm = new Rhythm(90,4.0,60.000);
+    private Rhythm rhythm = new Rhythm(90,3.0);
 
     ArrayList<Integer> intRhytmList = fR.getPlaylist();
     private double dutyCycle = 0.8;

@@ -35,14 +35,14 @@ public class OscGeneratorRhythm2 {
     FileReader fR = new FileReader(".idea/data");
     HashTest noteList = new HashTest();
 
-    private Rhythm rhythm = new Rhythm(90,4.0,60.000);
+    private Rhythm rhythm = new Rhythm(100,4.0);
 
     ArrayList<Integer> intRhytmList = fR.getPlaylist();
-    private double dutyCycle = 0.8;
+    private double dutyCycle = 0.8; //Controls decay
 
-    private VoiceAllocator allocator;
-    private UnitVoice[] voices;
-    int tonicNote = 60;                     //shall be replaced with randomness
+    private VoiceAllocator allocator; //Needed to use noteon and noteoff methods that can control decay
+    private UnitVoice[] voices; //Needed for VoiceAllocator to work
+    int tonicNote = 60;     //Controls pitch!
 
 
 
@@ -67,17 +67,15 @@ public class OscGeneratorRhythm2 {
 
     }
 
-    public void Play(double decay, int measures, int timeSignature){
+    public void Play(double decay, int notesPerMeasure){
         this.dutyCycle = decay;
         lineOut.start();
 
         double timeNow = synth.getCurrentTime();
 
         try {
-            //this for loop decides how many measures to play.
-                                                       // right now 1 measure will be played*/
-                doRythm(timeNow, tonicNote,timeSignature);
-                timeNow += rhythm.getMeasure();
+                doRythm(timeNow, tonicNote,notesPerMeasure);
+                timeNow = timeNow + rhythm.getMeasure();   //Adds the time (seconds) of a measure of the given BPM and pulse to the timeNow
                 synth.sleepUntil(timeNow);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -86,11 +84,10 @@ public class OscGeneratorRhythm2 {
         lineOut.stop();
     }
 
-    public void doRythm(double time, int note, int timeSignature) {
+    public void doRythm(double time, int note, int notesPerMeasure) {
 
 
-        //this loop decides how many times the note should be played. Right now it will be played 4 times
-        for (int i = 0; i < timeSignature; i++) {
+       for (int i = 0; i < notesPerMeasure; i++) {
             double localNoteLength = rhythm.getRandomNoteLength();
             noteOn(time, note);
             noteOff(time + dutyCycle * localNoteLength, note);
@@ -102,7 +99,7 @@ public class OscGeneratorRhythm2 {
     }
 
     private void noteOn(double time, int note) {
-        double frequency = AudioMath.pitchToFrequency(note);
+        double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the note, out of tonicNote;
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
         allocator.noteOn(note, frequency, amplitude, timeStamp);
@@ -222,9 +219,9 @@ public class OscGeneratorRhythm2 {
         OscGeneratorRhythm2 osc = new OscGeneratorRhythm2();
         osc.OscSetup();
 
-        for (int i = 0; i <1; i++) {
+        for (int i = 0; i <2; i++) {
 
-            osc.Play(0.1,2,32);
+            osc.Play(0.1,32);
 
         }
         osc.synth.stop();
