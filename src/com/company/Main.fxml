@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="750.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainController">
+<AnchorPane prefHeight="629.0" prefWidth="659.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainController">
    <children>
       <TextFlow fx:id="textFlow" layoutX="28.0" layoutY="662.0" prefHeight="74.0" prefWidth="599.0" />
       <Canvas fx:id="canvas" height="546.0" width="659.0" />
@@ -23,17 +23,17 @@
                </font>
             </Button>
       
-                  <Button fx:id="playMajor" layoutX="108.0" layoutY="15.0" mnemonicParsing="false" onAction="#playMajor" text="Play Major">
+                  <Button fx:id="majorScaleButton" layoutX="108.0" layoutY="15.0" mnemonicParsing="false" onAction="#majorScaleButton" text="Play Major">
                <font>
                   <Font name="Britannic Bold" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="btn1" layoutX="216.0" layoutY="15.0" mnemonicParsing="false" onAction="#btn1" text="Play minor">
+            <Button fx:id="minorScaleButton" layoutX="216.0" layoutY="15.0" mnemonicParsing="false" onAction="#minorScaleButton" text="Play minor">
                <font>
                   <Font name="Britannic Bold" size="18.0" />
                </font>
             </Button>
-            <Button id="btn3" fx:id="btn3" layoutX="324.0" layoutY="15.0" mnemonicParsing="false" onAction="#btn3" text="[Stop]">
+            <Button id="btn3" fx:id="stopButton" layoutX="324.0" layoutY="15.0" mnemonicParsing="false" onAction="#stopButton" text="[Stop]">
                <font>
                   <Font name="Britannic Bold" size="18.0" />
                </font>
@@ -51,9 +51,19 @@
                   <String fx:value="low complexity" />
                </value>
              </ChoiceBox>
-            <Button id="btn3" fx:id="btn31" layoutX="396.0" layoutY="15.0" mnemonicParsing="false" onAction="#btn4" text="reset">
+            <Button id="btn3" fx:id="btn31" layoutX="396.0" layoutY="15.0" mnemonicParsing="false" onAction="#resetButton" text="reset">
                <font>
                   <Font name="Britannic Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button id="pictureBtn" fx:id="pictureBtn" layoutX="175.0" layoutY="52.0" mnemonicParsing="false" onAction="#pictureBtn" text="Take Picture">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button id="recBtn" fx:id="recBtn" layoutX="290.0" layoutY="52.0" mnemonicParsing="false" onAction="#recBtn" text="Get Sample">
+               <font>
+                  <Font name="Britannic Bold" size="15.0" />
                </font>
             </Button>
 

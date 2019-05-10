@@ -1,5 +1,7 @@
 package com.company;
 
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 
 public class note {

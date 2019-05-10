@@ -15,9 +15,5 @@ public class MajorScaleTest extends ScaleGeneratorTest{
             scale.remove(6);
     }
 
-    public static void main(String[] args) {
 
-        MajorScaleTest scaleGenerator = new MajorScaleTest(12, 65.41);
-        System.out.println(Arrays.toString(scaleGenerator.getScale().toArray()));
-    }
 }
