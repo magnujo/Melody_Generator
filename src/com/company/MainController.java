@@ -166,8 +166,7 @@ public class MainController {
 
 
         try {
-            WritableImage snapshot = new WritableImage(600,500);
-            WritableImage snapshot2 = canvas.getScene().snapshot(snapshot);
+            WritableImage snapshot = new WritableImage(600,546);
             File picFile = new File("./data/canvasPicture.png");
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", picFile);
 
