@@ -11,29 +11,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="629.0" prefWidth="659.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainController">
+<AnchorPane prefHeight="629.0" prefWidth="659.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainController">
    <children>
       <TextFlow fx:id="textFlow" layoutX="28.0" layoutY="662.0" prefHeight="74.0" prefWidth="599.0" />
       <Canvas fx:id="canvas" height="546.0" width="659.0" />
       <Pane layoutY="543.0" prefHeight="94.0" prefWidth="659.0">
          <children>
-            <Button fx:id="btn2" layoutX="5.0" layoutY="15.0" mnemonicParsing="false" onAction="#btn2" text="Add Scale">
-               <font>
-                  <Font name="Britannic Bold" size="18.0" />
-               </font>
-            </Button>
-      
-                  <Button fx:id="majorScaleButton" layoutX="108.0" layoutY="15.0" mnemonicParsing="false" onAction="#majorScaleButton" text="Play Major">
-               <font>
-                  <Font name="Britannic Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="minorScaleButton" layoutX="216.0" layoutY="15.0" mnemonicParsing="false" onAction="#minorScaleButton" text="Play minor">
-               <font>
-                  <Font name="Britannic Bold" size="18.0" />
-               </font>
-            </Button>
-            <Button id="btn3" fx:id="stopButton" layoutX="324.0" layoutY="15.0" mnemonicParsing="false" onAction="#stopButton" text="[Stop]">
+            <Button id="btn3" fx:id="playbutton" layoutX="239.0" layoutY="15.0" mnemonicParsing="false" onAction="#playbutton" text="[Stop]">
                <font>
                   <Font name="Britannic Bold" size="18.0" />
                </font>
@@ -51,7 +35,7 @@
                   <String fx:value="low complexity" />
                </value>
              </ChoiceBox>
-            <Button id="btn3" fx:id="btn31" layoutX="396.0" layoutY="15.0" mnemonicParsing="false" onAction="#resetButton" text="reset">
+            <Button id="btn3" fx:id="btn31" layoutX="311.0" layoutY="15.0" mnemonicParsing="false" onAction="#resetButton" text="reset">
                <font>
                   <Font name="Britannic Bold" size="18.0" />
                </font>
@@ -61,13 +45,32 @@
                   <Font name="Britannic Bold" size="15.0" />
                </font>
             </Button>
-            <Button id="recBtn" fx:id="recBtn" layoutX="290.0" layoutY="52.0" mnemonicParsing="false" onAction="#recBtn" text="Get Sample">
+            <Button id="recBtn" fx:id="recBtn" layoutX="275.0" layoutY="52.0" mnemonicParsing="false" onAction="#recBtn" text="Get Sample">
                <font>
                   <Font name="Britannic Bold" size="15.0" />
+               </font>
+            </Button>
+            <ChoiceBox fx:id="choiceBox1" layoutX="5.0" layoutY="22.0" prefWidth="150.0" value="major scale">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="harmonic minor scale" />
+                     <String fx:value="major scale" />
+                     <String fx:value="minor scale" />
+                  </FXCollections>
+               </items>
+            </ChoiceBox>
+            <Button id="btn3" fx:id="playButton" layoutX="175.0" layoutY="15.0" mnemonicParsing="false" onAction="#playButton" text="[Play]">
+               <font>
+                  <Font name="Britannic Bold" size="18.0" />
                </font>
             </Button>
 
          </children>
       </Pane>
+      <Button fx:id="addScale" layoutY="623.0" mnemonicParsing="false" onAction="#addScale" text="Add Scale">
+         <font>
+            <Font name="Britannic Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

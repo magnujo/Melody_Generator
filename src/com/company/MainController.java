@@ -30,10 +30,14 @@ public class MainController {
     private String s = "C3";
     private MajorScaleTest majorScala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
     private MinorScaleTest minorScala = new MinorScaleTest(13, hashTest.frequencyFinder(s));
+    private HarmonicMinorScale harmonicMinorScale = new HarmonicMinorScale(13, hashTest.frequencyFinder(s));
+
 
     private boolean runonce = false;
     private boolean clicked = false;
     private boolean isMajor;
+    private boolean isMinor;
+    private boolean isHarmonicMinor;
     private double rootnote;
     private double rootnote2;
     private String complexity = "medium complexity";
@@ -45,6 +49,9 @@ public class MainController {
     ChoiceBox<String> choiceBox;
 
     @FXML
+    ChoiceBox<String> choiceBox1;
+
+    @FXML
     Canvas canvas;
     @FXML
     TextFlow textFlow;
@@ -54,23 +61,60 @@ public class MainController {
 
     @FXML
 
-    public void majorScaleButton() {
-
+    public void playButton() {
         s = textField.getText();
         System.out.println("playing " + s);
         complexity = choiceBox.getSelectionModel().getSelectedItem();
         System.out.println("using: " + complexity);
-        majorScala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
-        rootnote = majorScala.getScale().get(0);
-        rootnote2 = hashTest.noteFinder(rootnote);
 
-        isMajor = true;
-        clicked = true;
+        String scaleType = choiceBox1.getSelectionModel().getSelectedItem();
+
+        switch (scaleType){
+            case "major scale":
+                majorScala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
+                rootnote = majorScala.getScale().get(0);
+                rootnote2 = hashTest.noteFinder(rootnote);
+                isMajor = true;
+                isMinor=false;
+                isHarmonicMinor=false;
+                clicked = true;
+                break;
+            case "minor scale":
+                s = textField.getText();
+                System.out.println("playing " + s);
+                complexity = choiceBox.getSelectionModel().getSelectedItem();
+                System.out.println("using: " + complexity);
+                minorScala = new MinorScaleTest(13, hashTest.frequencyFinder(s));
+                rootnote = minorScala.getScale().get(0);
+                rootnote2 = hashTest.noteFinder(rootnote);
+                isMinor = true;
+                isMajor = false;
+                isHarmonicMinor=false;
+                clicked = true;
+                break;
+            case "harmonic minor scale":
+                s = textField.getText();
+                System.out.println("playing " + s);
+                complexity = choiceBox.getSelectionModel().getSelectedItem();
+                System.out.println("using: " + complexity);
+                harmonicMinorScale = new HarmonicMinorScale(13, hashTest.frequencyFinder(s));
+                rootnote = minorScala.getScale().get(0);
+                rootnote2 = hashTest.noteFinder(rootnote);
+                isHarmonicMinor = true;
+                isMajor=false;
+                isMinor=false;
+                clicked = true;
+                    break;
+
+        }
+
+
+
     }
 
     @FXML
 
-    public void stopButton() {
+    public void playbutton() {
         clicked = false;
         osc.sineLineOut.stop();
 
@@ -89,23 +133,7 @@ public class MainController {
     }
 
     @FXML
-
-    public void minorScaleButton() {
-        s = textField.getText();
-        System.out.println("playing " + s);
-        complexity = choiceBox.getSelectionModel().getSelectedItem();
-        System.out.println("using: " + complexity);
-        minorScala = new MinorScaleTest(13, hashTest.frequencyFinder(s));
-        rootnote = minorScala.getScale().get(0);
-        rootnote2 = hashTest.noteFinder(rootnote);
-
-        isMajor = false;
-        clicked = true;
-
-    }
-
-    @FXML
-    public void btn2() {
+    public void addScale() {
 
         s = textField.getText();
         System.out.println("added " + s);
@@ -186,9 +214,14 @@ public class MainController {
                     osc.RandomMelody(majorScala.getScale(), counter, complexity,"sine");
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
 
-                } else {
+                } if(isMinor) {
                     osc.RandomMelody(minorScala.getScale(), counter, complexity,"sine");
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
+
+                }
+                if(isHarmonicMinor){
+                    osc.RandomMelody(harmonicMinorScale.getScale(), counter, complexity,"sine");
+                    notes.add(new Note(harmonicMinorScale.getScale(), counter, complexity));
 
                 }
 
