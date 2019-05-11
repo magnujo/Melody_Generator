@@ -14,7 +14,6 @@ import javafx.scene.control.CheckBox;
 
 
 import javax.imageio.*;
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -52,8 +51,6 @@ public class MainController {
 
     @FXML
     ChoiceBox<String> choiceBox1;
-
-
 
     @FXML
     Canvas canvas;
@@ -131,6 +128,7 @@ public class MainController {
         osc.sineLineOut.stop();
         counter = 0;
         toClear = true;
+
 
     }
 
@@ -229,6 +227,7 @@ public class MainController {
 
             } else {
                 osc.sineLineOut.stop();
+                counter=0;
                 clicked = false;
             }
             g.setFill(Color.RED);
@@ -276,22 +275,24 @@ public class MainController {
 
         g.fillOval(notes.get(counter).getxPos(), notes.get(counter).getyPos(), 6, 6);
         g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos() - 12, 2, 15);
+        g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos() - 14, 10, 1);
+
 
         //if(d>200||d<160)
         // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
 
         //nodepapir
-        g.fillRect(0, 75 + row * offset, 540, 1);
-        g.fillRect(0, 85 + row * offset, 540, 1);
-        g.fillRect(0, 95 + row * offset, 540, 1);
-        g.fillRect(0, 105 + row * offset, 540, 1);
-        g.fillRect(0, 115 + row * offset, 540, 1);
+        g.fillRect(0, 75 + row * offset, 560, 1);
+        g.fillRect(0, 85 + row * offset, 560, 1);
+        g.fillRect(0, 95 + row * offset, 560, 1);
+        g.fillRect(0, 105 + row * offset, 560, 1);
+        g.fillRect(0, 115 + row * offset, 560, 1);
 
         //line seperator
 
         for (int i = 0; i <13 ; i++) {
 
-            g.fillRect(0+i*90, 75 + row * offset, 4, 41);
+            g.fillRect(0+i*80, 75 + row * offset, 4, 41);
 
         }
 
@@ -353,16 +354,25 @@ public class MainController {
             krydser.clear();
         }
 //minor
-        if (!isMajor) {
+        if (isMinor||isHarmonicMinor) {
             ArrayList<Kryds> krydser = new ArrayList<>();
 
             if (s.contains("B")) {
 
                 krydser.add(new Kryds(g, row, offset, 0, 0));
-
                 krydser.add(new Kryds(g, row, offset, 0, 15));
 
             }
+
+            if (s.contains("C")) {
+
+                krydser.add(new Kryds(g, row, offset, 5, 5,true));
+                krydser.add(new Kryds(g, row, offset, 0, 20,true));
+                krydser.add(new Kryds(g, row, offset, 10, 25,true));
+
+            }
+
+
             if (s.contains("D")) {
 
                 krydser.add(new Kryds(g, row, offset, 0, 20,true));

@@ -61,11 +61,8 @@ public class FileReader {
                     Pattern su = Pattern.compile("[s-u]");   // the pattern to search for
                     Matcher m7 = su.matcher(b);
 
-                    Pattern vz = Pattern.compile("[v-x]");   // the pattern to search for
+                    Pattern vz = Pattern.compile("[v-å]");   // the pattern to search for
                     Matcher m8 = vz.matcher(b);
-
-                    Pattern zå = Pattern.compile("[z-å]");   // the pattern to search for
-                    Matcher m9 = zå.matcher(b);
 
 
                     if (m.find()) {
@@ -96,9 +93,7 @@ public class FileReader {
                     if (m8.find()) {
                         playlist.add(7);
                     }
-                    if (m9.find()) {
-                        playlist.add(8);
-                    }
+
                 }
 
             }

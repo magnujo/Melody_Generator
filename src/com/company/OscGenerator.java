@@ -154,6 +154,7 @@ public class OscGenerator {
 
 
     public void RandomMelody(ArrayList<Double> scale, int i,String complexity,String oscillatorType,boolean muted) {
+
         if (complexity == "low complexity")
             duration = 0.2;
         if (complexity == "medium complexity" || complexity == null)
