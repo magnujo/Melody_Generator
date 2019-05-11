@@ -22,7 +22,7 @@ public class OscGenerator {
     private LineOut noiseLineOut;
     private Synthesizer synthSquare = JSyn.createSynthesizer();
     private Synthesizer synthNoise = JSyn.createSynthesizer();
-    private double duration = 0.1;
+    private double duration;
     private UnitOscillator sineOsc = new SineOscillator();
     private UnitOscillator oscillator;
     private ArrayList<Integer> playListValues = new ArrayList<>();
@@ -155,12 +155,19 @@ public class OscGenerator {
 
     public void RandomMelody(ArrayList<Double> scale, int i,String complexity,String oscillatorType,boolean muted) {
 
-        if (complexity == "low complexity")
-            duration = 0.2;
-        if (complexity == "medium complexity" || complexity == null)
+
+
+        if (complexity.equals("low complexity")) {
+            duration = 0.1;
+        }
+        if (complexity.equals("medium complexity") || complexity == null) {
+
             duration = intRhytmList.get(i) * 0.1;
-        if (complexity == "high complexity")
-            duration = random.nextInt(10);
+        }
+        if (complexity.equals("high complexity")) {
+
+            duration = random.nextInt(1);
+        }
 
         if(!muted) {
             PlaySine(scale.get(intRhytmList.get(i)));

@@ -106,7 +106,6 @@ public class MainController {
                 isMinor=false;
                 clicked = true;
                     break;
-
         }
 
     }
@@ -192,6 +191,9 @@ public class MainController {
 
 //if the button major or minor are pressed
         if (clicked) {
+            complexity = choiceBox.getSelectionModel().getSelectedItem();
+
+
 
 
             if (!runonce) {
