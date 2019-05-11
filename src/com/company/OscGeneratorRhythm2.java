@@ -99,7 +99,7 @@ public class OscGeneratorRhythm2 {
     }
 
     private void noteOn(double time, int note) {
-        double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the note, out of tonicNote;
+        double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
         allocator.noteOn(note, frequency, amplitude, timeStamp);

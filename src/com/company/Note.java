@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
-public class note {
+public class Note {
     public double getxPos() {
         return xPos;
     }
@@ -28,7 +28,7 @@ public class note {
     private ArrayList<Double> scale;
 
 
-    note(ArrayList<Double> scale, int i, String complexity){
+    Note(ArrayList<Double> scale, int i, String complexity){
 
          this.complexity = complexity;
          counter = i;

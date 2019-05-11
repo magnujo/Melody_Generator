@@ -94,7 +94,7 @@ public class OscGeneratorRhythm {
     public void doRythm(double time, int note) {
 
 
-        //this loop decides how many times the note should be played. Right now it will be played 4 times
+        //this loop decides how many times the Note should be played. Right now it will be played 4 times
         for (int i = 0; i < 4; i++) {
            double localNoteLength = rhythm.getRandomNoteLength();
             noteOn(time, note);

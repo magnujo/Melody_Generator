@@ -47,7 +47,7 @@ public class OscGenerator {
         try{
         this.frequency = noteList.frequencyFinder(note.toUpperCase());}
         catch (NullPointerException e){
-            System.out.println("ERROR 401: You propably didnt enter a valid note name. Enter something like 'A4' og 'C#4'");
+            System.out.println("ERROR 401: You propably didnt enter a valid Note name. Enter something like 'A4' og 'C#4'");
         }
         oscillator.frequency.set(frequency);
         lineOut.start();
@@ -153,25 +153,35 @@ public class OscGenerator {
     }
 
 
-    public void RandomMelody(ArrayList<Double> scale, int i,String complexity) {
-        if(complexity=="low complexity")
-                duration = 0.2;
-        if (complexity=="medium complexity"||complexity==null)
-                duration = intRhytmList.get(i)*0.1;
-        if (complexity=="high complexity")
-                 duration = random.nextInt(10);
+    public void RandomMelody(ArrayList<Double> scale, int i,String complexity,String oscillatorType) {
+        if (complexity == "low complexity")
+            duration = 0.2;
+        if (complexity == "medium complexity" || complexity == null)
+            duration = intRhytmList.get(i) * 0.1;
+        if (complexity == "high complexity")
+            duration = random.nextInt(10);
 
-            PlaySine(scale.get(intRhytmList.get(i)));
-            //notes.add(scale.get(intRhytmList.get(i)));
-             notes.add(scale.get(intRhytmList.get(i)));
-             playListValues.add(intRhytmList.get(i));
+        PlaySine(scale.get(intRhytmList.get(i)));
+        //notes.add(scale.get(intRhytmList.get(i)));
+        notes.add(scale.get(intRhytmList.get(i)));
+        playListValues.add(intRhytmList.get(i));
 
 
-        try {
+        if (oscillatorType == null||oscillatorType=="sine") {
+            try {
                 synthSine.sleepFor(duration);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+
+        if (oscillatorType == null||oscillatorType=="square") {
+            try {
+                synthSine.sleepFor(duration);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

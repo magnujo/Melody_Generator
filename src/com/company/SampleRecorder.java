@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class SampleRecorder {
-    File wavFile = new File("./data/newSample.vaw");
+    File wavFile = new File("./data/newSample.wav");
     WaveRecorder waveRecorder;
 
     public void startRecording(OscGenerator ocsGen) throws FileNotFoundException {

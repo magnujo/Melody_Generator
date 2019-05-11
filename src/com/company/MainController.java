@@ -18,7 +18,6 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainController {
@@ -39,7 +38,7 @@ public class MainController {
     private double rootnote2;
     private String complexity = "medium complexity";
     private boolean toClear;
-    ArrayList<note> notes = new ArrayList<>();
+    ArrayList<Note> notes = new ArrayList<>();
 
 
     @FXML
@@ -184,12 +183,12 @@ public class MainController {
             GraphicsContext g = canvas.getGraphicsContext2D();
             if (counter < osc.intRhytmList.size()) {
                 if (isMajor) {
-                    osc.RandomMelody(majorScala.getScale(), counter, complexity);
-                    notes.add(new note(majorScala.getScale(), counter, complexity));
+                    osc.RandomMelody(majorScala.getScale(), counter, complexity,"sine");
+                    notes.add(new Note(majorScala.getScale(), counter, complexity));
 
                 } else {
-                    osc.RandomMelody(minorScala.getScale(), counter, complexity);
-                    notes.add(new note(minorScala.getScale(), counter, complexity));
+                    osc.RandomMelody(minorScala.getScale(), counter, complexity,"sine");
+                    notes.add(new Note(minorScala.getScale(), counter, complexity));
 
                 }
 
@@ -309,7 +308,6 @@ public class MainController {
             }
 
             krydser.clear();
-            System.out.println(krydser.size());
         }
 //minor
         if (!isMajor) {
@@ -401,15 +399,10 @@ public class MainController {
 
     }
 
-    public static void main(String[] args) {
-        String strVal = "Ac";
-        switch (strVal){
-            case "A": System.out.print("A PICK"); break;
-            case "B": System.out.print("B PICK"); break;
-            case "C": System.out.print("C PICK"); break;
-            default: System.out.print("DEF"); break;
-        }
-    }
+
+
+
+
 
 
 
