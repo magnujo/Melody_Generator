@@ -74,9 +74,9 @@ public class OscGeneratorRhythm2 {
         double timeNow = synth.getCurrentTime();
 
         try {
-                doRythm(timeNow, tonicNote,notesPerMeasure);
-                timeNow = timeNow + rhythm.getMeasure();   //Adds the time (seconds) of a measure of the given BPM and pulse to the timeNow
-                synth.sleepUntil(timeNow);
+            doRythm(timeNow, tonicNote,notesPerMeasure);
+            timeNow = timeNow + rhythm.getMeasure();   //Adds the time (seconds) of a measure of the given BPM and pulse to the timeNow
+            synth.sleepUntil(timeNow);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
