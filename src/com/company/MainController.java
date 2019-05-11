@@ -8,23 +8,20 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.CheckBox;
 
 
 import javax.imageio.*;
-import java.awt.image.RenderedImage;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainController {
-    private static ArrayList<Double> chosenScales = new ArrayList<>();
     private HashTest hashTest = new HashTest();
-    private ArrayList textList = new ArrayList();
     private OscGenerator osc;
 
     private int counter;
@@ -40,10 +37,14 @@ public class MainController {
     private boolean isMinor;
     private boolean isHarmonicMinor;
     private double rootnote;
+    private boolean isMuted;
     private double rootnote2;
     private String complexity = "medium complexity";
     private boolean toClear;
     ArrayList<Note> notes = new ArrayList<>();
+
+    @FXML
+    CheckBox mute;
 
 
     @FXML
@@ -51,6 +52,8 @@ public class MainController {
 
     @FXML
     ChoiceBox<String> choiceBox1;
+
+
 
     @FXML
     Canvas canvas;
@@ -109,8 +112,6 @@ public class MainController {
 
         }
 
-
-
     }
 
     @FXML
@@ -133,40 +134,16 @@ public class MainController {
 
     }
 
-    @FXML
-    public void addScale() {
 
-        s = textField.getText();
-        System.out.println("added " + s);
-
-        textList.add(s);
-        chosenScales.add(hashTest.frequencyFinder(s));
-        textFlow.getChildren().clear();
-
-        for (int i = 0; i < textList.size(); i++) {
-            Text text = new Text(textList.get(i) + " ");
-            text.setFont(new Font(25));
-            text.setFill(Color.DARKORCHID);
-            textFlow.getChildren().add(text);
-        }
-
-    }
 
     //Button to print image
     @FXML
     public void pictureBtn() {
 
-
-       // WritableImage snapshot = canvas.getScene().snapshot(null);
-
-
-
-
-        //RenderedImage renderedImage = snapshot
-
-
         try {
             WritableImage snapshot = new WritableImage(600,546);
+            WritableImage snapshot2 = canvas.getScene().snapshot(snapshot);
+
             File picFile = new File("./data/canvasPicture.png");
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", picFile);
 
@@ -184,6 +161,9 @@ public class MainController {
 
     @FXML
     public void initialize() {
+
+
+
         GraphicsContext g = canvas.getGraphicsContext2D();
 
 
@@ -205,9 +185,16 @@ public class MainController {
     }
 
     private void drawCanvas() {
+        GraphicsContext g = canvas.getGraphicsContext2D();
+        if (toClear) {
+            g.clearRect(0, 0, 1000, 1000);
+            toClear = false;
+        }
+
 
 //if the button major or minor are pressed
         if (clicked) {
+
 
             if (!runonce) {
                 osc.SetupSine();
@@ -216,19 +203,26 @@ public class MainController {
                 runonce = true;
             }
 
-            GraphicsContext g = canvas.getGraphicsContext2D();
+
+            isMuted= mute.isSelected();
+
+            if(isMuted){
+                osc.sineLineOut.stop();
+            }
+
             if (counter < osc.intRhytmList.size()) {
+
                 if (isMajor) {
-                    osc.RandomMelody(majorScala.getScale(), counter, complexity,"sine");
+                    osc.RandomMelody(majorScala.getScale(), counter, complexity,"sine",isMuted);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
 
                 } if(isMinor) {
-                    osc.RandomMelody(minorScala.getScale(), counter, complexity,"sine");
+                    osc.RandomMelody(minorScala.getScale(), counter, complexity,"sine",isMuted);
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
 
                 }
                 if(isHarmonicMinor){
-                    osc.RandomMelody(harmonicMinorScale.getScale(), counter, complexity,"sine");
+                    osc.RandomMelody(harmonicMinorScale.getScale(), counter, complexity,"sine",isMuted);
                     notes.add(new Note(harmonicMinorScale.getScale(), counter, complexity));
 
                 }
@@ -250,33 +244,34 @@ public class MainController {
     }
 
     private void drawNotePaper(GraphicsContext g, int e) {
-        if (toClear) {
-            g.clearRect(0, 0, 1000, 1000);
-            toClear = false;
-        }
+
 
         g.setFill(Color.BLACK);
         int row = 0;
         int offset = 0;
         int xPos;
+        int xOffset=0;
 
-        if (counter > 100) {
+        if (counter > 50) {
             row = 1;
             offset = 100;
+            xOffset = 50;
+
         }
-        if (counter > 200) {
+        if (counter > 100) {
             row = 2;
         }
-        if (counter > 300) {
+        if (counter > 150) {
             row = 3;
         }
-        if (counter > 400) {
+        if (counter > 200) {
             row = 4;
         }
-        xPos = counter - offset * row;
+        xPos = counter - xOffset * row;
+
 
         //noder
-        notes.get(counter).setxPos(5 + xPos * 5);
+        notes.get(counter).setxPos(25 + xPos * 10);
         notes.get(counter).setyPos(215 - rootnote2 - e * 5 + row * offset);
 
         g.fillOval(notes.get(counter).getxPos(), notes.get(counter).getyPos(), 6, 6);
@@ -286,15 +281,22 @@ public class MainController {
         // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
 
         //nodepapir
-        g.fillRect(0, 75 + row * offset, 542, 1);
-        g.fillRect(0, 85 + row * offset, 542, 1);
-        g.fillRect(0, 95 + row * offset, 542, 1);
-        g.fillRect(0, 105 + row * offset, 542, 1);
-        g.fillRect(0, 115 + row * offset, 542, 1);
+        g.fillRect(0, 75 + row * offset, 540, 1);
+        g.fillRect(0, 85 + row * offset, 540, 1);
+        g.fillRect(0, 95 + row * offset, 540, 1);
+        g.fillRect(0, 105 + row * offset, 540, 1);
+        g.fillRect(0, 115 + row * offset, 540, 1);
 
-        if (counter % 15 == 0) {
-            g.fillRect(counter + xPos * 5 - row * 45, 75 + row * offset, 3, 40);
+        //line seperator
+
+        for (int i = 0; i <13 ; i++) {
+
+            g.fillRect(0+i*90, 75 + row * offset, 4, 41);
+
         }
+
+
+        //beatcounter
         g.clearRect(0, 0, 100, 20);
         g.fillText("beats: " + Integer.toString(counter), 15, 15);
 
