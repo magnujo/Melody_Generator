@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ec85d8cf-6dbd-4d20-ab91-1e080761768c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/company/OscGeneratorChild.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/OscGeneratorRhythm2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/OscGeneratorRhythm2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/OscGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/OscGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/OscGeneratorChild.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/OscGeneratorChild.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,14 +60,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1016" />
-          <entry key="txt" value="10" />
+          <entry key="java" value="1024" />
+          <entry key="txt" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1016" />
-          <entry key="PLAIN_TEXT" value="10" />
+          <entry key="JAVA" value="1024" />
+          <entry key="PLAIN_TEXT" value="21" />
         </counts>
       </usages-collector>
     </session>
@@ -102,11 +102,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="135" column="69" lean-forward="true" selection-start-line="135" selection-start-column="69" selection-end-line="135" selection-end-column="69" />
+            <state relative-caret-position="599">
+              <caret line="153" column="23" lean-forward="true" selection-start-line="153" selection-start-column="23" selection-end-line="153" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -135,17 +135,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/OscGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="30" column="36" lean-forward="true" selection-start-line="30" selection-end-line="31" />
+            <state relative-caret-position="863">
+              <caret line="191" column="23" lean-forward="true" selection-start-line="191" selection-end-line="192" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/OscGeneratorChild.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="928">
-              <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+            <state relative-caret-position="289">
+              <caret line="17" column="24" lean-forward="true" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -168,8 +168,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/OscGeneratorRhythm2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="622">
-              <caret line="217" selection-start-line="217" selection-end-line="229" selection-end-column="5" />
+            <state relative-caret-position="826">
+              <caret line="229" column="5" lean-forward="true" selection-start-line="229" selection-start-column="5" selection-end-line="229" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -227,6 +227,7 @@
       <find>sample</find>
       <find>tonic</find>
       <find>dorym</find>
+      <find>oscgenera</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -264,11 +265,11 @@
         <option value="$PROJECT_DIR$/src/com/company/note.java" />
         <option value="$PROJECT_DIR$/src/com/company/Main.fxml" />
         <option value="$PROJECT_DIR$/src/com/company/Note.java" />
-        <option value="$PROJECT_DIR$/src/com/company/MainController.java" />
-        <option value="$PROJECT_DIR$/src/com/company/OscGenerator.java" />
         <option value="$PROJECT_DIR$/src/com/company/SampleRecorder.java" />
         <option value="$PROJECT_DIR$/src/com/company/OscGeneratorRhythm2.java" />
         <option value="$PROJECT_DIR$/src/com/company/OscGeneratorChild.java" />
+        <option value="$PROJECT_DIR$/src/com/company/OscGenerator.java" />
+        <option value="$PROJECT_DIR$/src/com/company/MainController.java" />
       </list>
     </option>
   </component>
@@ -334,7 +335,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/Gem/Documents/GitHub/Osc_Objects_2/src/com/company/MinorScaleTest.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557593346088" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557595546036" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="extract.method.default.visibility" value="private" />
@@ -374,7 +375,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.OscGeneratorChild">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.company.Main" />
       <module name="Osc Objects" />
@@ -385,8 +386,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MinorScaleTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.company.MinorScaleTest" />
+    <configuration name="OscGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.OscGenerator" />
       <module name="Osc Objects" />
       <extension name="coverage">
         <pattern>
@@ -439,18 +440,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="Application.MinorScaleTest" />
       <item itemvalue="Application.OscGeneratorRhythm" />
       <item itemvalue="Application.OscGeneratorRhythm2" />
       <item itemvalue="Application.OscGeneratorChild" />
+      <item itemvalue="Application.OscGenerator" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.OscGeneratorChild" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.OscGenerator" />
+        <item itemvalue="Application.OscGeneratorChild" />
         <item itemvalue="Application.OscGeneratorRhythm2" />
         <item itemvalue="Application.OscGeneratorRhythm" />
-        <item itemvalue="Application.MinorScaleTest" />
       </list>
     </recent_temporary>
   </component>
@@ -492,7 +493,7 @@
       <workItem from="1557395948613" duration="3757000" />
       <workItem from="1557452672741" duration="32000" />
       <workItem from="1557483937029" duration="3672000" />
-      <workItem from="1557581150773" duration="3214000" />
+      <workItem from="1557581150773" duration="4288000" />
     </task>
     <task id="LOCAL-00001" summary="er igang med filereader">
       <created>1552764155978</created>
@@ -634,7 +635,14 @@
       <option name="project" value="LOCAL" />
       <updated>1557592489044</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Child class">
+      <created>1557593356647</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1557593356647</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -652,10 +660,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120330000" />
+    <option name="totallyTimeSpent" value="121404000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20031796" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -767,7 +776,8 @@
     <MESSAGE value="krydser" />
     <MESSAGE value="Ber" />
     <MESSAGE value="sample recorder tilføjet" />
-    <option name="LAST_COMMIT_MESSAGE" value="sample recorder tilføjet" />
+    <MESSAGE value="Child class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Child class" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/company/SawOsc.java" />
@@ -890,16 +900,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/MainController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="135" column="69" lean-forward="true" selection-start-line="135" selection-start-column="69" selection-end-line="135" selection-end-column="69" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
@@ -910,13 +910,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/OscGeneratorRhythm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="57" column="49" lean-forward="true" selection-start-line="57" selection-start-column="49" selection-end-line="57" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Note.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -924,24 +917,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/OscGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/com/company/OscGeneratorRhythm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="30" column="36" lean-forward="true" selection-start-line="30" selection-end-line="31" />
+        <state relative-caret-position="406">
+          <caret line="57" column="49" lean-forward="true" selection-start-line="57" selection-start-column="49" selection-end-line="57" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/OscGeneratorRhythm2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="622">
-          <caret line="217" selection-start-line="217" selection-end-line="229" selection-end-column="5" />
+        <state relative-caret-position="826">
+          <caret line="229" column="5" lean-forward="true" selection-start-line="229" selection-start-column="5" selection-end-line="229" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/OscGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="863">
+          <caret line="191" column="23" lean-forward="true" selection-start-line="191" selection-end-line="192" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/OscGeneratorChild.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="928">
-          <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+        <state relative-caret-position="289">
+          <caret line="17" column="24" lean-forward="true" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="599">
+          <caret line="153" column="23" lean-forward="true" selection-start-line="153" selection-start-column="23" selection-end-line="153" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

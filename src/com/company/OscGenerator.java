@@ -183,7 +183,18 @@ public class OscGenerator {
             }
         }
     }
+    public static void main(String[] args) {
+        OscGeneratorRhythm2 osc = new OscGeneratorRhythm2();
+        osc.OscSetup();
 
+        for (int i = 0; i <2; i++) {
+
+            osc.Play(0.1,32);
+
+        }
+        osc.synth.stop();
+
+    }
 
 
 }

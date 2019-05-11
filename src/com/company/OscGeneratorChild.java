@@ -9,8 +9,6 @@ public class OscGeneratorChild extends OscGenerator{
 
     private double dutyCycle = 0.8; //Controls decay
     private Rhythm rhythm = new Rhythm(100,4.0);
-
-
     private VoiceAllocator allocator; //Needed to use noteon and noteoff methods that can control decay
     private UnitVoice[] voices; //Needed for VoiceAllocator to work
     int tonicNote = 60;     //Controls pitch!
@@ -64,7 +62,8 @@ public class OscGeneratorChild extends OscGenerator{
         }
         osc.synth.stop();
 
-
     }
+
+
 
 }
