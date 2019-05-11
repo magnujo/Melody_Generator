@@ -22,8 +22,8 @@
                   <Font name="Britannic Bold" size="18.0" />
                </font>
             </Button>
-            <TextField fx:id="textField" layoutX="486.0" layoutY="22.0" text="C3" />
-            <ChoiceBox fx:id="choiceBox" layoutX="5.0" layoutY="54.0" prefWidth="150.0">
+            <TextField fx:id="textField" layoutX="457.0" layoutY="35.0" text="C3" />
+            <ChoiceBox fx:id="choiceBox" layoutX="5.0" layoutY="40.0" prefWidth="150.0">
             <items>
                <FXCollections fx:factory="observableArrayList">
                   <String fx:value="low complexity" />
@@ -50,7 +50,7 @@
                   <Font name="Britannic Bold" size="15.0" />
                </font>
             </Button>
-            <ChoiceBox fx:id="choiceBox1" layoutX="5.0" layoutY="22.0" prefWidth="150.0" value="major scale">
+            <ChoiceBox fx:id="choiceBox1" layoutX="5.0" layoutY="15.0" prefWidth="150.0" value="major scale">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="harmonic minor scale" />
@@ -64,13 +64,13 @@
                   <Font name="Britannic Bold" size="18.0" />
                </font>
             </Button>
+            <Button fx:id="addScale" layoutY="64.0" mnemonicParsing="false" onAction="#addScale" text="Add Scale">
+               <font>
+                  <Font name="Britannic Bold" size="18.0" />
+               </font>
+            </Button>
 
          </children>
       </Pane>
-      <Button fx:id="addScale" layoutY="623.0" mnemonicParsing="false" onAction="#addScale" text="Add Scale">
-         <font>
-            <Font name="Britannic Bold" size="18.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
