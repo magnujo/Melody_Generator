@@ -1,6 +1,7 @@
 package com.company;
 
 import javafx.animation.AnimationTimer;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -154,14 +155,22 @@ public class MainController {
     //Button to print image
     @FXML
     public void pictureBtn() {
-        WritableImage snapshot = canvas.getScene().snapshot(null);
+
+
+       // WritableImage snapshot = canvas.getScene().snapshot(null);
+
+
+
 
         //RenderedImage renderedImage = snapshot
 
-        File picFile = new File("./data/canvasPicture.png");
 
         try {
-            ImageIO.write((RenderedImage) snapshot,"canvasPicture",picFile);
+            WritableImage snapshot = new WritableImage(600,500);
+            WritableImage snapshot2 = canvas.getScene().snapshot(snapshot);
+            File picFile = new File("./data/canvasPicture.png");
+            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", picFile);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
