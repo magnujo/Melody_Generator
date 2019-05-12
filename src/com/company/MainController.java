@@ -20,26 +20,40 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainController {
+
     private HashTest hashTest = new HashTest();
+
+    //oscillator
     private OscGenerator osc;
 
+    //this variable is the play counter, it will go up for every note that should be played.
     private int counter;
+    //This is the initial scale that gets played
     private String s = "C3";
-    private MajorScaleTest majorScala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
-    private MinorScaleTest minorScala = new MinorScaleTest(13, hashTest.frequencyFinder(s));
-    private HarmonicMinorScale harmonicMinorScale = new HarmonicMinorScale(13, hashTest.frequencyFinder(s));
+    //set all the lengths of all scales being generated with one variable
+    private int scaleLengths = 13;
 
+    //instancing class variable scales, with null.
+    private MajorScaleTest majorScala;
+    private MinorScaleTest minorScala;
+    private HarmonicMinorScale harmonicMinorScale;
 
+    //booleans
     private boolean runonce = false;
     private boolean clicked = false;
     private boolean isMajor;
     private boolean isMinor;
     private boolean isHarmonicMinor;
-    private double rootnote;
     private boolean isMuted;
-    private double rootnote2;
-    private String complexity = "medium complexity";
     private boolean toClear;
+
+    //the root note
+    private double rootNote;
+
+    //rhythm complexity
+    private String complexity = "medium complexity";
+
+    //arraylist of notes to be played.
     ArrayList<Note> notes = new ArrayList<>();
 
     @FXML
@@ -72,9 +86,8 @@ public class MainController {
 
         switch (scaleType){
             case "major scale":
-                majorScala = new MajorScaleTest(13, hashTest.frequencyFinder(s));
-                rootnote = majorScala.getScale().get(0);
-                rootnote2 = hashTest.noteFinder(rootnote);
+                majorScala = new MajorScaleTest(scaleLengths, hashTest.frequencyFinder(s));
+                rootNote = hashTest.noteFinder(majorScala.getScale().get(0));
                 isMajor = true;
                 isMinor=false;
                 isHarmonicMinor=false;
@@ -85,9 +98,8 @@ public class MainController {
                 System.out.println("playing " + s);
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
                 System.out.println("using: " + complexity);
-                minorScala = new MinorScaleTest(13, hashTest.frequencyFinder(s));
-                rootnote = minorScala.getScale().get(0);
-                rootnote2 = hashTest.noteFinder(rootnote);
+                minorScala = new MinorScaleTest(scaleLengths, hashTest.frequencyFinder(s));
+                rootNote = hashTest.noteFinder(minorScala.getScale().get(0));
                 isMinor = true;
                 isMajor = false;
                 isHarmonicMinor=false;
@@ -98,9 +110,8 @@ public class MainController {
                 System.out.println("playing " + s);
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
                 System.out.println("using: " + complexity);
-                harmonicMinorScale = new HarmonicMinorScale(13, hashTest.frequencyFinder(s));
-                rootnote = minorScala.getScale().get(0);
-                rootnote2 = hashTest.noteFinder(rootnote);
+                harmonicMinorScale = new HarmonicMinorScale(scaleLengths, hashTest.frequencyFinder(s));
+                rootNote = hashTest.noteFinder(minorScala.getScale().get(0));
                 isHarmonicMinor = true;
                 isMajor=false;
                 isMinor=false;
@@ -273,7 +284,7 @@ public class MainController {
 
         //noder
         notes.get(counter).setxPos(25 + xPos * 10);
-        notes.get(counter).setyPos(215 - rootnote2 - e * 5 + row * offset);
+        notes.get(counter).setyPos(215 - rootNote - e * 5 + row * offset);
 
         g.fillOval(notes.get(counter).getxPos(), notes.get(counter).getyPos(), 6, 6);
         g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos() - 12, 2, 15);
