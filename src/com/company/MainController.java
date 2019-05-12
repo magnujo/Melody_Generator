@@ -26,7 +26,7 @@ public class MainController {
     //this variable is the play counter, it will go up for every note that should be played.
     private int counter;
     //This is the initial scale that gets played
-    private String s = "C3";
+    private String s;
 
     //scaletype
     private String scaleType;
@@ -281,9 +281,21 @@ public class MainController {
         g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos() - 12, 2, 15);
         g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos() - 14, 10, 1);
 
+        //line under notes too high up bilines // bilinjer
+
+        if(notes.get(counter).getyPos()>30+offset*row&&notes.get(counter).getyPos()<70+offset*row) {
+            g.fillRect(notes.get(counter).getxPos() - 3, 66+offset*row, 12, 2);
+            if(notes.get(counter).getyPos()<58+offset*row){
+                g.fillRect(notes.get(counter).getxPos() - 3, 56+offset*row, 12, 2);
+            }
+        }
         //line under notes too far down
-        if(notes.get(counter).getyPos()>115+offset*row&&notes.get(counter).getyPos()<125+offset*row) {
+        if(notes.get(counter).getyPos()>118+offset*row&&notes.get(counter).getyPos()<150+offset*row) {
             g.fillRect(notes.get(counter).getxPos() - 3, 124+offset*row, 12, 2);
+            if(notes.get(counter).getyPos()>130+offset*row){
+                g.fillRect(notes.get(counter).getxPos() - 3, 134+offset*row, 12, 2);
+            }
+
         }
 
         //if(d>200||d<160)
