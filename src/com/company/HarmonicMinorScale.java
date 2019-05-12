@@ -1,9 +1,5 @@
 package com.company;
 
-import com.jsyn.unitgen.SawtoothOscillator;
-
-import java.util.Arrays;
-
 public class HarmonicMinorScale extends ScaleGeneratorTest{
 
 
