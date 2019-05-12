@@ -86,6 +86,7 @@ public class MainController {
 
 
         switch (scaleType){
+            default :
             case "major scale":
                 majorScala = new MajorScaleTest(scaleLengths, hashTest.frequencyFinder(s));
                 rootNote = hashTest.noteFinder(majorScala.getScale().get(0));
@@ -280,6 +281,10 @@ public class MainController {
         g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos() - 12, 2, 15);
         g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos() - 14, 10, 1);
 
+        //line under notes too far down
+        if(notes.get(counter).getyPos()>115+offset*row&&notes.get(counter).getyPos()<125+offset*row) {
+            g.fillRect(notes.get(counter).getxPos() - 3, 124+offset*row, 12, 2);
+        }
 
         //if(d>200||d<160)
         // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
