@@ -11,17 +11,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="629.0" prefWidth="659.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainController">
+<AnchorPane prefHeight="629.0" prefWidth="659.0" style="-fx-background-color: EGGWHITE;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.MainController">
    <children>
       <Canvas fx:id="canvas" height="546.0" width="659.0" />
-      <Pane layoutY="543.0" prefHeight="207.0" prefWidth="659.0">
+      <Pane layoutY="543.0" prefHeight="207.0" prefWidth="659.0" style="-fx-background-color: LIGHTGREY; -fx-border-width: 3; -fx-border-radius: 2; -fx-border-color: BLACK;">
          <children>
             <Button id="btn3" fx:id="playbutton" layoutX="239.0" layoutY="15.0" mnemonicParsing="false" onAction="#playbutton" text="[Stop]">
                <font>
                   <Font name="Britannic Bold" size="18.0" />
                </font>
             </Button>
-            <TextField fx:id="textField" layoutX="402.0" layoutY="35.0" text="C3" />
+            <TextField fx:id="textField" layoutX="440.0" layoutY="35.0" text="C3" />
             <ChoiceBox fx:id="choiceBox" layoutX="5.0" layoutY="40.0" prefWidth="150.0">
             <items>
                <FXCollections fx:factory="observableArrayList">

@@ -196,6 +196,7 @@ public class MainController {
 
     private void drawCanvas() {
         GraphicsContext g = canvas.getGraphicsContext2D();
+
         if (toClear) {
             g.clearRect(0, 0, 1000, 1000);
             toClear = false;
