@@ -255,19 +255,19 @@ public class MainController {
         int xPos;
         int xOffset=0;
 
-        if (counter > 50) {
+        if (counter > 60) {
             row = 1;
             offset = 100;
-            xOffset = 50;
+            xOffset = 60;
 
         }
-        if (counter > 100) {
+        if (counter > 120) {
             row = 2;
         }
-        if (counter > 150) {
+        if (counter > 180) {
             row = 3;
         }
-        if (counter > 200) {
+        if (counter > 240) {
             row = 4;
         }
         xPos = counter - xOffset * row;
@@ -286,15 +286,15 @@ public class MainController {
         // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
 
         //nodepapir
-        g.fillRect(0, 75 + row * offset, 560, 1);
-        g.fillRect(0, 85 + row * offset, 560, 1);
-        g.fillRect(0, 95 + row * offset, 560, 1);
-        g.fillRect(0, 105 + row * offset, 560, 1);
-        g.fillRect(0, 115 + row * offset, 560, 1);
+        g.fillRect(0, 75 + row * offset, 640, 1);
+        g.fillRect(0, 85 + row * offset, 640, 1);
+        g.fillRect(0, 95 + row * offset, 640, 1);
+        g.fillRect(0, 105 + row * offset, 640, 1);
+        g.fillRect(0, 115 + row * offset, 640, 1);
 
         //line seperator
 
-        for (int i = 0; i <13 ; i++) {
+        for (int i = 0; i <9 ; i++) {
 
             g.fillRect(0+i*80, 75 + row * offset, 4, 41);
 
