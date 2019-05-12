@@ -197,7 +197,7 @@ public class FileReader {
                 }
 
             }
-            System.out.println(playlist.size());
+            System.out.println("playlist size: "+playlist.size());
 
         } catch (IOException e) {
             System.out.println("The file was not read correctly.");

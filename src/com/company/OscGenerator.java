@@ -27,7 +27,6 @@ public class OscGenerator {
     private UnitOscillator oscillator;
     private ArrayList<Integer> playListValues = new ArrayList<>();
     private ArrayList<Double> notes = new ArrayList<>();
-    private FileReader fileReader;
 
     HashTest noteList = new HashTest();
 
@@ -35,7 +34,7 @@ public class OscGenerator {
 
     OscGenerator (int octaves){
 
-         this.fileReader = new FileReader(".idea/data", octaves);
+        FileReader fileReader = new FileReader(".idea/data", octaves);
 
         this.intRhytmList = fileReader.getPlaylist();
 
@@ -164,7 +163,7 @@ public class OscGenerator {
     }
 
 
-    public void RandomMelody(ArrayList<Double> scale, int i,String complexity,String oscillatorType,boolean muted) {
+    public void Play(ArrayList<Double> scale, int i, String complexity, String oscillatorType, boolean muted) {
 
 
 
@@ -183,7 +182,7 @@ public class OscGenerator {
         if(!muted) {
             PlaySine(scale.get(intRhytmList.get(i)));
         }
-        //notes.add(scale.get(intRhytmList.get(i)));
+
         notes.add(scale.get(intRhytmList.get(i)));
         playListValues.add(intRhytmList.get(i));
 

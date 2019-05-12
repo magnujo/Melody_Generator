@@ -27,6 +27,9 @@ public class MainController {
     private int counter;
     //This is the initial scale that gets played
     private String s = "C3";
+
+    //scaletype
+    private String scaleType;
     //set all the lengths of all scales being generated with one variable
     private int scaleLengths = 13;
 
@@ -77,11 +80,10 @@ public class MainController {
 
     public void playButton() {
         s = textField.getText();
-        System.out.println("playing " + s);
         complexity = choiceBox.getSelectionModel().getSelectedItem();
-        System.out.println("using: " + complexity);
+         scaleType = choiceBox1.getSelectionModel().getSelectedItem();
 
-        String scaleType = choiceBox1.getSelectionModel().getSelectedItem();
+
 
         switch (scaleType){
             case "major scale":
@@ -94,9 +96,7 @@ public class MainController {
                 break;
             case "minor scale":
                 s = textField.getText();
-                System.out.println("playing " + s);
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
-                System.out.println("using: " + complexity);
                 minorScala = new MinorScaleTest(scaleLengths, hashTest.frequencyFinder(s));
                 rootNote = hashTest.noteFinder(minorScala.getScale().get(0));
                 isMinor = true;
@@ -106,9 +106,7 @@ public class MainController {
                 break;
             case "harmonic minor scale":
                 s = textField.getText();
-                System.out.println("playing " + s);
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
-                System.out.println("using: " + complexity);
                 harmonicMinorScale = new HarmonicMinorScale(scaleLengths, hashTest.frequencyFinder(s));
                 rootNote = hashTest.noteFinder(harmonicMinorScale.getScale().get(0));
                 isHarmonicMinor = true;
@@ -117,6 +115,7 @@ public class MainController {
                 clicked = true;
                     break;
         }
+
 
     }
 
@@ -215,16 +214,16 @@ public class MainController {
             if (counter < osc.intRhytmList.size()) {
 
                 if (isMajor) {
-                    osc.RandomMelody(majorScala.getScale(), counter, complexity,"sine",isMuted);
+                    osc.Play(majorScala.getScale(), counter, complexity,"sine",isMuted);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
 
                 } if(isMinor) {
-                    osc.RandomMelody(minorScala.getScale(), counter, complexity,"sine",isMuted);
+                    osc.Play(minorScala.getScale(), counter, complexity,"sine",isMuted);
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
 
                 }
                 if(isHarmonicMinor){
-                    osc.RandomMelody(harmonicMinorScale.getScale(), counter, complexity,"sine",isMuted);
+                    osc.Play(harmonicMinorScale.getScale(), counter, complexity,"sine",isMuted);
                     notes.add(new Note(harmonicMinorScale.getScale(), counter, complexity));
 
                 }
@@ -302,8 +301,10 @@ public class MainController {
 
 
         //beatcounter
-        g.clearRect(0, 0, 100, 20);
-        g.fillText("beats: " + Integer.toString(counter), 15, 15);
+        g.clearRect(0, 0, 150, 50);
+        g.fillText("Notes played: " + Integer.toString(counter), 5, 15);
+        g.fillText( s + " "+ scaleType, 5, 30);
+
 
         g.setFill(Color.RED);
 
