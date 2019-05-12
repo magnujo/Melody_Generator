@@ -23,8 +23,6 @@ public class MainController {
 
     private HashTest hashTest = new HashTest();
 
-
-
     //this variable is the play counter, it will go up for every note that should be played.
     private int counter;
     //This is the initial scale that gets played
@@ -41,7 +39,6 @@ public class MainController {
     private HarmonicMinorScale harmonicMinorScale;
 
     //booleans
-    private boolean runonce = false;
     private boolean clicked = false;
     private boolean isMajor;
     private boolean isMinor;
@@ -174,11 +171,13 @@ public class MainController {
 
 
 
+
         GraphicsContext g = canvas.getGraphicsContext2D();
 
 
         g.setFill(Color.GREY);
         osc = new OscGenerator(scaleLengths);
+        osc.SetupSine();
 
         // Start and control game loop
         new AnimationTimer() {
@@ -206,17 +205,6 @@ public class MainController {
 //if the button major or minor are pressed
         if (clicked) {
             complexity = choiceBox.getSelectionModel().getSelectedItem();
-
-
-
-
-            if (!runonce) {
-                osc.SetupSine();
-
-
-                runonce = true;
-            }
-
 
             isMuted= mute.isSelected();
 
