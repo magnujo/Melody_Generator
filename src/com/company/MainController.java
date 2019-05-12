@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 public class MainController {
 
+    private SampleRecorder recorder = new SampleRecorder();
+
     private HashTest hashTest = new HashTest();
 
     //this variable is the play counter, it will go up for every note that should be played.
@@ -48,6 +50,7 @@ public class MainController {
     private boolean isHarmonicMinor;
     private boolean isMuted;
     private boolean toClear;
+    private boolean isRecording;
 
     //the root note
     private double rootNote;
@@ -117,14 +120,18 @@ public class MainController {
                     break;
         }
 
-
+        if (isRecording) {
+            recorder.startRecording(osc);
+        }
     }
 
     @FXML
 
-    public void playbutton() {
+    public void stopButton() throws IOException {
         clicked = false;
-        osc.sineLineOut.stop();
+        //osc.sineLineOut.stop();
+        osc.synthSine.stop();
+        recorder.stopRecording(osc);
 
     }
 
@@ -161,9 +168,10 @@ public class MainController {
     }
 
     @FXML
-    public void recBtn() throws FileNotFoundException {
-        SampleRecorder recorder = new SampleRecorder();
-        recorder.startRecording(osc);
+    public void recBtn() throws IOException {
+        //SampleRecorder recorder = new SampleRecorder();
+        recorder.initRecording(osc);
+        isRecording = true;
     }
 
     @FXML

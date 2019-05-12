@@ -16,7 +16,7 @@
       <Canvas fx:id="canvas" height="546.0" layoutX="5.0" width="659.0" />
       <Pane layoutY="543.0" prefHeight="207.0" prefWidth="659.0" style="-fx-background-color: LIGHTGREY; -fx-border-width: 3; -fx-border-radius: 2; -fx-border-color: BLACK;">
          <children>
-            <Button id="btn3" fx:id="playbutton" layoutX="239.0" layoutY="15.0" mnemonicParsing="false" onAction="#playbutton" text="Stop">
+            <Button id="btn3" fx:id="stopButton" layoutX="239.0" layoutY="15.0" mnemonicParsing="false" onAction="#stopButton" text="Stop">
                <font>
                   <Font name="Britannic Bold" size="18.0" />
                </font>
