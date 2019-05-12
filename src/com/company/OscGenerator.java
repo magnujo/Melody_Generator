@@ -27,10 +27,21 @@ public class OscGenerator {
     private UnitOscillator oscillator;
     private ArrayList<Integer> playListValues = new ArrayList<>();
     private ArrayList<Double> notes = new ArrayList<>();
-    private FileReader fileReader = new FileReader(".idea/data");
+    private FileReader fileReader;
+
     HashTest noteList = new HashTest();
 
-    ArrayList<Integer> intRhytmList = fileReader.getPlaylist();
+    ArrayList<Integer> intRhytmList;
+
+    OscGenerator (int octaves){
+
+         this.fileReader = new FileReader(".idea/data", octaves);
+
+        this.intRhytmList = fileReader.getPlaylist();
+
+    }
+
+
 
     public void OscSetup (UnitOscillator oscillator){
         this.oscillator = oscillator;

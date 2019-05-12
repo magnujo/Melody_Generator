@@ -32,12 +32,12 @@ public class OscGeneratorRhythm {
     private ArrayList<Integer> playListValues = new ArrayList<>();
     private ArrayList<Double> notes = new ArrayList<>();
     boolean runonce =false;
-    FileReader fR = new FileReader(".idea/data");
+    //FileReader fR = new FileReader(".idea/data");
     HashTest noteList = new HashTest();
 
     private Rhythm rhythm = new Rhythm(90,3.0);
 
-    ArrayList<Integer> intRhytmList = fR.getPlaylist();
+    //ArrayList<Integer> intRhytmList = fR.getPlaylist();
     private double dutyCycle = 0.8;
 
     private VoiceAllocator allocator;
@@ -206,14 +206,14 @@ public class OscGeneratorRhythm {
         if(complexity=="low complexity")
             duration = 0.2;
         if (complexity=="medium complexity"||complexity==null)
-            duration = intRhytmList.get(i)*0.1;
+          //  duration = intRhytmList.get(i)*0.1;
         if (complexity=="high complexity")
             duration = random.nextInt(10);
 
-        PlaySine(scale.get(intRhytmList.get(i)));
+      //  PlaySine(scale.get(intRhytmList.get(i)));
         //notes.add(scale.get(intRhytmList.get(i)));
-        notes.add(scale.get(intRhytmList.get(i)));
-        playListValues.add(intRhytmList.get(i));
+     //   notes.add(scale.get(intRhytmList.get(i)));
+      //  playListValues.add(intRhytmList.get(i));
 
 
         try {

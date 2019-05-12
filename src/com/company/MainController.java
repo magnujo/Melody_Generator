@@ -23,8 +23,7 @@ public class MainController {
 
     private HashTest hashTest = new HashTest();
 
-    //oscillator
-    private OscGenerator osc;
+
 
     //this variable is the play counter, it will go up for every note that should be played.
     private int counter;
@@ -32,6 +31,9 @@ public class MainController {
     private String s = "C3";
     //set all the lengths of all scales being generated with one variable
     private int scaleLengths = 13;
+
+    //oscillator
+    private OscGenerator osc = new OscGenerator(scaleLengths);
 
     //instancing class variable scales, with null.
     private MajorScaleTest majorScala;
@@ -111,7 +113,7 @@ public class MainController {
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
                 System.out.println("using: " + complexity);
                 harmonicMinorScale = new HarmonicMinorScale(scaleLengths, hashTest.frequencyFinder(s));
-                rootNote = hashTest.noteFinder(minorScala.getScale().get(0));
+                rootNote = hashTest.noteFinder(harmonicMinorScale.getScale().get(0));
                 isHarmonicMinor = true;
                 isMajor=false;
                 isMinor=false;
@@ -176,7 +178,7 @@ public class MainController {
 
 
         g.setFill(Color.GREY);
-        osc = new OscGenerator();
+        osc = new OscGenerator(scaleLengths);
 
         // Start and control game loop
         new AnimationTimer() {

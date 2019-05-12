@@ -7,6 +7,10 @@ import com.softsynth.shared.time.TimeStamp;
 
 public class OscGeneratorChild extends OscGenerator{
 
+    OscGeneratorChild(int octaves){
+        super(octaves);
+    }
+
     private double dutyCycle = 0.8; //Controls decay
     private Rhythm rhythm = new Rhythm(100,4.0);
     private VoiceAllocator allocator; //Needed to use noteon and noteoff methods that can control decay
