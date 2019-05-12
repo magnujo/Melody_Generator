@@ -43,7 +43,7 @@ public class OscGenerator {
 
 
 
-    public void OscSetup (UnitOscillator oscillator){
+    public void OscSetup(){
         this.oscillator = oscillator;
 
         synth.start();
