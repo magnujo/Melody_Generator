@@ -9,6 +9,7 @@ import com.softsynth.math.AudioMath;
 import com.softsynth.shared.time.TimeStamp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class OscGeneratorRhythm2 {
@@ -31,13 +32,15 @@ public class OscGeneratorRhythm2 {
     private UnitOscillator oscillator;
     private ArrayList<Integer> playListValues = new ArrayList<>();
     private ArrayList<Double> notes = new ArrayList<>();
+    private ArrayList<Double> loop = new ArrayList<>();
     boolean runonce =false;
-   // FileReader fR = new FileReader(".idea/data");
+    // FileReader fR = new FileReader(".idea/data");
     HashTest noteList = new HashTest();
+    private boolean firstLoop = true;
 
-    private Rhythm rhythm = new Rhythm(100,4.0);
+    private Rhythm rhythm = new Rhythm(128,4.0);
 
-   // ArrayList<Integer> intRhytmList = fR.getPlaylist();
+    // ArrayList<Integer> intRhytmList = fR.getPlaylist();
     private double dutyCycle = 0.8; //Controls decay
 
     private VoiceAllocator allocator; //Needed to use noteon and noteoff methods that can control decay
@@ -67,32 +70,44 @@ public class OscGeneratorRhythm2 {
 
     }
 
-    public void Play(double decay, int notesPerMeasure){
+    public void Play(double decay, int notesPerMeasure){ // denne metode spiller en takt
+        System.out.println("Takt start");
         this.dutyCycle = decay;
+
+        if(firstLoop==true){
+            for (int i = 0; i < notesPerMeasure; i++) {
+                double localNoteLength = rhythm.getRandomNoteLength(2,true,true);
+                loop.add(localNoteLength);
+            }
+        }
+        firstLoop= false;
+
+
         lineOut.start();
 
         double timeNow = synth.getCurrentTime();
-
+        System.out.println("LOOP: "+Arrays.toString(loop.toArray()));
         try {
             doRythm(timeNow, tonicNote,notesPerMeasure);
-            timeNow = timeNow + rhythm.getMeasure();   //Adds the time (seconds) of a measure of the given BPM and pulse to the timeNow
+            timeNow = timeNow + rhythm.getMeasure();   //Adds the time (seconds) of a measure of the given BPM and pulse to the timeNow. Measure = taktens længde i sekunder
+            System.out.println("Measure: "+rhythm.getMeasure());
             synth.sleepUntil(timeNow);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //synth.stop();
         lineOut.stop();
+        System.out.println("Takt slut");
+
     }
 
     public void doRythm(double time, int note, int notesPerMeasure) {
-
-
-       for (int i = 0; i < notesPerMeasure; i++) {
-            double localNoteLength = rhythm.getRandomNoteLength();
+        for (int i = 0; i < notesPerMeasure; i++) {
+            double localNoteLength = loop.get(i);
             noteOn(time, note);
             noteOff(time + dutyCycle * localNoteLength, note);
             time += localNoteLength;
         }
+
     }
     private void noteOff(double time, int note) {
         allocator.noteOff(note, new TimeStamp(time));
@@ -198,14 +213,14 @@ public class OscGeneratorRhythm2 {
         if(complexity=="low complexity")
             duration = 0.2;
         if (complexity=="medium complexity"||complexity==null)
-         //   duration = intRhytmList.get(i)*0.1;
-        if (complexity=="high complexity")
-            duration = random.nextInt(10);
+            //   duration = intRhytmList.get(i)*0.1;
+            if (complexity=="high complexity")
+                duration = random.nextInt(10);
 
-       // PlaySine(scale.get(intRhytmList.get(i)));
+        // PlaySine(scale.get(intRhytmList.get(i)));
         //notes.add(scale.get(intRhytmList.get(i)));
-       // notes.add(scale.get(intRhytmList.get(i)));
-      //  playListValues.add(intRhytmList.get(i));
+        // notes.add(scale.get(intRhytmList.get(i)));
+        //  playListValues.add(intRhytmList.get(i));
 
 
         try {
@@ -219,9 +234,9 @@ public class OscGeneratorRhythm2 {
         OscGeneratorRhythm2 osc = new OscGeneratorRhythm2();
         osc.OscSetup();
 
-        for (int i = 0; i <2; i++) {
+        for (int i = 0; i <32; i++) {
 
-            osc.Play(0.1,32);
+            osc.Play(0.1,8);
 
         }
         osc.synth.stop();
