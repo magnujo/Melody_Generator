@@ -34,7 +34,7 @@ public class OscGenerator {
 
     OscGenerator (){
 
-        FileReader fileReader = new FileReader(".idea/data");
+        FileReader fileReader = new FileReader(".idea/data",8);
 
         this.intRhytmList = fileReader.getPlaylist();
 
