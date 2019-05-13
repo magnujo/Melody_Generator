@@ -9,10 +9,9 @@ import com.softsynth.math.AudioMath;
 import com.softsynth.shared.time.TimeStamp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
-public class OSCRHYTHM3 {
+public class OSCRHYTHM3{
     Synthesizer synth = JSyn.createSynthesizer();
     private UnitOscillator osc;
     private Synthesizer synthSaw = JSyn.createSynthesizer();
@@ -37,19 +36,21 @@ public class OSCRHYTHM3 {
     // FileReader fR = new FileReader(".idea/data");
     HashTest noteList = new HashTest();
     private boolean firstLoop = true;
-
-    private Rhythm rhythm = new Rhythm(100,4.0);
-
+    private double[] amps = {0.0,0.2};
+    private Rhythm rhythm = new Rhythm(90,4.0);
+    private double measureMeasuring =0;
     // ArrayList<Integer> intRhytmList = fR.getPlaylist();
     private double dutyCycle = 0.8; //Controls decay
 
     private VoiceAllocator allocator; //Needed to use noteon and noteoff methods that can control decay
     private UnitVoice[] voices; //Needed for VoiceAllocator to work
     int tonicNote = 60;     //Controls pitch!
+    private double rhythmValue;
 
 
 
     SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
+
 
     //voices[MAX_VOICES] = voice;
 
@@ -71,34 +72,34 @@ public class OSCRHYTHM3 {
     }
 
     public void Play(double decay, int notesPerMeasure, int index){ // denne metode spiller en takt
-        System.out.println("Takt start");
         this.dutyCycle = decay;
-
-        if(firstLoop==true){
-            for (int i = 0; i < notesPerMeasure; i++) {
-                double localNoteLength = rhythm.getRandomNoteLength(2,true,true);
-                loop.add(localNoteLength);
-            }
-        }
-        firstLoop= false;
-
-
+        int randomness = random.nextInt(20);
         lineOut.start();
+        if (randomness<=20){
+            rhythmValue = rhythm.getLoop().get(index);
+        }
+        else {
+            rhythmValue=rhythm.getRandomNoteLength(2,true,true);
+        }
 
+        if(measureMeasuring%rhythm.getMeasure()==0){
+            System.out.println("takt start");
+        }
         double timeNow = synth.getCurrentTime();
-        System.out.println("LOOP: "+ Arrays.toString(loop.toArray()));
         try {
             // doRythm(timeNow, tonicNote,notesPerMeasure);
+
             noteOn(timeNow,tonicNote);
             noteOff(timeNow+dutyCycle,tonicNote);
-            timeNow = timeNow + loop.get(index);   //Adds the time (seconds) of a measure of the given BPM and pulse to the timeNow. Measure = taktens længde i sekunder
-            System.out.println("Measure: "+rhythm.getMeasure());
+            timeNow = timeNow + rhythmValue;            //Adds the time (seconds) of a measure of the given BPM and pulse to the timeNow. Measure = taktens længde i sekunder
+            measureMeasuring = measureMeasuring + rhythmValue;
+
             synth.sleepUntil(timeNow);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         lineOut.stop();
-        System.out.println("Takt slut");
 
     }
 
@@ -108,7 +109,6 @@ public class OSCRHYTHM3 {
             noteOn(time, note);
             noteOff(time + dutyCycle * localNoteLength, note);
             time += localNoteLength;
-            System.out.println();
         }
 
     }
@@ -117,8 +117,6 @@ public class OSCRHYTHM3 {
     }
 
     private void noteOn(double time, int note) {
-        System.out.println("noteON");
-
         double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
@@ -236,14 +234,13 @@ public class OSCRHYTHM3 {
     }
 
     public static void main(String[] args) {
-        System.out.println("main");
         OSCRHYTHM3 osc = new OSCRHYTHM3();
         osc.OscSetup();
         int index = 0;
 
-        for (int i = 0; i <32; i++) {
+        for (int i = 0; i <64; i++) {
             if (index==4){
-                System.out.println("Hej");
+                System.out.println("ny takt");
                 index = 0;
             }
             osc.Play(0.1,32,index);
