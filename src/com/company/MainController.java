@@ -12,6 +12,7 @@ import javafx.scene.text.TextFlow;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.CheckBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 
 import javax.imageio.*;
@@ -138,8 +139,8 @@ public class MainController {
         osc.sineLineOut.stop();
         if (isRecording) {
             osc.synthSine.stop();
-            recorder.stopRecording(osc);
             isRecording = false;
+            recorder.stopRecording(osc);
         }
     }
 
@@ -150,8 +151,8 @@ public class MainController {
         osc.sineLineOut.stop();
         if (isRecording) {
             osc.synthSine.stop();
-            recorder.stopRecording(osc);
             isRecording = false;
+            recorder.stopRecording(osc);
         }
         counter = 0;
         toClear = true;
@@ -189,9 +190,18 @@ public class MainController {
             File picFile = new File("./data/canvasPicture.png");
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", picFile);
 
-            //File outFile;
-            //FileChooser fileChooser = new FileChooser();
-            //outFile =
+            File outputFile;
+            FileChooser fileChooser = new FileChooser();
+            String userDir = System.getProperty("user.home");
+            fileChooser.setInitialDirectory(new File(userDir+"/Desktop"));
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG","*.png"));
+            outputFile = fileChooser.showSaveDialog(new Stage());
+
+            if (picFile != null) {
+                System.out.println("File saved as: "+outputFile.getName());
+                System.out.println("File saved to: "+outputFile.getAbsolutePath());
+                picFile.renameTo(outputFile);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -201,7 +211,6 @@ public class MainController {
 
     @FXML
     public void recBtn() throws IOException {
-        //SampleRecorder recorder = new SampleRecorder();
         recorder.initRecording(osc);
         isRecording = true;
     }
