@@ -37,7 +37,7 @@ public class MainController {
     private int scaleLengths = 13;
 
     //oscillator
-    private OscGenerator osc = new OscGenerator(scaleLengths);
+    private OscGenerator osc = new OscGenerator();
 
     //instancing class variable scales, with null.
     private MajorScaleTest majorScala;
@@ -137,6 +137,7 @@ public class MainController {
         osc.synthSine.stop();
         if (isRecording) {
             recorder.stopRecording(osc);
+            isRecording = false;
         }
     }
 
@@ -147,6 +148,7 @@ public class MainController {
         osc.synthSine.stop();
         if (isRecording) {
             recorder.stopRecording(osc);
+            isRecording = false;
         }
         counter = 0;
         toClear = true;
@@ -207,7 +209,7 @@ public class MainController {
 
 
         g.setFill(Color.GREY);
-        osc = new OscGenerator(scaleLengths);
+        osc = new OscGenerator();
         osc.SetupSine();
 
         // Start and control game loop

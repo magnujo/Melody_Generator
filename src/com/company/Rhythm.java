@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Rhythm {
@@ -17,6 +19,8 @@ public class Rhythm {
     private double halfNote;
     private double wholeNote;
     private double[] rhythmValues;
+    private ArrayList<Double> loop = new ArrayList<>();
+
     private int countFast;
     private int countSlow;
     private int countElse;
@@ -31,8 +35,14 @@ public class Rhythm {
             rhythmValues[i] = rhythmValue;
             System.out.println("rythmValues"+"["+i+"] = "+rhythmValues[i]);
             rhythmValue = rhythmValue/2;
-
         }
+//make a random loop
+
+        for (int i = 0; i < 32; i++) {
+            double localNoteLength = getRandomNoteLength(2,true,true);
+            loop.add(localNoteLength);
+        }
+        System.out.println("LOOP: "+ Arrays.toString(loop.toArray()));
 
         System.out.println("Wholenote " +wholeNote);
         halfNote = milliseconds / bpm*2;
@@ -43,6 +53,12 @@ public class Rhythm {
         System.out.println("Eightnote = "+eightNote);
         sixteenthNote = milliseconds/bpm/4;
         System.out.println("Sixteennote = "+sixteenthNote);
+        System.out.println("Measure: "+getMeasure());
+    }
+
+    public ArrayList<Double> getLoop(){
+        return loop;
+
     }
 
     public double getQuarterNote(){return milliseconds / bpm;}
@@ -57,7 +73,7 @@ public class Rhythm {
         // System.out.println("Random value: " +rhythmValues[random.nextInt(rhythmValues.length-1)]);
         int randomInt = random.nextInt(10);
 
-       return rhythmValues[getRandomNumberInRange(2,4)];
+       return rhythmValues[getRandomNumberInRange(0,0)];
 
 
 
@@ -130,7 +146,7 @@ public class Rhythm {
      */
 
     private int getRandomNumberInRange(int min, int max) {
-        if (min >= max) {
+        if (min > max) {
             throw new IllegalArgumentException("max must be greater than min");
         }
 
