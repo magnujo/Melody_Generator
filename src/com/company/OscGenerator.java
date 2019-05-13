@@ -32,9 +32,9 @@ public class OscGenerator {
 
     ArrayList<Integer> intRhytmList;
 
-    OscGenerator (){
+    OscGenerator (int octaves){
 
-        FileReader fileReader = new FileReader(".idea/data");
+        FileReader fileReader = new FileReader(".idea/data", octaves);
 
         this.intRhytmList = fileReader.getPlaylist();
 
