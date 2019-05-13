@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextFlow;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.CheckBox;
+import javafx.stage.FileChooser;
 
 
 import javax.imageio.*;
@@ -129,8 +130,9 @@ public class MainController {
     public void stopButton() throws IOException {
 
         clicked = false;
-        osc.synthSine.stop();
+        osc.sineLineOut.stop();
         if (isRecording) {
+            osc.synthSine.stop();
             recorder.stopRecording(osc);
             isRecording = false;
         }
@@ -140,8 +142,9 @@ public class MainController {
     public void resetButton() throws IOException {
 
         clicked = false;
-        osc.synthSine.stop();
+        osc.sineLineOut.stop();
         if (isRecording) {
+            osc.synthSine.stop();
             recorder.stopRecording(osc);
             isRecording = false;
         }
@@ -161,6 +164,10 @@ public class MainController {
 
             File picFile = new File("./data/canvasPicture.png");
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", picFile);
+
+            //File outFile;
+            //FileChooser fileChooser = new FileChooser();
+            //outFile =
 
         } catch (IOException e) {
             e.printStackTrace();
