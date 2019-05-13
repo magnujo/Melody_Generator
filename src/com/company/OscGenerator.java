@@ -40,7 +40,11 @@ public class OscGenerator {
 
     }
 
+    public void refreshFileReader(){
+        FileReader fileReader = new FileReader(".idea/data", 0);
 
+        this.intRhytmList = fileReader.getPlaylist();
+    }
 
     public void OscSetup(){
         this.oscillator = oscillator;

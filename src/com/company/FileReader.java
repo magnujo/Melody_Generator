@@ -24,6 +24,8 @@ public class FileReader {
 
     private void generatePlaylist() {
 
+
+
         try {
             // FileReader reads text files in the default encoding.
             java.io.FileReader fileReader =

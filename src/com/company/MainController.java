@@ -14,7 +14,9 @@ import javafx.scene.control.CheckBox;
 
 
 import javax.imageio.*;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -79,13 +81,16 @@ public class MainController {
     TextField textField;
 
     @FXML
+    TextField writeField;
+
+    @FXML
 
     public void playButton() {
+
+
         s = textField.getText();
         complexity = choiceBox.getSelectionModel().getSelectedItem();
          scaleType = choiceBox1.getSelectionModel().getSelectedItem();
-
-
 
         switch (scaleType){
             default :
@@ -145,7 +150,26 @@ public class MainController {
         }
         counter = 0;
         toClear = true;
+
+
     }
+    @FXML
+    public void refresh()  {
+
+
+        try {
+            FileWriter writer = new FileWriter(".idea/data");
+            BufferedWriter buffer = new BufferedWriter(writer);
+            buffer.write(writeField.getText());
+            buffer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        osc.refreshFileReader();
+    }
+
+
 
 
 
@@ -243,9 +267,9 @@ public class MainController {
             }
             g.setFill(Color.RED);
 
-            int e = osc.getPlayingNoteNum(counter);
+            int playingNoteNum = osc.getPlayingNoteNum(counter);
 
-            drawNotePaper(g, e);
+            drawNotePaper(g, playingNoteNum);
 
 
             counter++;
