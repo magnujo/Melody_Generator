@@ -129,6 +129,9 @@ public class MainController {
         if (isRecording) {
             recorder.startRecording(osc);
         }
+        if (!osc.synthSine.isRunning()) {
+            osc.synthSine.start();
+        }
     }
 
     @FXML
