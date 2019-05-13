@@ -36,7 +36,7 @@ public class MainController {
     private int scaleLengths = 13;
 
     //oscillator
-    private OscGenerator osc = new OscGenerator();
+    private OscGenerator osc = new OscGenerator(0);
 
     //instancing class variable scales, with null.
     private MajorScaleTest majorScala;
@@ -192,7 +192,7 @@ public class MainController {
 
 
         g.setFill(Color.GREY);
-        osc = new OscGenerator();
+        osc = new OscGenerator(0);
         osc.SetupSine();
 
         // Start and control game loop

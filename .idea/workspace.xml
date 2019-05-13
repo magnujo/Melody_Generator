@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ec85d8cf-6dbd-4d20-ab91-1e080761768c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/MainController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -91,14 +90,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="fxml" value="10" />
-          <entry key="java" value="1062" />
-          <entry key="txt" value="86" />
+          <entry key="java" value="1094" />
+          <entry key="txt" value="105" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1062" />
-          <entry key="PLAIN_TEXT" value="86" />
+          <entry key="JAVA" value="1094" />
+          <entry key="PLAIN_TEXT" value="105" />
           <entry key="XML" value="10" />
         </counts>
       </usages-collector>
@@ -159,8 +158,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="166" column="14" selection-start-line="166" selection-start-column="14" selection-end-line="166" selection-end-column="14" />
+            <state relative-caret-position="212">
+              <caret line="136" column="32" lean-forward="true" selection-start-line="136" selection-start-column="32" selection-end-line="136" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -171,7 +170,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/SampleRecorder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
+            <state relative-caret-position="83">
               <caret line="46" column="73" lean-forward="true" selection-start-line="46" selection-start-column="73" selection-end-line="46" selection-end-column="73" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -404,7 +403,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/Gem/Documents/GitHub/Osc_Objects_2/src/com/company/MinorScaleTest.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557746528706" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557746604654" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="extract.method.default.visibility" value="private" />
@@ -569,7 +568,7 @@
       <workItem from="1557668045060" duration="2128000" />
       <workItem from="1557735507766" duration="1092000" />
       <workItem from="1557736841508" duration="484000" />
-      <workItem from="1557744119503" duration="2196000" />
+      <workItem from="1557744119503" duration="2480000" />
     </task>
     <task id="LOCAL-00001" summary="er igang med filereader">
       <created>1552764155978</created>
@@ -844,7 +843,14 @@
       <option name="project" value="LOCAL" />
       <updated>1557745393178</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="stop og reset fixet">
+      <created>1557746582109</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1557746582109</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -862,7 +868,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="160952000" />
+    <option name="totallyTimeSpent" value="161236000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -877,7 +883,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.4729951" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49848714" weight="0.23076923" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.23076923" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.398773" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -974,7 +980,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="er igang med filereader" />
     <MESSAGE value="er igang med filereader 2" />
     <MESSAGE value="er igang med filereader 3" />
     <MESSAGE value="Andreas' geniale kode" />
@@ -999,7 +1004,8 @@
     <MESSAGE value="filechooser til recorder" />
     <MESSAGE value="int octaves removed" />
     <MESSAGE value="save funktion færdig" />
-    <option name="LAST_COMMIT_MESSAGE" value="save funktion færdig" />
+    <MESSAGE value="stop og reset fixet" />
+    <option name="LAST_COMMIT_MESSAGE" value="stop og reset fixet" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -1194,7 +1200,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/SampleRecorder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
+        <state relative-caret-position="83">
           <caret line="46" column="73" lean-forward="true" selection-start-line="46" selection-start-column="73" selection-end-line="46" selection-end-column="73" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1204,8 +1210,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="166" column="14" selection-start-line="166" selection-start-column="14" selection-end-line="166" selection-end-column="14" />
+        <state relative-caret-position="212">
+          <caret line="136" column="32" lean-forward="true" selection-start-line="136" selection-start-column="32" selection-end-line="136" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
