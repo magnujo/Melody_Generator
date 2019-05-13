@@ -15,7 +15,6 @@ import javafx.scene.control.CheckBox;
 
 import javax.imageio.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -128,24 +127,24 @@ public class MainController {
     @FXML
 
     public void stopButton() throws IOException {
-        clicked = false;
-        //osc.sineLineOut.stop();
-        osc.synthSine.stop();
-        recorder.stopRecording(osc);
 
+        clicked = false;
+        osc.synthSine.stop();
+        if (isRecording) {
+            recorder.stopRecording(osc);
+        }
     }
 
     @FXML
-    public void resetButton() {
-
-        //reset
+    public void resetButton() throws IOException {
 
         clicked = false;
-        osc.sineLineOut.stop();
+        osc.synthSine.stop();
+        if (isRecording) {
+            recorder.stopRecording(osc);
+        }
         counter = 0;
         toClear = true;
-
-
     }
 
 
