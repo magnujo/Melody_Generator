@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextFlow;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.CheckBox;
+import javafx.stage.FileChooser;
 
 
 import javax.imageio.*;
@@ -37,7 +38,7 @@ public class MainController {
     private int scaleLengths = 13;
 
     //oscillator
-    private OscGenerator osc = new OscGenerator();
+    private OscGenerator osc = new OscGenerator(0);
 
     //instancing class variable scales, with null.
     private MajorScaleTest majorScala;
@@ -134,8 +135,9 @@ public class MainController {
     public void stopButton() throws IOException {
 
         clicked = false;
-        osc.synthSine.stop();
+        osc.sineLineOut.stop();
         if (isRecording) {
+            osc.synthSine.stop();
             recorder.stopRecording(osc);
             isRecording = false;
         }
@@ -145,8 +147,9 @@ public class MainController {
     public void resetButton() throws IOException {
 
         clicked = false;
-        osc.synthSine.stop();
+        osc.sineLineOut.stop();
         if (isRecording) {
+            osc.synthSine.stop();
             recorder.stopRecording(osc);
             isRecording = false;
         }
@@ -186,6 +189,10 @@ public class MainController {
             File picFile = new File("./data/canvasPicture.png");
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", picFile);
 
+            //File outFile;
+            //FileChooser fileChooser = new FileChooser();
+            //outFile =
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -209,7 +216,7 @@ public class MainController {
 
 
         g.setFill(Color.GREY);
-        osc = new OscGenerator();
+        osc = new OscGenerator(0);
         osc.SetupSine();
 
         // Start and control game loop
