@@ -132,6 +132,7 @@ public class MainController {
         osc.synthSine.stop();
         if (isRecording) {
             recorder.stopRecording(osc);
+            isRecording = false;
         }
     }
 
@@ -142,6 +143,7 @@ public class MainController {
         osc.synthSine.stop();
         if (isRecording) {
             recorder.stopRecording(osc);
+            isRecording = false;
         }
         counter = 0;
         toClear = true;
