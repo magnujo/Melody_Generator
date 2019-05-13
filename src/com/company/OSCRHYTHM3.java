@@ -38,10 +38,11 @@ public class OSCRHYTHM3{
     private boolean firstLoop = true;
     private double[] amps = {0.0,0.2};
     private Rhythm rhythm = new Rhythm(90,4.0);
-    private double measureMeasuring =0;
+    private double measureAccumulator = rhythm.getMeasure();
     // ArrayList<Integer> intRhytmList = fR.getPlaylist();
+    private double rhythmValueAccumulator = 0;
     private double dutyCycle = 0.8; //Controls decay
-
+    private int index = 0;
     private VoiceAllocator allocator; //Needed to use noteon and noteoff methods that can control decay
     private UnitVoice[] voices; //Needed for VoiceAllocator to work
     int tonicNote = 60;     //Controls pitch!
@@ -71,47 +72,40 @@ public class OSCRHYTHM3{
 
     }
 
-    public void Play(double decay, int notesPerMeasure, int index){ // denne metode spiller en takt
+    public void Play(double decay, int notesPerMeasure){ // denne metode spiller en takt
         this.dutyCycle = decay;
         int randomness = random.nextInt(20);
-        lineOut.start();
-        if (randomness<=20){
-            rhythmValue = rhythm.getLoop().get(index);
-        }
-        else {
-            rhythmValue=rhythm.getRandomNoteLength(2,true,true);
-        }
 
-        if(measureMeasuring%rhythm.getMeasure()==0){
-            System.out.println("takt start");
-        }
+        System.out.println("rythmakku: " + rhythmValueAccumulator);
+        System.out.println("measureAccumulator: "+measureAccumulator);
+
+        rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(index);
+
+        lineOut.start();
+
+        rhythmValue = rhythm.getLoop().get(index);
+
         double timeNow = synth.getCurrentTime();
         try {
-            // doRythm(timeNow, tonicNote,notesPerMeasure);
-
             noteOn(timeNow,tonicNote);
             noteOff(timeNow+dutyCycle,tonicNote);
-            timeNow = timeNow + rhythmValue;            //Adds the time (seconds) of a measure of the given BPM and pulse to the timeNow. Measure = taktens længde i sekunder
-            measureMeasuring = measureMeasuring + rhythmValue;
 
-            synth.sleepUntil(timeNow);
+            timeNow = timeNow + rhythmValue;            //Adds the time (seconds) of a measure of the given BPM and pulse to the timeNow. Measure = taktens længde i sekunder
+            index++;
+            if(timeNow>=measureAccumulator){
+                System.out.println("Ny takt");
+                synth.sleepUntil(measureAccumulator);
+                measureAccumulator = measureAccumulator + rhythm.getMeasure();
+                index = 0;
+            }
+            else{synth.sleepUntil(timeNow);}
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         lineOut.stop();
-
     }
 
-    public void doRythm(double time, int note, int notesPerMeasure) {
-        for (int i = 0; i < notesPerMeasure; i++) {
-            double localNoteLength = loop.get(i);
-            noteOn(time, note);
-            noteOff(time + dutyCycle * localNoteLength, note);
-            time += localNoteLength;
-        }
-
-    }
     private void noteOff(double time, int note) {
         allocator.noteOff(note, new TimeStamp(time));
     }
@@ -120,6 +114,8 @@ public class OSCRHYTHM3{
         double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
+        System.out.println("Playing note");
+
         allocator.noteOn(note, frequency, amplitude, timeStamp);
     }
 
@@ -139,69 +135,6 @@ public class OSCRHYTHM3{
     }
 
 
-    public void SetupSine(){
-        sineLineOut = new LineOut();
-        synthSine.start();
-        synthSine.add(sineOsc);
-        synthSine.add(sineLineOut);
-
-        sineOsc.amplitude.set(0.5);
-        sineOsc.output.connect(0, sineLineOut.input, 0);
-        sineOsc.output.connect(0, sineLineOut.input, 1);
-
-
-    }
-
-    public void PlaySine(double frequency){
-        this.frequency = frequency;
-        sineOsc.frequency.set(frequency);
-        sineLineOut.start();
-
-    }
-
-    public void SetupSaw(){
-
-        UnitOscillator sawOsc = new SawtoothOscillator();
-        sawLineOut = new LineOut();
-        synthSaw.start();
-        synthSaw.add(sawOsc);
-        synthSaw.add(sawLineOut);
-
-        sawOsc.frequency.set(400);
-        sawOsc.amplitude.set(0.4);
-        sawOsc.output.connect(0, sawLineOut.input, 0);
-        sawOsc.output.connect(0, sawLineOut.input, 1);
-    }
-
-
-    public void SetupSquare() {
-
-        UnitOscillator squareOsc = new SquareOscillator();
-        squareLineOut = new LineOut();
-        synthSquare.start();
-        synthSquare.add(squareOsc);
-        synthSquare.add(squareLineOut);
-
-        squareOsc.frequency.set(300);
-        squareOsc.amplitude.set(0.4);
-        squareOsc.output.connect(0, squareLineOut.input, 0);
-        squareOsc.output.connect(0, squareLineOut.input, 1);
-
-    }
-
-    public void SetupRedNoise() {
-        RedNoise noise = new RedNoise();
-        noiseLineOut = new LineOut();
-        synthNoise.start();
-        synthNoise.add(noise);
-        synthNoise.add(noiseLineOut);
-
-        noise.frequency.set(3000);
-        noise.amplitude.set(0.4);
-        noise.output.connect(0, noiseLineOut.input, 0);
-        noise.output.connect(0, noiseLineOut.input, 1);
-
-    }
 
     public int getRootNote() {
 
@@ -236,19 +169,12 @@ public class OSCRHYTHM3{
     public static void main(String[] args) {
         OSCRHYTHM3 osc = new OSCRHYTHM3();
         osc.OscSetup();
-        int index = 0;
-
+        int measureCounter = 1;
         for (int i = 0; i <64; i++) {
-            if (index==4){
-                System.out.println("ny takt");
-                index = 0;
-            }
-            osc.Play(0.1,32,index);
-            index++;
+            osc.Play(0.1,32);
 
         }
         osc.synth.stop();
-
 
     }
 }

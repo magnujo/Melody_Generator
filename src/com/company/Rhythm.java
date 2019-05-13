@@ -10,9 +10,10 @@ public class Rhythm {
 
     private int milliseconds = 60; // Skal den ikke altid være 60 og for at finde hvor lang tid et slag vare ift BPM?
     private double bpm;
-    private double pulse;
-    private double measure = milliseconds / bpm * pulse;
+    private double beatsPerMeasure;
+    private double measure = milliseconds / bpm * beatsPerMeasure;
     private Random random = new Random();
+    private double oneBeat;
     private double quarterNote;
     private double eightNote;
     private double sixteenthNote;
@@ -25,11 +26,12 @@ public class Rhythm {
     private int countSlow;
     private int countElse;
 
-    Rhythm(double bpm, double pulse) {
+    Rhythm(double bpm, double beatsPerMeasure) {
         this.rhythmValues = new double[5]; //Array of different note lengths
         this.bpm = bpm;
-        this.pulse = pulse;
-        this.wholeNote = milliseconds / bpm *4;
+        this.beatsPerMeasure = beatsPerMeasure;
+        this.oneBeat = milliseconds / bpm;
+        this.wholeNote = oneBeat * beatsPerMeasure;
         double rhythmValue = wholeNote;
         for (int i = 0; i < rhythmValues.length ; i++) {
             rhythmValues[i] = rhythmValue;
@@ -66,14 +68,14 @@ public class Rhythm {
     public double getEighthNote(){return milliseconds/bpm/2;}
 
     public double getMeasure(){
-        //Returns 4 if the bpm is 60 and pulse is 4 because then one measure is 4 seconds. Milliseconds is always 60?
-        return milliseconds / bpm * pulse; }
+        //Returns 4 if the bpm is 60 and beatsPerMeasure is 4 because then one measure is 4 seconds. Milliseconds is always 60?
+        return oneBeat * beatsPerMeasure; }
 
     public double getRandomNoteLength(int rhythmComplexity, boolean swing, boolean repetitive){ //rhythmComplexity = how many rhythmValues are created. //Speed value = how many fast notes
         // System.out.println("Random value: " +rhythmValues[random.nextInt(rhythmValues.length-1)]);
         int randomInt = random.nextInt(10);
 
-       return rhythmValues[getRandomNumberInRange(0,0)];
+       return rhythmValues[getRandomNumberInRange(0,3)];
 
 
 
