@@ -64,8 +64,8 @@
                </font>
             </Button>
             <CheckBox fx:id="mute" layoutX="14.0" layoutY="72.0" mnemonicParsing="false" text="mute" />
-            <TextField fx:id="writeField" layoutX="15.0" layoutY="160.0" text="Write here" />
-            <Button id="btn3" fx:id="playButton1" layoutX="185.0" layoutY="157.0" mnemonicParsing="false" onAction="#refresh" text="refresh">
+            <TextField fx:id="writeField" layoutX="15.0" layoutY="140.0" text="Write here" />
+            <Button id="btn3" fx:id="playButton1" layoutX="185.0" layoutY="147.0" mnemonicParsing="false" onAction="#refresh" text="refresh">
                <font>
                   <Font name="Britannic Bold" size="18.0" />
                </font>
