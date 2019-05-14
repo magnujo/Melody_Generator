@@ -112,7 +112,7 @@ public class OscGenerator {
         if (randomInt<=100-rhythmRandomness){
             rhythmValue = rhythm.getLoop().get(index);
         }
-        else {rhythmValue = rhythm.getRandomNoteLength(2,true,true);
+        else {rhythmValue = rhythm.getRandomNoteLength(0,4);
         }
 
         double timeNow = synth.getCurrentTime();
@@ -124,7 +124,7 @@ public class OscGenerator {
             index++;
             if(timeNow>=measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
                 measureCounter++;                                       // but sleepUntil the end of the measure.
-                System.out.println("Taktskifte");
+                System.out.println("Repeating loop");
                 synth.sleepUntil(measureAccumulator);                  //Sleep until the end of the measure
                 measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
                 index = 0;                                             //Restarts the loop
@@ -288,7 +288,7 @@ public class OscGenerator {
 
         for (int i = 0; i <64; i++) {
 
-            oscGen.PlayLoop("b4",0.1,1,19);
+            oscGen.PlayLoop("b4",0.1,2,0);
 
         }
         oscGen.synth.stop();

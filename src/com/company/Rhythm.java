@@ -6,8 +6,6 @@ import java.util.Random;
 
 public class Rhythm {
 
-
-
     private int milliseconds = 60; // Skal den ikke altid være 60 og for at finde hvor lang tid et slag vare ift BPM?
     private double bpm;
     private double beatsPerMeasure;
@@ -22,10 +20,6 @@ public class Rhythm {
     private double[] rhythmValues;
     private ArrayList<Double> loop = new ArrayList<>();
 
-    private int countFast;
-    private int countSlow;
-    private int countElse;
-
     Rhythm(double bpm, double beatsPerMeasure) {
         this.rhythmValues = new double[5]; //Array of different note lengths
         this.bpm = bpm;
@@ -39,11 +33,9 @@ public class Rhythm {
             rhythmValue = rhythmValue/2;
         }
 //make a random loop
+        createLoop(1,1);
 
-        for (int i = 0; i < 32; i++) {
-            double localNoteLength = getRandomNoteLength(2,true,true);
-            loop.add(localNoteLength);
-        }
+
         System.out.println("LOOP: "+ Arrays.toString(loop.toArray()));
 
         System.out.println("Wholenote " +wholeNote);
@@ -58,11 +50,6 @@ public class Rhythm {
         System.out.println("Measure: "+getMeasure());
     }
 
-    public ArrayList<Double> getLoop(){
-        return loop;
-
-    }
-
     public double getQuarterNote(){return milliseconds / bpm;}
 
     public double getEighthNote(){return milliseconds/bpm/2;}
@@ -71,72 +58,22 @@ public class Rhythm {
         //Returns 4 if the bpm is 60 and beatsPerMeasure is 4 because then one measure is 4 seconds. Milliseconds is always 60?
         return oneBeat * beatsPerMeasure; }
 
-    public double getRandomNoteLength(int rhythmComplexity, boolean swing, boolean repetitive){ //rhythmComplexity = how many rhythmValues are created. //Speed value = how many fast notes
-        // System.out.println("Random value: " +rhythmValues[random.nextInt(rhythmValues.length-1)]);
-        int randomInt = random.nextInt(10);
-
-       return rhythmValues[getRandomNumberInRange(0,4)];
-
-
-
-/*
-        double result = 0;
-        switch (random.nextInt(1)) {
-            case 0:
-                result = eightNote;
-                System.out.println("Random value: "+eightNote);
-                break;
-            case 1:
-                result = eightNote;
-                break;
-            case 2:
-                result = quarterNote;
-                break;
-            case 3:
-                result = sixteenthNote;
-        }
-        return result;
-
-
-*/
-
+    public double getRandomNoteLength(int minRhythmValue, int maxRhythmValue){ //rhythmComplexity = how many rhythmValues are created. //Speed value = how many fast notes
+        return rhythmValues[getRandomNumberInRange(minRhythmValue,maxRhythmValue)];
     }
 
+    private boolean createLoop(int minRhythmValue, int maxRhythmValue){
 
-    private double ComplexityAlgo(int rhythmComplexity){
-        int randomInt = random.nextInt(10);
-
-
-        if (rhythmComplexity<=0){
-            throw new IllegalArgumentException("rhythmComplexeti needs to be from 1-3 (inclusive)");
+        for (int i = 0; i < 32; i++) {
+            double localNoteLength = getRandomNoteLength(minRhythmValue,maxRhythmValue);
+            loop.add(localNoteLength);
         }
-        if (rhythmComplexity>3){
-            throw new IllegalArgumentException("rhythmComplexeti needs to be from 1-3 (inclusive)");
-        }
-
-        if (rhythmComplexity==2){
-            if (randomInt<=9){
-                System.out.println();//play loop
-
-            }
-            else {} //play random note
-        }
-
-        if (rhythmComplexity==1){} //play loop
-
-
-        else {
-            System.out.println(rhythmValues[random.nextInt(rhythmValues.length)]);
-            return rhythmValues[random.nextInt(rhythmValues.length)];
-        }
-
-
-        return rhythmValues[random.nextInt(rhythmValues.length-1)];
+        return true;
     }
 
-
-
-
+    public ArrayList<Double> getLoop(){
+        return loop;
+    }
 
 
     /**
@@ -155,14 +92,4 @@ public class Rhythm {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
-
-    public boolean getCounts(){
-        System.out.println("Else: "+countElse);
-        System.out.println("Fast: "+countFast);
-        System.out.println("Slow: "+countSlow);
-        return true;
-    }
-
-
-
 }

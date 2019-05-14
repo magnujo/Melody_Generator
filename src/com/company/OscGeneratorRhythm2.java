@@ -76,7 +76,7 @@ public class OscGeneratorRhythm2 {
 
         if(firstLoop==true){
             for (int i = 0; i < notesPerMeasure; i++) {
-                double localNoteLength = rhythm.getRandomNoteLength(2,true,true);
+                double localNoteLength = rhythm.getRandomNoteLength(0,0);
                 loop.add(localNoteLength);
             }
         }
