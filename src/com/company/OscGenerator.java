@@ -25,7 +25,7 @@ public class OscGenerator {
     private LineOut squareLineOut;
     private Random random = new Random();
     private double rhythmValueAccumulator = 0;
-    private Rhythm rhythm = new Rhythm(90,4.0);
+    private Rhythm rhythm = new Rhythm(150,4.0);
     private double measureAccumulator;
     private double loopLength;
     private boolean first = true;
@@ -82,11 +82,11 @@ public class OscGenerator {
 
     /**
      *
-     * @param note Controls the pitch/frequencey of a note in the format "A5" or "B#2"
+     * @param note Controls the pitch/frequencey of a note in the format "A5" or "B#2" etc.
      * @param decay Controls the amount of time the note is played
      * @param loopMeasureLength Controls how many measures the loop is
-     * @param rhythmRandomness Controls how big a chance there is for a note to be played with a
-     *                         random rythmValue instead of one from the loop list (0 is no chance and 100 is 100% chance).
+     * @param rhythmRandomness Controls how big a chance (0%-100%) there is for a note to be played with a
+     *                         random rythmValue instead of one from the loop list.
      */
 
 
@@ -112,7 +112,7 @@ public class OscGenerator {
         if (randomInt<=100-rhythmRandomness){
             rhythmValue = rhythm.getLoop().get(index);
         }
-        else {rhythmValue = rhythm.getRandomNoteLength(0,4);
+        else {rhythmValue = rhythm.getRandomNoteLength(0,3);
         }
 
         double timeNow = synth.getCurrentTime();
@@ -124,12 +124,14 @@ public class OscGenerator {
             index++;
             if(timeNow>=measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
                 measureCounter++;                                       // but sleepUntil the end of the measure.
-                System.out.println("Repeating loop");
+                System.out.println("Playing last note of loop");
                 synth.sleepUntil(measureAccumulator);                  //Sleep until the end of the measure
                 measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
                 index = 0;                                             //Restarts the loop
             }
-            else{synth.sleepUntil(timeNow);}                          //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
+            else{
+                System.out.println("Playing note");
+                synth.sleepUntil(timeNow);}                          //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -141,7 +143,6 @@ public class OscGenerator {
         // double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
-        System.out.println("Playing note");
 
         allocator.noteOn(note, frequency, amplitude, timeStamp);
     }
