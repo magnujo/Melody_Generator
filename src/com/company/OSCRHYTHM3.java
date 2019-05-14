@@ -18,6 +18,7 @@ public class OSCRHYTHM3{
     public Synthesizer synthSine = JSyn.createSynthesizer();
     private LineOut sawLineOut;
     private double frequency;
+    private int measureCounter;
     double amplitude;
     public LineOut sineLineOut;
     LineOut lineOut = new LineOut();
@@ -33,13 +34,12 @@ public class OSCRHYTHM3{
     private ArrayList<Double> notes = new ArrayList<>();
     private ArrayList<Double> loop = new ArrayList<>();
     boolean runonce =false;
-    // FileReader fR = new FileReader(".idea/data");
     HashTest noteList = new HashTest();
-    private boolean firstLoop = true;
+    private boolean first = true;
     private double[] amps = {0.0,0.2};
     private Rhythm rhythm = new Rhythm(90,4.0);
-    private double measureAccumulator = rhythm.getMeasure();
-    // ArrayList<Integer> intRhytmList = fR.getPlaylist();
+    private double measureAccumulator;
+    private double loopLength;
     private double rhythmValueAccumulator = 0;
     private double dutyCycle = 0.8; //Controls decay
     private int index = 0;
@@ -47,13 +47,7 @@ public class OSCRHYTHM3{
     private UnitVoice[] voices; //Needed for VoiceAllocator to work
     int tonicNote = 60;     //Controls pitch!
     private double rhythmValue;
-
-
-
     SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
-
-
-    //voices[MAX_VOICES] = voice;
 
 
     public void OscSetup (){
@@ -65,21 +59,22 @@ public class OSCRHYTHM3{
         voice.getOutput().connect(0, lineOut.input, 1);
         voices = new UnitVoice[1];
         voices[0] = voice;
-
         allocator = new VoiceAllocator(voices);
-
         synth.start();
-
     }
 
-    public void Play(double decay, int notesPerMeasure){ // denne metode spiller en takt
+    public void Play(double decay, int loopMeasureLength){
         this.dutyCycle = decay;
         int randomness = random.nextInt(20);
 
-        System.out.println("rythmakku: " + rhythmValueAccumulator);
-        System.out.println("measureAccumulator: "+measureAccumulator);
+        if(first == true){
+            loopLength=rhythm.getMeasure()*loopMeasureLength;
+            measureAccumulator= loopLength;
+        }
+        first =false;
 
-        rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(index);
+        rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(index);   //Accumulates the rhythm values so that we know
+                                                                                        // how much time is left in the measure
 
         lineOut.start();
 
@@ -87,27 +82,24 @@ public class OSCRHYTHM3{
 
         double timeNow = synth.getCurrentTime();
         try {
-            noteOn(timeNow,tonicNote);
-            noteOff(timeNow+dutyCycle,tonicNote);
+            noteOn(timeNow,tonicNote);                                  //Play a note at the current time
+            noteOff(timeNow+dutyCycle,tonicNote);                 //Realease the note after dutyCycle seconds
 
-            timeNow = timeNow + rhythmValue;            //Adds the time (seconds) of a measure of the given BPM and pulse to the timeNow. Measure = taktens længde i sekunder
+            timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time
             index++;
-            if(timeNow>=measureAccumulator){
+            if(timeNow>=measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
+                measureCounter++;                                       // but sleepUntil the end of the measure.
                 System.out.println("Ny takt");
-                synth.sleepUntil(measureAccumulator);
-                measureAccumulator = measureAccumulator + rhythm.getMeasure();
-                index = 0;
+                synth.sleepUntil(measureAccumulator);                  //Sleep until the end of the measure
+                measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
+                index = 0;                                             //Restarts the loop
             }
-            else{synth.sleepUntil(timeNow);}
+            else{synth.sleepUntil(timeNow);}                          //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         lineOut.stop();
-    }
-
-    private void noteOff(double time, int note) {
-        allocator.noteOff(note, new TimeStamp(time));
     }
 
     private void noteOn(double time, int note) {
@@ -119,28 +111,28 @@ public class OSCRHYTHM3{
         allocator.noteOn(note, frequency, amplitude, timeStamp);
     }
 
+    private void noteOff(double time, int note) {
+        allocator.noteOff(note, new TimeStamp(time));
+    }
+
 
     public void StopSynth(){
         synth.stop();
     }
 
 
-
     public ArrayList<Double> getNotes() {
         return notes;
     }
     public int getPlayingNoteNum(int i) {
-
         return playListValues.get(i);
     }
 
 
 
     public int getRootNote() {
-
         Double d = notes.get(0);
         Integer u = d.intValue();
-
         return u;
     }
 
@@ -169,10 +161,8 @@ public class OSCRHYTHM3{
     public static void main(String[] args) {
         OSCRHYTHM3 osc = new OSCRHYTHM3();
         osc.OscSetup();
-        int measureCounter = 1;
         for (int i = 0; i <64; i++) {
-            osc.Play(0.1,32);
-
+            osc.Play(0.1,1);
         }
         osc.synth.stop();
 
