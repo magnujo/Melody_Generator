@@ -82,7 +82,7 @@ public class OSCRHYTHM3{
 
         double timeNow = synth.getCurrentTime();
         try {
-            noteOn(timeNow,tonicNote);                                  //Play a note at the current time
+            noteOn(timeNow,tonicNote);                                  //PlayLoop a note at the current time
             noteOff(timeNow+dutyCycle,tonicNote);                 //Realease the note after dutyCycle seconds
 
             timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time

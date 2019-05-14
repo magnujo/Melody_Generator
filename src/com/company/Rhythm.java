@@ -75,7 +75,7 @@ public class Rhythm {
         // System.out.println("Random value: " +rhythmValues[random.nextInt(rhythmValues.length-1)]);
         int randomInt = random.nextInt(10);
 
-       return rhythmValues[getRandomNumberInRange(0,3)];
+       return rhythmValues[getRandomNumberInRange(0,4)];
 
 
 
