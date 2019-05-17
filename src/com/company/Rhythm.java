@@ -33,7 +33,7 @@ public class Rhythm {
             rhythmValue = rhythmValue/2;
         }
 //make a random loop
-        createLoop(1,1);
+        createLoop(2,4);
 
 
         System.out.println("LOOP: "+ Arrays.toString(loop.toArray()));

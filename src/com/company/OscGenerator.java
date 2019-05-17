@@ -25,7 +25,7 @@ public class OscGenerator {
     private LineOut squareLineOut;
     private Random random = new Random();
     private double rhythmValueAccumulator = 0;
-    private Rhythm rhythm = new Rhythm(150,4.0);
+    private Rhythm rhythm = new Rhythm(125,4.0);
     private double measureAccumulator;
     private double loopLength;
     private boolean first = true;
@@ -38,16 +38,15 @@ public class OscGenerator {
     private UnitOscillator oscillator;
     private ArrayList<Integer> playListValues = new ArrayList<>();
     private ArrayList<Double> notes = new ArrayList<>();
+
     int tonicNote = 60;     //Controls pitch!
     private double rhythmValue;
     HashTest noteList = new HashTest();
     private int measureCounter;
-
     private VoiceAllocator allocator; //Needed to use noteon and noteoff methods that can control decay
     private UnitVoice[] voices; //Needed for VoiceAllocator to work
     SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
     private double dutyCycle = 0.8; //Controls decay
-
 
 
 
@@ -90,13 +89,9 @@ public class OscGenerator {
      */
 
 
-    public void PlayLoop(String note, double decay, int loopMeasureLength, int rhythmRandomness){
+    public void PlayLoop(ArrayList<Double> scale, double decay, int loopMeasureLength, int rhythmRandomness){
         int randomInt = random.nextInt(100);
-        try{
-            this.frequency = noteList.frequencyFinder(note.toUpperCase());}
-        catch (NullPointerException e){
-            System.out.println("ERROR 401: You propably didnt enter a valid Note name. Enter something like 'A4' og 'C#4'");
-        }
+
         this.dutyCycle = decay;
 
         if(first == true){
@@ -117,7 +112,7 @@ public class OscGenerator {
 
         double timeNow = synth.getCurrentTime();
         try {
-            noteOn(timeNow,tonicNote);                                  //PlayLoop a note at the current time
+            noteOn(timeNow, tonicNote, scale);                                  //PlayLoop a note at the current time
             noteOff(timeNow+dutyCycle,tonicNote);                 //Realease the note after dutyCycle seconds
 
             timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time
@@ -131,7 +126,7 @@ public class OscGenerator {
             }
             else{
                 System.out.println("Playing note");
-                synth.sleepUntil(timeNow);}                          //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
+                synth.sleepUntil(timeNow);}                            //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -139,12 +134,11 @@ public class OscGenerator {
         lineOut.stop();
 
     }
-    private void noteOn(double time, int note) {
+    private void noteOn(double time, int note, ArrayList<Double> scale) {
         // double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
-
-        allocator.noteOn(note, frequency, amplitude, timeStamp);
+        allocator.noteOn(note, scale.get(intRhytmList.get(index)), amplitude, timeStamp);
     }
 
     private void noteOff(double time, int note) {
@@ -284,12 +278,14 @@ public class OscGenerator {
         }
     }
     public static void main(String[] args) {
+        HashTest noteMap = new HashTest();
+         MajorScaleTest majorScala = new MajorScaleTest(13,noteMap.frequencyFinder("B0"));
+
         OscGenerator oscGen = new OscGenerator(0);
         oscGen.OscSetup(new SineOscillator());
 
         for (int i = 0; i <64; i++) {
-
-            oscGen.PlayLoop("b4",0.1,2,0);
+            oscGen.PlayLoop(majorScala.getScale(),0.1,1,0);
 
         }
         oscGen.synth.stop();
