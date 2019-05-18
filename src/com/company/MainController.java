@@ -86,12 +86,12 @@ public class MainController {
     @FXML
     TextField writeField;
 
-    @FXML
-
     /**the play button is where the main programme is launched, and melody is supposed to play when it is clicked. This happens when the boolean isPlaying is set to true
      * There is a switch case that depends on which scale the user chooses to play from. The correct scale will then be generated, dependant on the root note that the user has specified.
-    **/
-    public void playButton() {
+     **/
+    @FXML
+
+    private void playButton() {
 
 
         s = textField.getText();
@@ -142,6 +142,7 @@ public class MainController {
      * This function stops everything that is playing. It also makes sure to stop any audio that is being recorded if it is happening.
      *
      * @throws IOException
+     * ttt
      */
 
     @FXML
@@ -160,6 +161,7 @@ public class MainController {
     /**
      * This function resets everything that needs to be reset and stops the oscillators, essentially resetting the program so the user can play something new.
      * @throws IOException
+     * test
      */
 
     @FXML
@@ -181,6 +183,7 @@ public class MainController {
     /**
      * This function allows the user to write new data in textformat to the file. It also runs the RESET function.
      * @throws IOException
+     * test
      */
     @FXML
     public void refresh() throws IOException {
@@ -236,6 +239,7 @@ public class MainController {
     /**
      * This function is a button for recording audio.
      * @throws IOException
+     * test
      */
 
     @FXML
@@ -335,7 +339,9 @@ public class MainController {
     /**
      * This function draws the sheet which holds all the notes.
      * @param g
+     * test
      * @param e
+     * test
      */
 
     private void drawSheet(GraphicsContext g, int e) {
@@ -390,7 +396,6 @@ public class MainController {
 
         }
 
-        //if(d>200||d<160)
         // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
 
         //nodepapir
@@ -425,8 +430,11 @@ public class MainController {
     /**
      * This is a private function that only makes sense to be used in conjunction with the sheet function.
      * @param g
+     * test
      * @param row
+     * test
      * @param offset
+     * test
      */
 
     private void sharps(GraphicsContext g, int row, int offset) {

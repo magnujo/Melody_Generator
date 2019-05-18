@@ -82,6 +82,7 @@ public class Rhythm {
      * @param min is the lowest number it will choose.
      * @param max is the highest number it will choose.
      * @return
+     * test
      */
 
     private int getRandomNumberInRange(int min, int max) {

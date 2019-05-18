@@ -81,7 +81,7 @@ public class OscGenerator {
 
     /**
      *
-     * @param note Controls the pitch/frequencey of a note in the format "A5" or "B#2" etc.
+     * note Controls the pitch/frequencey of a note in the format "A5" or "B#2" etc.
      * @param decay Controls the amount of time the note is played
      * @param loopMeasureLength Controls how many measures the loop is
      * @param rhythmRandomness Controls how big a chance (0%-100%) there is for a note to be played with a
