@@ -16,6 +16,13 @@ public class FileReader {
     private String textLine = null;
     private int octaves;
 
+    /**
+     * This class takes a textfile and turns it into numbers in an arraylist that are supposed to represent notes on a scale.
+     * @param path
+     * tha path to the file we need to parse
+     * @param octaves
+     * octave number
+     */
     public FileReader(String path, int octaves) {
         this.path = path;
         generatePlaylist();
@@ -23,8 +30,6 @@ public class FileReader {
     }
 
     private void generatePlaylist() {
-
-
 
         try {
             // FileReader reads text files in the default encoding.

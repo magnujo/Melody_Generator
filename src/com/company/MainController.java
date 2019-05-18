@@ -36,7 +36,7 @@ public class MainController {
     /**this hashmap is used to connect musical notation of scales ie. C3 to their respective frequencies, for use in the scalegenerator afterwards.
      *
      */
-    private HashTest frequencyMap = new HashTest();
+    private FrequencyHashMap frequencyMap = new FrequencyHashMap();
 
     /**this variable is the play counter, it will go up for every note that should be played.
      *
@@ -119,7 +119,7 @@ public class MainController {
     /**arraylist of notes to be played.
      *
      */
-    ArrayList<Note> notes = new ArrayList<>();
+    private ArrayList<Note> notes = new ArrayList<>();
 
     @FXML
     CheckBox mute;
@@ -232,7 +232,6 @@ public class MainController {
         counter = 0;
         toClear = true;
 
-
     }
 
     /**
@@ -310,11 +309,7 @@ public class MainController {
     @FXML
     public void initialize() {
 
-
-
-
         GraphicsContext g = canvas.getGraphicsContext2D();
-
 
         g.setFill(Color.GREY);
         osc = new OscGenerator(0);
@@ -367,7 +362,8 @@ public class MainController {
                     osc.Play(majorScala.getScale(), counter, complexity,"sine",isMuted);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
 
-                } if(isMinor) {
+                }
+                if(isMinor) {
                     osc.Play(minorScala.getScale(), counter, complexity,"sine",isMuted);
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
 
@@ -451,7 +447,7 @@ public class MainController {
 
         //This is where the note objects get created.
         // X positions are set first. 10 is the amount of space between each note. 25 is the start position of the first note.
-        notes.get(this.counter).setxPos(25 + xPos * 10);
+        notes.get(this.counter).setxPos(25 + (double)xPos * 10);
         //Y positions are set next. They are a bit more complex because the notes need to be able to be placed correctly on the sheets no matter which scale we are playing in.
         notes.get(this.counter).setyPos(215 - rootNote - playingNoteNum * 5 + row * offset);
 
@@ -476,8 +472,6 @@ public class MainController {
             }
 
         }
-
-        // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
 
         //Note paper. Its simply some lines! 5 of them. But they move down which each row.
         for (int i = 0; i <5 ; i++) {

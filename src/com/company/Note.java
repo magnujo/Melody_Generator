@@ -27,6 +27,15 @@ public class Note {
     private String complexity;
     private ArrayList<Double> scale;
 
+    /**
+     *
+     * @param scale
+     * which scale the note is in
+     * @param i
+     * which number the note has
+     * @param complexity
+     * what complexity its being played with
+     */
 
     Note(ArrayList<Double> scale, int i, String complexity){
 

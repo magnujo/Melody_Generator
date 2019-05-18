@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.HashMap;
 
-public class HashTest {
+public class FrequencyHashMap {
 
     private ScaleGenerator scaleGenerator = new ScaleGenerator(150, 16.351597831287414);
     private HashMap<String,Double> freqMap = new HashMap<>();
@@ -11,7 +11,12 @@ public class HashTest {
     private int j = 0;
     private int octaveNumber = 0;
 
-    HashTest() {
+    /**
+     * This class creates a hashmap of all frequencies in 10 octaves and links them with their musical scale key, for easier programming.
+     * It also creates a map of notes that is not exponential. Which is used for the visual part of the program since a representation in notes is linear not logaritmic.
+     * Just like the notes on a piano are linear. Even though the underlying frequencies rise exponentially the furhter uip you get on the piano.
+     */
+    FrequencyHashMap() {
         for (int i = 0; i < scaleGenerator.getScale().size(); i++) {
 
             if (i % 12 == 0 && i != 0) {
@@ -24,7 +29,7 @@ public class HashTest {
         }
     }
 
-    //frequency map
+    //frequency finder
     public double frequencyFinder (String noteValue){return freqMap.get(noteValue);}
     //pitch map
     public double noteFinder (double frequencyValue){return noteMap.get(frequencyValue);}

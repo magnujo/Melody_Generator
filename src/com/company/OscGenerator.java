@@ -41,7 +41,7 @@ public class OscGenerator {
 
     int tonicNote = 60;     //Controls pitch!
     private double rhythmValue;
-    HashTest noteList = new HashTest();
+    FrequencyHashMap noteList = new FrequencyHashMap();
     private int measureCounter;
     private VoiceAllocator allocator; //Needed to use noteon and noteoff methods that can control decay
     private UnitVoice[] voices; //Needed for VoiceAllocator to work
@@ -236,17 +236,28 @@ public class OscGenerator {
         return u;
     }
 
+    /**
+     *
+     * @param scale
+     * The scale we want to play from.
+     * @param counter
+     * The note we are playing represented by an iterative counter.
+     * @param complexity
+     * The complexity of the rhythm we are using.
+     * @param oscillatorType
+     * The type of oscillator we allow the user to use.
+     * @param muted
+     * If the user has muted the application, this parameter should stop all sound if set to true.
+     */
 
-    public void Play(ArrayList<Double> scale, int i, String complexity, String oscillatorType, boolean muted) {
-
-
+    public void Play(ArrayList<Double> scale, int counter, String complexity, String oscillatorType, boolean muted) {
 
         if (complexity.equals("low complexity")) {
             duration = 0.1;
         }
         if (complexity.equals("medium complexity") || complexity == null) {
 
-            duration = intRhytmList.get(i) * 0.1;
+            duration = intRhytmList.get(counter) * 0.1;
         }
         if (complexity.equals("high complexity")) {
 
@@ -254,11 +265,11 @@ public class OscGenerator {
         }
 
         if(!muted) {
-            PlaySine(scale.get(intRhytmList.get(i)));
+            PlaySine(scale.get(intRhytmList.get(counter)));
         }
 
-        notes.add(scale.get(intRhytmList.get(i)));
-        playListValues.add(intRhytmList.get(i));
+        notes.add(scale.get(intRhytmList.get(counter)));
+        playListValues.add(intRhytmList.get(counter));
 
 
         if (oscillatorType == null||oscillatorType=="sine") {
@@ -278,7 +289,7 @@ public class OscGenerator {
         }
     }
     public static void main(String[] args) {
-        HashTest noteMap = new HashTest();
+        FrequencyHashMap noteMap = new FrequencyHashMap();
          MajorScale majorScala = new MajorScale(13,noteMap.frequencyFinder("B0"));
 
         OscGenerator oscGen = new OscGenerator(0);
