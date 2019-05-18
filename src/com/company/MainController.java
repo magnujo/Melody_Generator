@@ -533,7 +533,7 @@ public class MainController {
     }
 
     /**
-     * This is a private class of the private function that is wholly dependent on the private class, sharps. A sharp, is thus an object of the type; sharp, that is added to the list of sharps. 
+     * This is a private class of the private function that is wholly dependent on the private class, sharps. A sharp, is thus an object of the type; sharp, that is added to the list of sharps.
      */
 
     private class Sharp {
