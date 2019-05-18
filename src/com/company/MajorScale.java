@@ -1,10 +1,8 @@
 package com.company;
 
-import java.util.Arrays;
+public class MajorScale extends ScaleGenerator {
 
-public class MajorScaleTest extends ScaleGeneratorTest{
-
-    public MajorScaleTest(int scaleLength, double startFreq) {
+    public MajorScale(int scaleLength, double startFreq) {
         super(scaleLength, startFreq);
 
         //Kan muligvis gøres smartere med et loop

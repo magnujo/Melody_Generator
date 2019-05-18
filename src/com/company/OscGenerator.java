@@ -279,7 +279,7 @@ public class OscGenerator {
     }
     public static void main(String[] args) {
         HashTest noteMap = new HashTest();
-         MajorScaleTest majorScala = new MajorScaleTest(13,noteMap.frequencyFinder("B0"));
+         MajorScale majorScala = new MajorScale(13,noteMap.frequencyFinder("B0"));
 
         OscGenerator oscGen = new OscGenerator(0);
         oscGen.OscSetup(new SineOscillator());

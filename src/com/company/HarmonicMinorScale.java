@@ -1,6 +1,6 @@
 package com.company;
 
-public class HarmonicMinorScale extends ScaleGeneratorTest{
+public class HarmonicMinorScale extends ScaleGenerator {
 
 
 

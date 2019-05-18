@@ -1,14 +1,10 @@
 package com.company;
 
-import com.jsyn.unitgen.SawtoothOscillator;
-
-import java.util.Arrays;
-
-public class MinorScaleTest extends ScaleGeneratorTest{
+public class MinorScale extends ScaleGenerator {
 
 
 
-    public MinorScaleTest(int scaleLength, double startFreq) {
+    public MinorScale(int scaleLength, double startFreq) {
         super(scaleLength, startFreq);
 
         scale.remove(1);

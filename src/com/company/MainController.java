@@ -22,48 +22,103 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**Main controller class for the application
+ *
+ */
+
 public class MainController {
 
-    //this is for the sample recorder object which is used to record .wav files.
+    /**this is for the sample recorder object which is used to record .wav files.
+     *
+     */
     private SampleRecorder recorder = new SampleRecorder();
 
-    //this hashmap is used to connect musical notation of scales ie. C3 to their respective frequencies, for use in the scalegenerator afterwards.
-    private HashTest hashTest = new HashTest();
+    /**this hashmap is used to connect musical notation of scales ie. C3 to their respective frequencies, for use in the scalegenerator afterwards.
+     *
+     */
+    private HashTest frequencyMap = new HashTest();
 
-    //this variable is the play counter, it will go up for every note that should be played.
+    /**this variable is the play counter, it will go up for every note that should be played.
+     *
+     */
     private int counter;
-    //This is the initial scale that gets played
+    /**This is the initial scale that gets played
+     *
+     */
     private String s;
 
-    //scaletype
+    /**scaletype
+     *
+     */
+
     private String scaleType;
-    //set all the lengths of all scales being generated with one variable
+    /**set all the lengths of all scales being generated with one variable
+     *
+     */
     private int scaleLengths = 13;
 
-    //oscillator
+    /**Instance of the oscillator we play from, from the JSYN API
+     *
+     */
     private OscGenerator osc = new OscGenerator(0);
 
-    //instancing class variable scales, with null.
-    private MajorScaleTest majorScala;
-    private MinorScaleTest minorScala;
+    /**instancing class variable MajorScale, with null.
+     *
+     */
+    private MajorScale majorScala;
+    /**instancing class variable MajorScale, with null.
+     *
+     */
+    private MinorScale minorScala;
+    /**instancing class variable HarmonicMinorScale, with null.
+     *
+     */
     private HarmonicMinorScale harmonicMinorScale;
 
     //booleans that the user can manipulate through the GUI, which are input parameters for the program.
+
+    /**
+     * If we are playing right now.
+     */
     private boolean isPlaying = false;
+    /**
+     * If we are using a major scale.
+     */
     private boolean isMajor;
+    /**
+     * If we are using a minor scale.
+     */
     private boolean isMinor;
+    /**
+     * If we are using a harmonic minor scale.
+     */
     private boolean isHarmonicMinor;
+    /**
+     * Mute button. Can be useful when debugging.
+     */
     private boolean isMuted;
+    /**
+     * A clear method that clears the canvas using the clearRect() method.
+     */
     private boolean toClear;
+    /**
+     * Boolean to notify that we are recording.
+     */
     private boolean isRecording;
 
-    //the root note, we need to know the root note as all other notes in a scale relate to this. This is used to place the notes on the XY axis.
+    /**the root note, we need to know the root note as all other notes in a scale relate to this. This is used to place the notes on the XY axis.
+     *
+     */
     private double rootNote;
 
-    //rhythm complexity
+    /**rhythm complexity
+     *
+     */
     private String complexity = "medium complexity";
 
-    //arraylist of notes to be played.
+    /**arraylist of notes to be played.
+     *
+     */
     ArrayList<Note> notes = new ArrayList<>();
 
     @FXML
@@ -101,8 +156,8 @@ public class MainController {
         switch (scaleType){
             default :
             case "major scale":
-                majorScala = new MajorScaleTest(scaleLengths, hashTest.frequencyFinder(s));
-                rootNote = hashTest.noteFinder(majorScala.getScale().get(0));
+                majorScala = new MajorScale(scaleLengths, frequencyMap.frequencyFinder(s));
+                rootNote = frequencyMap.noteFinder(majorScala.getScale().get(0));
                 isMajor = true;
                 isMinor=false;
                 isHarmonicMinor=false;
@@ -111,8 +166,8 @@ public class MainController {
             case "minor scale":
                 s = textField.getText();
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
-                minorScala = new MinorScaleTest(scaleLengths, hashTest.frequencyFinder(s));
-                rootNote = hashTest.noteFinder(minorScala.getScale().get(0));
+                minorScala = new MinorScale(scaleLengths, frequencyMap.frequencyFinder(s));
+                rootNote = frequencyMap.noteFinder(minorScala.getScale().get(0));
                 isMinor = true;
                 isMajor = false;
                 isHarmonicMinor=false;
@@ -121,8 +176,8 @@ public class MainController {
             case "harmonic minor scale":
                 s = textField.getText();
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
-                harmonicMinorScale = new HarmonicMinorScale(scaleLengths, hashTest.frequencyFinder(s));
-                rootNote = hashTest.noteFinder(harmonicMinorScale.getScale().get(0));
+                harmonicMinorScale = new HarmonicMinorScale(scaleLengths, frequencyMap.frequencyFinder(s));
+                rootNote = frequencyMap.noteFinder(harmonicMinorScale.getScale().get(0));
                 isHarmonicMinor = true;
                 isMajor=false;
                 isMinor=false;
@@ -161,7 +216,7 @@ public class MainController {
     /**
      * This function resets everything that needs to be reset and stops the oscillators, essentially resetting the program so the user can play something new.
      * @throws IOException
-     * test
+     * Exception needed for recording.
      */
 
     @FXML
@@ -183,7 +238,7 @@ public class MainController {
     /**
      * This function allows the user to write new data in textformat to the file. It also runs the RESET function.
      * @throws IOException
-     * test
+     * Exception needed for recording.
      */
     @FXML
     public void refresh() throws IOException {
@@ -286,6 +341,9 @@ public class MainController {
     private void drawCanvas() {
         GraphicsContext g = canvas.getGraphicsContext2D();
 
+        /**
+         * Gets ready to clear the canvas.
+         */
         if (toClear) {
             g.clearRect(0, 0, 1000, 1000);
             toClear = false;
@@ -302,6 +360,7 @@ public class MainController {
                 osc.sineLineOut.stop();
             }
 
+            //this triggers a noteplay event every time we run through the draw method. Which one that is triggered depends on which scale we are playing from. Major, minor... etc.
             if (counter < osc.intRhytmList.size()) {
 
                 if (isMajor) {
@@ -326,84 +385,105 @@ public class MainController {
             }
             g.setFill(Color.RED);
 
+            /* We do this because we need to get the exact note that we are playing. The way the programme is built the maincontroller doesn't know exactly what notes we have to play. Thats taken care off in the oscgenerator.java. This is in relation to the root note.*/
             int playingNoteNum = osc.getPlayingNoteNum(counter);
 
+            //Actually draws the sheet and notes! Handles the visual part.
             drawSheet(g, playingNoteNum);
-
-
             counter++;
 
         }
     }
 
     /**
-     * This function draws the sheet which holds all the notes.
+     * This function draws the sheet which holds all the notes. Its taking part of all the visuals on the canvas.
      * @param g
-     * test
-     * @param e
-     * test
+     * graphicscontext g parameter, used for canvas.
+     * @param playingNoteNum
+     * the notes that are playing and which need to be drawn, in relation to their root note.
      */
 
-    private void drawSheet(GraphicsContext g, int e) {
-
+    private void drawSheet(GraphicsContext g, int playingNoteNum) {
 
         g.setFill(Color.BLACK);
+        /*
+         * Row variable. Keeps track of rows.
+         */
         int row = 0;
-        int offset = 0;
-        int xPos;
-        int xOffset=0;
 
-        if (counter > 60) {
+        /*
+         * Offset is used to determine how much we need to set the amount of distance in which we have to go out of line in relation to the previous ROW on the y axis.
+         */
+        int offset = 0;
+        /*
+         * xPos is used to store which position we are at on the x-axis.
+         */
+        int xPos;
+        /*
+         * xOffset is the amount we need to offset on the xAxis. This is used so we don't draw notes before we are 60 pixels in. Which makes sense, because there need to be room for sharps/flats.
+         */
+        int xOffset=0;
+        /*
+         * If we get above 60, it means that we are out of bounds and we will need to switch to the next row.
+         */
+        if (this.counter > 60) {
             row = 1;
             offset = 100;
             xOffset = 60;
 
         }
-        if (counter > 120) {
+        /* If we get above 120 we need to switch to the second row. etc. */
+
+        if (this.counter > 120) {
             row = 2;
         }
-        if (counter > 180) {
+        if (this.counter > 180) {
             row = 3;
         }
-        if (counter > 240) {
+        if (this.counter > 240) {
             row = 4;
         }
-        xPos = counter - xOffset * row;
+        /*
+         * Setting the xPosition. In relation to the offset and the row. Each row we get 60 pixels too far to the right in relation to the sheet so we need to correct for that by subtracting xOffset with the row.
+         */
+        xPos = this.counter - xOffset * row;
 
 
-        //notes
-        notes.get(counter).setxPos(25 + xPos * 10);
-        notes.get(counter).setyPos(215 - rootNote - e * 5 + row * offset);
+        //This is where the note objects get created.
+        // X positions are set first. 10 is the amount of space between each note. 25 is the start position of the first note.
+        notes.get(this.counter).setxPos(25 + xPos * 10);
+        //Y positions are set next. They are a bit more complex because the notes need to be able to be placed correctly on the sheets no matter which scale we are playing in.
+        notes.get(this.counter).setyPos(215 - rootNote - playingNoteNum * 5 + row * offset);
 
-        g.fillOval(notes.get(counter).getxPos(), notes.get(counter).getyPos(), 6, 6);
-        g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos() - 12, 2, 15);
-        g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos() - 14, 10, 1);
+        //This is where the note objects get drawn.
+        g.fillOval(notes.get(this.counter).getxPos(), notes.get(this.counter).getyPos(), 6, 6);
+        g.fillRect(notes.get(this.counter).getxPos(), notes.get(this.counter).getyPos() - 12, 2, 15);
+        g.fillRect(notes.get(this.counter).getxPos(), notes.get(this.counter).getyPos() - 14, 10, 1);
 
         //line under notes too high up bylines // help lines
 
-        if(notes.get(counter).getyPos()>30+offset*row&&notes.get(counter).getyPos()<70+offset*row) {
-            g.fillRect(notes.get(counter).getxPos() - 3, 66+offset*row, 12, 2);
-            if(notes.get(counter).getyPos()<58+offset*row){
-                g.fillRect(notes.get(counter).getxPos() - 3, 56+offset*row, 12, 2);
+        if(notes.get(this.counter).getyPos()>30+offset*row&&notes.get(this.counter).getyPos()<70+offset*row) {
+            g.fillRect(notes.get(this.counter).getxPos() - 3, 66+offset*row, 12, 2);
+            if(notes.get(this.counter).getyPos()<58+offset*row){
+                g.fillRect(notes.get(this.counter).getxPos() - 3, 56+offset*row, 12, 2);
             }
         }
         //line under notes too far down
-        if(notes.get(counter).getyPos()>118+offset*row&&notes.get(counter).getyPos()<150+offset*row) {
-            g.fillRect(notes.get(counter).getxPos() - 3, 124+offset*row, 12, 2);
-            if(notes.get(counter).getyPos()>130+offset*row){
-                g.fillRect(notes.get(counter).getxPos() - 3, 134+offset*row, 12, 2);
+        if(notes.get(this.counter).getyPos()>118+offset*row&&notes.get(this.counter).getyPos()<150+offset*row) {
+            g.fillRect(notes.get(this.counter).getxPos() - 3, 124+offset*row, 12, 2);
+            if(notes.get(this.counter).getyPos()>130+offset*row){
+                g.fillRect(notes.get(this.counter).getxPos() - 3, 134+offset*row, 12, 2);
             }
 
         }
 
         // g.fillRect(2 + counter * 5, +187 -d-e*5, 10, 2);
 
-        //nodepapir
-        g.fillRect(0, 75 + row * offset, 640, 1);
-        g.fillRect(0, 85 + row * offset, 640, 1);
-        g.fillRect(0, 95 + row * offset, 640, 1);
-        g.fillRect(0, 105 + row * offset, 640, 1);
-        g.fillRect(0, 115 + row * offset, 640, 1);
+        //Note paper. Its simply some lines! 5 of them. But they move down which each row.
+        for (int i = 0; i <5 ; i++) {
+            g.fillRect(0, 75 + row * offset+i*10, 640, 1);
+        }
+
 
         //line seperator
 
@@ -413,12 +493,10 @@ public class MainController {
 
         }
 
-
         //beatcounter
         g.clearRect(0, 0, 150, 50);
-        g.fillText("Notes played: " + Integer.toString(counter), 5, 15);
+        g.fillText("Notes played: " + Integer.toString(this.counter), 5, 15);
         g.fillText( s + " "+ scaleType, 5, 30);
-
 
         g.setFill(Color.RED);
 
@@ -430,15 +508,21 @@ public class MainController {
     /**
      * This is a private function that only makes sense to be used in conjunction with the sheet function.
      * @param g
-     * test
+     * Graphicscontext g
      * @param row
-     * test
+     * The row parameter is also needed to place the sharps on every row correctly.
      * @param offset
-     * test
+     * Offset on the y axis.
+     * All the key signatures need to be accounted for. These are determined by their flats and sharps.
+     * A description can be found here.
+     * http://musictheoryfundamentals.com/MusicTheory/keySignatures.php
      */
 
+
     private void sharps(GraphicsContext g, int row, int offset) {
+        //If we are playing in Major we will get the following sharps. We also reuse the user chose of key from earlier by doing a regex function on the textfield, to see what scale we are playing.
         if (isMajor) {
+            //holds all the sharps/flats
             ArrayList<Sharp> sharps = new ArrayList<>();
 
             //øverste linje = 0, for hver 10 man går op går man en linje ned.
@@ -448,14 +532,13 @@ public class MainController {
                 sharps.add(new Sharp(g, row, offset, 0, 15));
             }
 
-            if (s.contains("flat")) {
+            if (s.contains("B")) {
                 sharps.add(new Sharp(g, row, offset, 15, -5));
                 sharps.add(new Sharp(g, row, offset, 0, 0));
                 sharps.add(new Sharp(g, row, offset, 25, 10));
                 sharps.add(new Sharp(g, row, offset, 11, 15));
                 sharps.add(new Sharp(g, row, offset, 35, 25));
             }
-
 
             if (s.contains("D")) {
                 sharps.add(new Sharp(g, row, offset, 15, 0));
@@ -467,7 +550,6 @@ public class MainController {
                 sharps.add(new Sharp(g, row, offset, 0, 0));
                 sharps.add(new Sharp(g, row, offset, 25, 10));
                 sharps.add(new Sharp(g, row, offset, 11, 15));
-
             }
 
             if (s.contains("F")) {
@@ -479,7 +561,7 @@ public class MainController {
             for (Sharp sharp : sharps) {
                 sharp.invoke();
             }
-
+//we clear it afterwards so it doesn't get unessecarily long.
             sharps.clear();
         }
 //minor
@@ -490,7 +572,6 @@ public class MainController {
 
                 sharps.add(new Sharp(g, row, offset, 0, 0));
                 sharps.add(new Sharp(g, row, offset, 0, 15));
-
             }
 
             if (s.contains("C")) {
@@ -498,37 +579,27 @@ public class MainController {
                 sharps.add(new Sharp(g, row, offset, 5, 5,true));
                 sharps.add(new Sharp(g, row, offset, 0, 20,true));
                 sharps.add(new Sharp(g, row, offset, 10, 25,true));
-
             }
-
 
             if (s.contains("D")) {
 
                 sharps.add(new Sharp(g, row, offset, 0, 20,true));
-
             }
-
 
             if (s.contains("E")) {
 
                 sharps.add(new Sharp(g, row, offset, 0, 0));
-
             }
 
             if (s.contains("F")) {
                 sharps.add(new Sharp(g, row, offset, 5, 5,true));
-
                 sharps.add(new Sharp(g, row, offset, 15, 10,true));
-
                 sharps.add(new Sharp(g, row, offset, 0, 25,true));
-
                 sharps.add(new Sharp(g, row, offset, 10, 30,true));
             }
             if (s.contains("G")) {
 
                 sharps.add(new Sharp(g, row, offset, 5, 5,true));
-
-
                 sharps.add(new Sharp(g, row, offset, 0, 20,true));
             }
 
@@ -536,7 +607,7 @@ public class MainController {
                 sharp.invoke();
             }
             sharps.clear();
-
+            //we clear it afterwards so it doesn't get unessecarily long.
         }
     }
 
@@ -557,6 +628,7 @@ public class MainController {
             this.row = row;
             this.offset = offset;
             this.startX = startX;
+            //This is simply to make placing the sharps easier. So the first line is 0. The next is 10, next 20, next 30. Makes placing the sharps and flats mentally much easier.
             this.startY = startY+72;
         }
 
@@ -571,12 +643,14 @@ public class MainController {
         }
 
         public void invoke() {
+            //visual approximation of a sharp sign. (#)
             if(!flat) {
                 g.fillRect(startX + 2, startY + row * offset, 16, 2);
                 g.fillRect(startX + 2, startY + row * offset + 5, 16, 2);
                 g.fillRect(startX + 5 + 2, startY + row * offset - 4, 2, 17);
                 g.fillRect(startX + 10 + 2, startY + row * offset - 4, 2, 17);
             }
+            //visual approximation of a flat sign. (b)
             if(flat){
                 g.fillRect(startX , startY + row * offset-13, 2, 18);
                 g.fillRect(startX + 2, startY + row * offset , 6, 6);
