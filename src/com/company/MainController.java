@@ -24,8 +24,10 @@ import java.util.ArrayList;
 
 public class MainController {
 
+    //this is for the sample recorder object which is used to record .wav files.
     private SampleRecorder recorder = new SampleRecorder();
 
+    //this hashmap is used to connect musical notation of scales ie. C3 to their respective frequencies, for use in the scalegenerator afterwards.
     private HashTest hashTest = new HashTest();
 
     //this variable is the play counter, it will go up for every note that should be played.
@@ -46,8 +48,8 @@ public class MainController {
     private MinorScaleTest minorScala;
     private HarmonicMinorScale harmonicMinorScale;
 
-    //booleans
-    private boolean clicked = false;
+    //booleans that the user can manipulate through the GUI, which are input parameters for the program.
+    private boolean isPlaying = false;
     private boolean isMajor;
     private boolean isMinor;
     private boolean isHarmonicMinor;
@@ -55,7 +57,7 @@ public class MainController {
     private boolean toClear;
     private boolean isRecording;
 
-    //the root note
+    //the root note, we need to know the root note as all other notes in a scale relate to this. This is used to place the notes on the XY axis.
     private double rootNote;
 
     //rhythm complexity
@@ -66,7 +68,6 @@ public class MainController {
 
     @FXML
     CheckBox mute;
-
 
     @FXML
     ChoiceBox<String> choiceBox;
@@ -87,6 +88,9 @@ public class MainController {
 
     @FXML
 
+    /**the play button is where the main programme is launched, and melody is supposed to play when it is clicked. This happens when the boolean isPlaying is set to true
+     * There is a switch case that depends on which scale the user chooses to play from. The correct scale will then be generated, dependant on the root note that the user has specified.
+    **/
     public void playButton() {
 
 
@@ -102,7 +106,7 @@ public class MainController {
                 isMajor = true;
                 isMinor=false;
                 isHarmonicMinor=false;
-                clicked = true;
+                isPlaying = true;
                 break;
             case "minor scale":
                 s = textField.getText();
@@ -112,7 +116,7 @@ public class MainController {
                 isMinor = true;
                 isMajor = false;
                 isHarmonicMinor=false;
-                clicked = true;
+                isPlaying = true;
                 break;
             case "harmonic minor scale":
                 s = textField.getText();
@@ -122,7 +126,7 @@ public class MainController {
                 isHarmonicMinor = true;
                 isMajor=false;
                 isMinor=false;
-                clicked = true;
+                isPlaying = true;
                     break;
         }
 
@@ -134,11 +138,17 @@ public class MainController {
         }
     }
 
+    /**
+     * This function stops everything that is playing. It also makes sure to stop any audio that is being recorded if it is happening.
+     *
+     * @throws IOException
+     */
+
     @FXML
 
     public void stopButton() throws IOException {
 
-        clicked = false;
+        isPlaying = false;
         osc.sineLineOut.stop();
         if (isRecording) {
             osc.synthSine.stop();
@@ -147,10 +157,15 @@ public class MainController {
         }
     }
 
+    /**
+     * This function resets everything that needs to be reset and stops the oscillators, essentially resetting the program so the user can play something new.
+     * @throws IOException
+     */
+
     @FXML
     public void resetButton() throws IOException {
 
-        clicked = false;
+        isPlaying = false;
         osc.sineLineOut.stop();
         if (isRecording) {
             osc.synthSine.stop();
@@ -162,8 +177,13 @@ public class MainController {
 
 
     }
+
+    /**
+     * This function allows the user to write new data in textformat to the file. It also runs the RESET function.
+     * @throws IOException
+     */
     @FXML
-    public void refresh()  {
+    public void refresh() throws IOException {
 
 
         try {
@@ -176,13 +196,14 @@ public class MainController {
         }
 
         osc.refreshFileReader();
+        resetButton();
     }
 
 
+    /**
+     * This function simply takes a screenshot of the canvas. Which is handy if the user wants to print out the sheets on physical paper for playing on physical instruments as well.
+     */
 
-
-
-    //Button to print image
     @FXML
     public void pictureBtn() {
 
@@ -212,11 +233,20 @@ public class MainController {
 
     }
 
+    /**
+     * This function is a button for recording audio.
+     * @throws IOException
+     */
+
     @FXML
     public void recBtn() throws IOException {
         recorder.initRecording(osc);
         isRecording = true;
     }
+
+    /**
+     * This function is what gets run first time javafx is started.
+     */
 
     @FXML
     public void initialize() {
@@ -245,6 +275,10 @@ public class MainController {
 
     }
 
+    /**
+     * This is the draw function where all graphics are handled. It is run 30 times every second.
+     */
+
     private void drawCanvas() {
         GraphicsContext g = canvas.getGraphicsContext2D();
 
@@ -255,7 +289,7 @@ public class MainController {
 
 
 //if the button major or minor are pressed
-        if (clicked) {
+        if (isPlaying) {
             complexity = choiceBox.getSelectionModel().getSelectedItem();
 
             isMuted= mute.isSelected();
@@ -284,13 +318,13 @@ public class MainController {
             } else {
                 osc.sineLineOut.stop();
                 counter=0;
-                clicked = false;
+                isPlaying = false;
             }
             g.setFill(Color.RED);
 
             int playingNoteNum = osc.getPlayingNoteNum(counter);
 
-            drawNotePaper(g, playingNoteNum);
+            drawSheet(g, playingNoteNum);
 
 
             counter++;
@@ -298,7 +332,13 @@ public class MainController {
         }
     }
 
-    private void drawNotePaper(GraphicsContext g, int e) {
+    /**
+     * This function draws the sheet which holds all the notes.
+     * @param g
+     * @param e
+     */
+
+    private void drawSheet(GraphicsContext g, int e) {
 
 
         g.setFill(Color.BLACK);
@@ -325,7 +365,7 @@ public class MainController {
         xPos = counter - xOffset * row;
 
 
-        //noder
+        //notes
         notes.get(counter).setxPos(25 + xPos * 10);
         notes.get(counter).setyPos(215 - rootNote - e * 5 + row * offset);
 
@@ -333,7 +373,7 @@ public class MainController {
         g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos() - 12, 2, 15);
         g.fillRect(notes.get(counter).getxPos(), notes.get(counter).getyPos() - 14, 10, 1);
 
-        //line under notes too high up bilines // bilinjer
+        //line under notes too high up bylines // help lines
 
         if(notes.get(counter).getyPos()>30+offset*row&&notes.get(counter).getyPos()<70+offset*row) {
             g.fillRect(notes.get(counter).getxPos() - 3, 66+offset*row, 12, 2);
@@ -377,123 +417,134 @@ public class MainController {
 
         g.setFill(Color.RED);
 
-            //kryds
-        kryds(g, row, offset);
+            //sharps
+        sharps(g, row, offset);
 
     }
 
-    private void kryds(GraphicsContext g, int row, int offset) {
+    /**
+     * This is a private function that only makes sense to be used in conjunction with the sheet function.
+     * @param g
+     * @param row
+     * @param offset
+     */
+
+    private void sharps(GraphicsContext g, int row, int offset) {
         if (isMajor) {
-            ArrayList<Kryds> krydser = new ArrayList<>();
+            ArrayList<Sharp> sharps = new ArrayList<>();
 
             //øverste linje = 0, for hver 10 man går op går man en linje ned.
             if (s.contains("A")) {
-                krydser.add(new Kryds(g, row, offset, 15, -5));
-                krydser.add(new Kryds(g, row, offset, 25, 0));
-                krydser.add(new Kryds(g, row, offset, 0, 15));
+                sharps.add(new Sharp(g, row, offset, 15, -5));
+                sharps.add(new Sharp(g, row, offset, 25, 0));
+                sharps.add(new Sharp(g, row, offset, 0, 15));
             }
 
-            if (s.contains("B")) {
-                krydser.add(new Kryds(g, row, offset, 15, -5));
-                krydser.add(new Kryds(g, row, offset, 0, 0));
-                krydser.add(new Kryds(g, row, offset, 25, 10));
-                krydser.add(new Kryds(g, row, offset, 11, 15));
-                krydser.add(new Kryds(g, row, offset, 35, 25));
+            if (s.contains("flat")) {
+                sharps.add(new Sharp(g, row, offset, 15, -5));
+                sharps.add(new Sharp(g, row, offset, 0, 0));
+                sharps.add(new Sharp(g, row, offset, 25, 10));
+                sharps.add(new Sharp(g, row, offset, 11, 15));
+                sharps.add(new Sharp(g, row, offset, 35, 25));
             }
 
 
             if (s.contains("D")) {
-                krydser.add(new Kryds(g, row, offset, 15, 0));
-                krydser.add(new Kryds(g, row, offset, 0, 15));
+                sharps.add(new Sharp(g, row, offset, 15, 0));
+                sharps.add(new Sharp(g, row, offset, 0, 15));
             }
 
             if (s.contains("E")) {
-                krydser.add(new Kryds(g, row, offset, 15, -5));
-                krydser.add(new Kryds(g, row, offset, 0, 0));
-                krydser.add(new Kryds(g, row, offset, 25, 10));
-                krydser.add(new Kryds(g, row, offset, 11, 15));
+                sharps.add(new Sharp(g, row, offset, 15, -5));
+                sharps.add(new Sharp(g, row, offset, 0, 0));
+                sharps.add(new Sharp(g, row, offset, 25, 10));
+                sharps.add(new Sharp(g, row, offset, 11, 15));
 
             }
 
             if (s.contains("F")) {
-                krydser.add(new Kryds(g, row, offset, 0, 20, true));
+                sharps.add(new Sharp(g, row, offset, 0, 20, true));
             }
             if (s.contains("G")) {
-                krydser.add(new Kryds(g, row, offset, 0, 0));
+                sharps.add(new Sharp(g, row, offset, 0, 0));
             }
-            for (Kryds krydser1 : krydser) {
-                krydser1.invoke();
+            for (Sharp sharp : sharps) {
+                sharp.invoke();
             }
 
-            krydser.clear();
+            sharps.clear();
         }
 //minor
         if (isMinor||isHarmonicMinor) {
-            ArrayList<Kryds> krydser = new ArrayList<>();
+            ArrayList<Sharp> sharps = new ArrayList<>();
 
             if (s.contains("B")) {
 
-                krydser.add(new Kryds(g, row, offset, 0, 0));
-                krydser.add(new Kryds(g, row, offset, 0, 15));
+                sharps.add(new Sharp(g, row, offset, 0, 0));
+                sharps.add(new Sharp(g, row, offset, 0, 15));
 
             }
 
             if (s.contains("C")) {
 
-                krydser.add(new Kryds(g, row, offset, 5, 5,true));
-                krydser.add(new Kryds(g, row, offset, 0, 20,true));
-                krydser.add(new Kryds(g, row, offset, 10, 25,true));
+                sharps.add(new Sharp(g, row, offset, 5, 5,true));
+                sharps.add(new Sharp(g, row, offset, 0, 20,true));
+                sharps.add(new Sharp(g, row, offset, 10, 25,true));
 
             }
 
 
             if (s.contains("D")) {
 
-                krydser.add(new Kryds(g, row, offset, 0, 20,true));
+                sharps.add(new Sharp(g, row, offset, 0, 20,true));
 
             }
 
 
             if (s.contains("E")) {
 
-                krydser.add(new Kryds(g, row, offset, 0, 0));
+                sharps.add(new Sharp(g, row, offset, 0, 0));
 
             }
 
             if (s.contains("F")) {
-                krydser.add(new Kryds(g, row, offset, 5, 5,true));
+                sharps.add(new Sharp(g, row, offset, 5, 5,true));
 
-                krydser.add(new Kryds(g, row, offset, 15, 10,true));
+                sharps.add(new Sharp(g, row, offset, 15, 10,true));
 
-                krydser.add(new Kryds(g, row, offset, 0, 25,true));
+                sharps.add(new Sharp(g, row, offset, 0, 25,true));
 
-                krydser.add(new Kryds(g, row, offset, 10, 30,true));
+                sharps.add(new Sharp(g, row, offset, 10, 30,true));
             }
             if (s.contains("G")) {
 
-                krydser.add(new Kryds(g, row, offset, 5, 5,true));
+                sharps.add(new Sharp(g, row, offset, 5, 5,true));
 
 
-                krydser.add(new Kryds(g, row, offset, 0, 20,true));
+                sharps.add(new Sharp(g, row, offset, 0, 20,true));
             }
 
-            for (Kryds krydser1 : krydser) {
-                krydser1.invoke();
+            for (Sharp sharp : sharps) {
+                sharp.invoke();
             }
-            krydser.clear();
+            sharps.clear();
 
         }
     }
 
-    private class Kryds {
+    /**
+     * This is a private class of the private function that is wholly dependent on the private class, sharps. A sharp, is thus an object of the type; sharp, that is added to the list of sharps. 
+     */
+
+    private class Sharp {
         private GraphicsContext g;
         private int row;
         private int offset;
         private int startX;
         private int startY;
-        private boolean B; //if its a B....
+        private boolean flat; //if its a flat....
 
-        public Kryds(GraphicsContext g, int row, int offset, int startX, int startY) {
+        public Sharp(GraphicsContext g, int row, int offset, int startX, int startY) {
             this.g = g;
             this.row = row;
             this.offset = offset;
@@ -501,24 +552,24 @@ public class MainController {
             this.startY = startY+72;
         }
 
-        public Kryds(GraphicsContext g, int row, int offset, int startX, int startY, boolean B) {
+        public Sharp(GraphicsContext g, int row, int offset, int startX, int startY, boolean flat) {
             this.g = g;
             this.row = row;
             this.offset = offset;
             this.startX = startX;
             this.startY = startY+72;
-            this.B=B;
+            this.flat = flat;
 
         }
 
         public void invoke() {
-            if(!B) {
+            if(!flat) {
                 g.fillRect(startX + 2, startY + row * offset, 16, 2);
                 g.fillRect(startX + 2, startY + row * offset + 5, 16, 2);
                 g.fillRect(startX + 5 + 2, startY + row * offset - 4, 2, 17);
                 g.fillRect(startX + 10 + 2, startY + row * offset - 4, 2, 17);
             }
-            if(B){
+            if(flat){
                 g.fillRect(startX , startY + row * offset-13, 2, 18);
                 g.fillRect(startX + 2, startY + row * offset , 6, 6);
             }
