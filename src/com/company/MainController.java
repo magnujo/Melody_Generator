@@ -1,5 +1,6 @@
 package com.company;
 
+import com.jsyn.unitgen.SawtoothOscillatorBL;
 import javafx.animation.AnimationTimer;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -314,6 +315,7 @@ public class MainController {
         g.setFill(Color.GREY);
         osc = new OscGenerator(0);
         osc.SetupSine();
+        osc.OscSetup(new SawtoothOscillatorBL());
 
         // Start and control game loop
         new AnimationTimer() {
@@ -359,6 +361,7 @@ public class MainController {
             if (counter < osc.intRhytmList.size()) {
 
                 if (isMajor) {
+                    //osc.PlayLoop(majorScala.getScale(),isMuted,0.1,1,0);
                     osc.Play(majorScala.getScale(), counter, complexity,"sine",isMuted);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
 

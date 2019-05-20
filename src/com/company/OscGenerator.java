@@ -89,7 +89,8 @@ public class OscGenerator {
      */
 
 
-    public void PlayLoop(ArrayList<Double> scale, double decay, int loopMeasureLength, int rhythmRandomness){
+    public void PlayLoop(ArrayList<Double> scale, boolean isMuted, double decay,
+                         int loopMeasureLength, int rhythmRandomness){
         int randomInt = random.nextInt(100);
 
         this.dutyCycle = decay;
@@ -132,6 +133,9 @@ public class OscGenerator {
             e.printStackTrace();
         }
         lineOut.stop();
+
+        notes.add(scale.get(intRhytmList.get(index)));
+        playListValues.add(intRhytmList.get(index));
 
     }
     private void noteOn(double time, int note, ArrayList<Double> scale) {
@@ -287,7 +291,10 @@ public class OscGenerator {
                 e.printStackTrace();
             }
         }
+
     }
+
+
     public static void main(String[] args) {
         FrequencyHashMap noteMap = new FrequencyHashMap();
          MajorScale majorScala = new MajorScale(13,noteMap.frequencyFinder("B0"));
@@ -296,7 +303,7 @@ public class OscGenerator {
         oscGen.OscSetup(new SineOscillator());
 
         for (int i = 0; i <64; i++) {
-            oscGen.PlayLoop(majorScala.getScale(),0.1,1,0);
+           // oscGen.PlayLoop(majorScala.getScale(),0.1,1,0, false);
 
         }
         oscGen.synth.stop();
