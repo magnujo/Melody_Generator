@@ -29,6 +29,8 @@ import java.util.ArrayList;
 
 public class MainController {
 
+    int xTotal;
+
     /**this is for the sample recorder object which is used to record .wav files.
      *
      */
@@ -232,6 +234,7 @@ public class MainController {
         }
         counter = 0;
         toClear = true;
+        xTotal =0;
 
     }
 
@@ -405,7 +408,6 @@ public class MainController {
 
     private void drawSheet(GraphicsContext g, int playingNoteNum) {
 
-        System.out.println( osc.getRhythmValue());
 
         g.setFill(Color.BLACK);
         /*
@@ -450,10 +452,24 @@ public class MainController {
          */
         xPos = this.counter - xOffset * row;
 
+        //rhythmvalue
+        System.out.println( osc.getRhythmValue());
+        int space=0;
+        if(osc.getRhythmValue().equals("quarter"))
+            space = 16;
+
+        if(osc.getRhythmValue().equals("eight"))
+            space = 8;
+
+        if(osc.getRhythmValue().equals("sixteenth"))
+            space = 4;
+
+
+        xTotal = xTotal + space;
 
         //This is where the note objects get created.
         // X positions are set first. 10 is the amount of space between each note. 25 is the start position of the first note.
-        notes.get(this.counter).setxPos(25 + (double)xPos * 10);
+        notes.get(this.counter).setxPos(xTotal+25 + (double)xPos * 10);
         //Y positions are set next. They are a bit more complex because the notes need to be able to be placed correctly on the sheets no matter which scale we are playing in.
         notes.get(this.counter).setyPos(215 - rootNote - playingNoteNum * 5 + row * offset);
 

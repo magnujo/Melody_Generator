@@ -62,6 +62,10 @@ public class OscGenerator {
 
     }
 
+    /**
+     * This method is used in conjuction with the refresh method in the maincontroller. It re-reads the file after its updated, and generates a new playlist based on it.
+     */
+
     public void refreshFileReader(){
         FileReader fileReader = new FileReader(".idea/data", 0);
 
