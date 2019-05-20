@@ -36,7 +36,10 @@ public class OscGenerator {
     private double duration;
     private UnitOscillator sineOsc = new SineOscillator();
     private UnitOscillator oscillator;
+
+
     private ArrayList<Integer> playListValues = new ArrayList<>();
+
     private ArrayList<Double> notes = new ArrayList<>();
 
     int tonicNote = 60;     //Controls pitch!
@@ -47,7 +50,6 @@ public class OscGenerator {
     private UnitVoice[] voices; //Needed for VoiceAllocator to work
     SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
     private double dutyCycle = 0.8; //Controls decay
-
 
 
     ArrayList<Integer> intRhytmList;
@@ -64,6 +66,7 @@ public class OscGenerator {
         FileReader fileReader = new FileReader(".idea/data", 0);
 
         this.intRhytmList = fileReader.getPlaylist();
+        rhythm = new Rhythm(80,4);
     }
 
     public void OscSetup(UnitOscillator osc){
@@ -90,7 +93,7 @@ public class OscGenerator {
 
 
     public void PlayLoop(ArrayList<Double> scale, boolean isMuted, double decay,
-                         int loopMeasureLength, int rhythmRandomness){
+                         int loopMeasureLength, int rhythmRandomness, int counter){
         int randomInt = random.nextInt(100);
 
         this.dutyCycle = decay;
@@ -101,23 +104,22 @@ public class OscGenerator {
         }
         first =false;
 
-        rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(index);   //Accumulates the rhythm values so that we know
+        rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(counter);   //Accumulates the rhythm values so that we know
         // how much time is left in the measure
 
         lineOut.start();
         if (randomInt<=100-rhythmRandomness){
-            rhythmValue = rhythm.getLoop().get(index);
+            rhythmValue = rhythm.getLoop().get(counter);
         }
         else {rhythmValue = rhythm.getRandomNoteLength(0,3);
         }
 
         double timeNow = synth.getCurrentTime();
         try {
-            noteOn(timeNow, tonicNote, scale);                                  //PlayLoop a note at the current time
+            noteOn(timeNow, tonicNote, scale, counter);                                  //PlayLoop a note at the current time
             noteOff(timeNow+dutyCycle,tonicNote);                 //Realease the note after dutyCycle seconds
 
             timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time
-            index++;
             if(timeNow>=measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
                 measureCounter++;                                       // but sleepUntil the end of the measure.
                 System.out.println("Playing last note of loop");
@@ -134,21 +136,24 @@ public class OscGenerator {
         }
         lineOut.stop();
 
-        notes.add(scale.get(intRhytmList.get(index)));
-        playListValues.add(intRhytmList.get(index));
+        notes.add(scale.get(intRhytmList.get(counter)));
+        playListValues.add(intRhytmList.get(counter));
 
     }
-    private void noteOn(double time, int note, ArrayList<Double> scale) {
+    private void noteOn(double time, int note, ArrayList<Double> scale, int counter) {
         // double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
-        allocator.noteOn(note, scale.get(intRhytmList.get(index)), amplitude, timeStamp);
+        allocator.noteOn(note, scale.get(intRhytmList.get(counter)), amplitude, timeStamp);
     }
 
     private void noteOff(double time, int note) {
         allocator.noteOff(note, new TimeStamp(time));
     }
 
+    /**
+    stops synth
+     **/
     public void StopSynth(){
         synth.stop();
     }
@@ -185,50 +190,6 @@ public class OscGenerator {
         this.frequency = frequency;
         sineOsc.frequency.set(frequency);
         sineLineOut.start();
-
-    }
-
-    public void SetupSaw(){
-
-        UnitOscillator sawOsc = new SawtoothOscillator();
-        sawLineOut = new LineOut();
-        synthSaw.start();
-        synthSaw.add(sawOsc);
-        synthSaw.add(sawLineOut);
-
-        sawOsc.frequency.set(400);
-        sawOsc.amplitude.set(0.4);
-        sawOsc.output.connect(0, sawLineOut.input, 0);
-        sawOsc.output.connect(0, sawLineOut.input, 1);
-    }
-
-
-    public void SetupSquare() {
-
-        UnitOscillator squareOsc = new SquareOscillator();
-        squareLineOut = new LineOut();
-        synthSquare.start();
-        synthSquare.add(squareOsc);
-        synthSquare.add(squareLineOut);
-
-        squareOsc.frequency.set(300);
-        squareOsc.amplitude.set(0.4);
-        squareOsc.output.connect(0, squareLineOut.input, 0);
-        squareOsc.output.connect(0, squareLineOut.input, 1);
-
-    }
-
-    public void SetupRedNoise() {
-        RedNoise noise = new RedNoise();
-        noiseLineOut = new LineOut();
-        synthNoise.start();
-        synthNoise.add(noise);
-        synthNoise.add(noiseLineOut);
-
-        noise.frequency.set(3000);
-        noise.amplitude.set(0.4);
-        noise.output.connect(0, noiseLineOut.input, 0);
-        noise.output.connect(0, noiseLineOut.input, 1);
 
     }
 
@@ -272,7 +233,7 @@ public class OscGenerator {
             PlaySine(scale.get(intRhytmList.get(counter)));
         }
 
-        notes.add(scale.get(intRhytmList.get(counter)));
+        //notes.add(scale.get(intRhytmList.get(counter)));
         playListValues.add(intRhytmList.get(counter));
 
 
@@ -293,6 +254,8 @@ public class OscGenerator {
         }
 
     }
+
+
 
 
     public static void main(String[] args) {

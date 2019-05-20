@@ -45,5 +45,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jsyn-20171016" level="project" />
   </component>
 </module>

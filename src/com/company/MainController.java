@@ -361,9 +361,10 @@ public class MainController {
             if (counter < osc.intRhytmList.size()) {
 
                 if (isMajor) {
-                    //osc.PlayLoop(majorScala.getScale(),isMuted,0.1,1,0);
-                    osc.Play(majorScala.getScale(), counter, complexity,"sine",isMuted);
+                    osc.PlayLoop(majorScala.getScale(),isMuted,0.1,1,0,counter);
+                    //osc.Play(majorScala.getScale(), counter, complexity,"sine",true);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
+
 
                 }
                 if(isMinor) {
