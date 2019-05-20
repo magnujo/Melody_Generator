@@ -405,6 +405,8 @@ public class MainController {
 
     private void drawSheet(GraphicsContext g, int playingNoteNum) {
 
+        System.out.println( osc.getRhythmValue());
+
         g.setFill(Color.BLACK);
         /*
          * Row variable. Keeps track of rows.
@@ -456,23 +458,26 @@ public class MainController {
         notes.get(this.counter).setyPos(215 - rootNote - playingNoteNum * 5 + row * offset);
 
         //This is where the note objects get drawn.
-        g.fillOval(notes.get(this.counter).getxPos(), notes.get(this.counter).getyPos(), 6, 6);
-        g.fillRect(notes.get(this.counter).getxPos(), notes.get(this.counter).getyPos() - 12, 2, 15);
-        g.fillRect(notes.get(this.counter).getxPos(), notes.get(this.counter).getyPos() - 14, 10, 1);
+        double getyPos = notes.get(this.counter).getyPos();
+        double getxPos = notes.get(this.counter).getxPos();
+
+        g.fillOval(getxPos, getyPos, 6, 6);
+        g.fillRect(getxPos, getyPos - 12, 2, 15);
+        g.fillRect(getxPos, getyPos - 14, 10, 1);
 
         //line under notes too high up bylines // help lines
 
-        if(notes.get(this.counter).getyPos()>30+offset*row&&notes.get(this.counter).getyPos()<70+offset*row) {
-            g.fillRect(notes.get(this.counter).getxPos() - 3, 66+offset*row, 12, 2);
-            if(notes.get(this.counter).getyPos()<58+offset*row){
-                g.fillRect(notes.get(this.counter).getxPos() - 3, 56+offset*row, 12, 2);
+        if(getyPos >30+offset*row&& getyPos <70+offset*row) {
+            g.fillRect(getxPos - 3, 66 + offset * row, 12, 2);
+            if(getyPos <58+ offset * row){
+                g.fillRect(getxPos - 3, 56+offset*row, 12, 2);
             }
         }
         //line under notes too far down
-        if(notes.get(this.counter).getyPos()>118+offset*row&&notes.get(this.counter).getyPos()<150+offset*row) {
-            g.fillRect(notes.get(this.counter).getxPos() - 3, 124+offset*row, 12, 2);
-            if(notes.get(this.counter).getyPos()>130+offset*row){
-                g.fillRect(notes.get(this.counter).getxPos() - 3, 134+offset*row, 12, 2);
+        if(getyPos >118+offset*row&& getyPos <150+offset*row) {
+            g.fillRect(getxPos - 3, 124+offset*row, 12, 2);
+            if(getyPos >130+offset*row){
+                g.fillRect(getxPos - 3, 134+offset*row, 12, 2);
             }
 
         }

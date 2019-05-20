@@ -12,6 +12,10 @@ public class Rhythm {
     private double measure = milliseconds / bpm * beatsPerMeasure;
     private Random random = new Random();
     private double oneBeat;
+    private double quarterNote;
+    private double eightNote;
+    private double sixteenthNote;
+    private double halfNote;
     private double wholeNote;
     private double[] rhythmValues;
     private ArrayList<Double> loop = new ArrayList<>();
@@ -31,7 +35,25 @@ public class Rhythm {
 //make a random loop
         createLoop(2,4);
 
+
+        System.out.println("LOOP: "+ Arrays.toString(loop.toArray()));
+
+        System.out.println("Wholenote " +wholeNote);
+        halfNote = milliseconds / bpm*2;
+        System.out.println("Halfnote = "+halfNote);
+        quarterNote = milliseconds / bpm;
+        System.out.println("Quarternote = " +quarterNote);
+        eightNote = milliseconds/bpm/2;
+        System.out.println("Eightnote = "+eightNote);
+        sixteenthNote = milliseconds/bpm/4;
+        System.out.println("Sixteennote = "+sixteenthNote);
+        System.out.println("Measure: "+getMeasure());
     }
+    public double getHalfNote(){return halfNote;}
+
+    public double getWholeNote(){return wholeNote;}
+
+    public double getSixteenthNote(){return sixteenthNote;}
 
     public double getQuarterNote(){return milliseconds / bpm;}
 

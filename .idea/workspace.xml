@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec85d8cf-6dbd-4d20-ab91-1e080761768c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/data" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/data" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Osc Objects.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Osc Objects.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/OscGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/OscGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/Rhythm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Rhythm.java" afterDir="false" />
@@ -62,12 +60,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="260" />
+          <entry key="java" value="785" />
+          <entry key="txt" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="260" />
+          <entry key="JAVA" value="785" />
+          <entry key="PLAIN_TEXT" value="22" />
         </counts>
       </usages-collector>
     </session>
@@ -77,11 +77,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/OscGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="134" column="31" lean-forward="true" selection-start-line="134" selection-start-column="31" selection-end-line="134" selection-end-column="31" />
+            <state relative-caret-position="22">
+              <caret line="187" selection-start-line="187" selection-end-line="187" />
               <folding>
                 <element signature="e#6023#6024#0" expanded="true" />
                 <element signature="e#6051#6052#0" expanded="true" />
+                <element signature="e#6182#6183#0" expanded="true" />
+                <element signature="e#6223#6224#0" expanded="true" />
                 <element signature="e#6575#6576#0" expanded="true" />
                 <element signature="e#6605#6606#0" expanded="true" />
               </folding>
@@ -89,23 +91,25 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/Rhythm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+            <state relative-caret-position="-381">
+              <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2782#2783#0" expanded="true" />
+                <element signature="e#2809#2810#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="363" column="78" selection-start-line="363" selection-start-column="78" selection-end-line="363" selection-end-column="78" />
+            <state relative-caret-position="110">
+              <caret line="407" column="8" lean-forward="true" selection-start-line="407" selection-start-column="8" selection-end-line="407" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -203,7 +207,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tonic</find>
       <find>dorym</find>
       <find>oscgenera</find>
       <find>pic</find>
@@ -233,6 +236,7 @@
       <find>Rhy</find>
       <find>re</find>
       <find>200</find>
+      <find>get</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -279,9 +283,9 @@
         <option value="$PROJECT_DIR$/src/com/company/MajorScale.java" />
         <option value="$PROJECT_DIR$/src/com/company/FileReader.java" />
         <option value="$PROJECT_DIR$/src/com/company/FrequencyHashMap.java" />
+        <option value="$PROJECT_DIR$/src/com/company/MainController.java" />
         <option value="$PROJECT_DIR$/src/com/company/Rhythm.java" />
         <option value="$PROJECT_DIR$/src/com/company/OscGenerator.java" />
-        <option value="$PROJECT_DIR$/src/com/company/MainController.java" />
       </list>
     </option>
   </component>
@@ -358,7 +362,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/Gem/Documents/GitHub/Osc_Objects_2/src/com/company/MinorScaleTest.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558356606883" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558359099072" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="extract.method.default.visibility" value="private" />
@@ -533,7 +537,7 @@
       <workItem from="1558176441340" duration="4732000" />
       <workItem from="1558215660276" duration="4865000" />
       <workItem from="1558344556579" duration="370000" />
-      <workItem from="1558350754227" duration="3916000" />
+      <workItem from="1558350754227" duration="6665000" />
     </task>
     <task id="LOCAL-00001" summary="er igang med filereader">
       <created>1552764155978</created>
@@ -850,7 +854,14 @@
       <option name="project" value="LOCAL" />
       <updated>1558219210230</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="ny play funktion">
+      <created>1558356735184</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1558356735184</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -874,7 +885,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="188160000" />
+    <option name="totallyTimeSpent" value="190909000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -887,9 +898,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="30" y="0" width="1336" height="768" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13755795" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13755795" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -898,15 +908,15 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.47239265" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.048136648" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49848714" visible="true" weight="0.3152174" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.398773" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3289689" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49924356" weight="0.7659575" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49924356" weight="0.76552796" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.0" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32919255" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5015129" side_tool="true" weight="0.23076923" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.35559008" />
       <window_info anchor="bottom" id="SonarLint" order="13" weight="0.327454" />
@@ -995,7 +1005,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="HashMap virker" />
     <MESSAGE value="scalegenerator + majorscale" />
     <MESSAGE value="Ny formel til udregning af kromatisk skala" />
     <MESSAGE value="fixet rootnote papir" />
@@ -1020,7 +1029,8 @@
     <MESSAGE value="filechooser til at gemme nodeark" />
     <MESSAGE value="update javadocs" />
     <MESSAGE value="update javadocs 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="update javadocs 2" />
+    <MESSAGE value="ny play funktion" />
+    <option name="LAST_COMMIT_MESSAGE" value="ny play funktion" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -1156,16 +1166,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/Rhythm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -1202,19 +1202,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/OscGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="134" column="31" lean-forward="true" selection-start-line="134" selection-start-column="31" selection-end-line="134" selection-end-column="31" />
-          <folding>
-            <element signature="e#6023#6024#0" expanded="true" />
-            <element signature="e#6051#6052#0" expanded="true" />
-            <element signature="e#6575#6576#0" expanded="true" />
-            <element signature="e#6605#6606#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/midiSequencer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1224,8 +1211,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="363" column="78" selection-start-line="363" selection-start-column="78" selection-end-line="363" selection-end-column="78" />
+        <state relative-caret-position="110">
+          <caret line="407" column="8" lean-forward="true" selection-start-line="407" selection-start-column="8" selection-end-line="407" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/OscGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="187" selection-start-line="187" selection-end-line="187" />
+          <folding>
+            <element signature="e#6023#6024#0" expanded="true" />
+            <element signature="e#6051#6052#0" expanded="true" />
+            <element signature="e#6182#6183#0" expanded="true" />
+            <element signature="e#6223#6224#0" expanded="true" />
+            <element signature="e#6575#6576#0" expanded="true" />
+            <element signature="e#6605#6606#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/Rhythm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-381">
+          <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2782#2783#0" expanded="true" />
+            <element signature="e#2809#2810#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

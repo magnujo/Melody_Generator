@@ -154,9 +154,14 @@ public class OscGenerator {
     /**
     stops synth
      **/
-    public void StopSynth(){
+    public void stopSynth(){
         synth.stop();
     }
+
+    public double getMeasure(){
+        return rhythm.getMeasure();
+    }
+
 
 
 
@@ -167,6 +172,25 @@ public class OscGenerator {
 
         return playListValues.get(i);
     }
+
+    /**
+     *
+     * @return
+     * has to return quarternote, halfnote or eight-note
+     */
+
+    public String getRhythmValue() {
+if (rhythmValue==rhythm.getQuarterNote())return "quarter";
+        if (rhythmValue==rhythm.getEighthNote())return "eight";
+        if (rhythmValue==rhythm.getHalfNote())return "half";
+        if(rhythmValue==rhythm.getSixteenthNote())return "sixteenth";
+        if(rhythmValue==rhythm.getWholeNote())return "whole";
+
+
+        return null;
+    }
+
+
 
 
     public void SetupSine(){
