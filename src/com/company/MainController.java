@@ -29,6 +29,10 @@ import java.util.ArrayList;
 
 public class MainController {
 
+    /**
+     * Total notes played variable. Used to place notes correctly on the x-axis. 
+     */
+
     int xTotal;
 
     /**this is for the sample recorder object which is used to record .wav files.
@@ -371,12 +375,14 @@ public class MainController {
 
                 }
                 if(isMinor) {
-                    osc.Play(minorScala.getScale(), counter, complexity,"sine",isMuted);
+                    //osc.Play(minorScala.getScale(), counter, complexity,"sine",isMuted);
+                    osc.PlayLoop(minorScala.getScale(),isMuted,0.1,1,0,counter);
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
 
                 }
                 if(isHarmonicMinor){
-                    osc.Play(harmonicMinorScale.getScale(), counter, complexity,"sine",isMuted);
+                    osc.PlayLoop(harmonicMinorScale.getScale(),isMuted,0.1,1,0,counter);
+                    //osc.Play(harmonicMinorScale.getScale(), counter, complexity,"sine",isMuted);
                     notes.add(new Note(harmonicMinorScale.getScale(), counter, complexity));
 
                 }
@@ -430,7 +436,7 @@ public class MainController {
         /*
          * If we get above 60, it means that we are out of bounds and we will need to switch to the next row.
          */
-        if (this.counter > 60) {
+        if (this.counter > 30) {
             row = 1;
             offset = 100;
             xOffset = 60;
@@ -438,22 +444,23 @@ public class MainController {
         }
         /* If we get above 120 we need to switch to the second row. etc. */
 
-        if (this.counter > 120) {
+        if (this.counter > 60) {
             row = 2;
         }
-        if (this.counter > 180) {
+        if (this.counter > 90) {
             row = 3;
         }
-        if (this.counter > 240) {
+        if (this.counter > 120) {
             row = 4;
         }
+
         /*
          * Setting the xPosition. In relation to the offset and the row. Each row we get 60 pixels too far to the right in relation to the sheet so we need to correct for that by subtracting xOffset with the row.
          */
         xPos = this.counter - xOffset * row;
 
         //rhythmvalue
-        System.out.println( osc.getRhythmValue());
+      //  System.out.println( osc.getRhythmValue());
         int space=0;
         if(osc.getRhythmValue().equals("quarter"))
             space = 16;
@@ -472,6 +479,8 @@ public class MainController {
         notes.get(this.counter).setxPos(xTotal+25 + (double)xPos * 10);
         //Y positions are set next. They are a bit more complex because the notes need to be able to be placed correctly on the sheets no matter which scale we are playing in.
         notes.get(this.counter).setyPos(215 - rootNote - playingNoteNum * 5 + row * offset);
+
+        System.out.println(notes.get(counter).getxPos());
 
         //This is where the note objects get drawn.
         double getyPos = notes.get(this.counter).getyPos();

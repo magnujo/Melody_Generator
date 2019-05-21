@@ -108,12 +108,12 @@ public class OscGenerator {
         }
         first =false;
 
-        rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(counter);   //Accumulates the rhythm values so that we know
+        rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(index);   //Accumulates the rhythm values so that we know
         // how much time is left in the measure
 
         lineOut.start();
         if (randomInt<=100-rhythmRandomness){
-            rhythmValue = rhythm.getLoop().get(counter);
+            rhythmValue = rhythm.getLoop().get(index);
         }
         else {rhythmValue = rhythm.getRandomNoteLength(0,3);
         }
@@ -148,6 +148,7 @@ public class OscGenerator {
         // double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
+        index++;
         allocator.noteOn(note, scale.get(intRhytmList.get(counter)), amplitude, timeStamp);
     }
 
