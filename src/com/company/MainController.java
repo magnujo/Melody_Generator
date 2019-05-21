@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class MainController {
 
     /**
-     * Total notes played variable. Used to place notes correctly on the x-axis. 
+     * Total notes played variable. Used to place notes correctly on the x-axis.
      */
 
     int xTotal;
@@ -349,7 +349,17 @@ public class MainController {
      * This is the draw function where all graphics are handled. It is run 30 times every second.
      */
 
+
     private void drawCanvas() {
+        int randomness= 0;
+        if (complexity.equals("medium complexity"))
+        {
+            randomness = 30;
+        }
+        if (complexity.equals("high complexity"))
+        {
+            randomness = 60;
+        }
         GraphicsContext g = canvas.getGraphicsContext2D();
 
         /**
@@ -375,7 +385,7 @@ public class MainController {
             if (counter < osc.intRhytmList.size()) {
 
                 if (isMajor) {
-                    osc.PlayLoop(majorScala.getScale(),isMuted,0.1,1,0,counter);
+                    osc.PlayLoop(majorScala.getScale(),isMuted,0.1,1,randomness,counter);
                     //osc.Play(majorScala.getScale(), counter, complexity,"sine",true);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
 
@@ -383,12 +393,12 @@ public class MainController {
                 }
                 if(isMinor) {
                     //osc.Play(minorScala.getScale(), counter, complexity,"sine",isMuted);
-                    osc.PlayLoop(minorScala.getScale(),isMuted,0.1,1,0,counter);
+                    osc.PlayLoop(minorScala.getScale(),isMuted,0.1,1,randomness,counter);
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
 
                 }
                 if(isHarmonicMinor){
-                    osc.PlayLoop(harmonicMinorScale.getScale(),isMuted,0.1,1,0,counter);
+                    osc.PlayLoop(harmonicMinorScale.getScale(),isMuted,0.1,1,randomness,counter);
                     //osc.Play(harmonicMinorScale.getScale(), counter, complexity,"sine",isMuted);
                     notes.add(new Note(harmonicMinorScale.getScale(), counter, complexity));
 
@@ -461,6 +471,7 @@ public class MainController {
             row = 4;
         }
 
+
         /*
          * Setting the xPosition. In relation to the offset and the row. Each row we get 60 pixels too far to the right in relation to the sheet so we need to correct for that by subtracting xOffset with the row.
          */
@@ -477,6 +488,10 @@ public class MainController {
 
         if(osc.getRhythmValue().equals("sixteenth"))
             space = 4;
+
+
+        //en takt er 64 pixels lang
+        //taktart
 
 
         xTotal = xTotal + space;
@@ -516,9 +531,7 @@ public class MainController {
 
         // G-clef for the user to read placement of notes
         Image clef = new Image(new File("./data/clef 50p.png").toURI().toString());
-        for (int i = 0; i < 5; i++) {
-            g.drawImage(clef,1,65 * (i * row + 1));
-        }
+            g.drawImage(clef,1,65 + row * offset);
 
         //Note paper. Its simply some lines! 5 of them. But they move down which each row.
         for (int i = 0; i <5 ; i++) {
