@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextFlow;
@@ -195,8 +196,8 @@ public class MainController {
         if (isRecording) {
             recorder.startRecording(osc);
         }
-        if (!osc.synthSine.isRunning()) {
-            osc.synthSine.start();
+        if (!osc.synth.isRunning()) {
+            osc.synth.start();
         }
     }
 
@@ -212,9 +213,10 @@ public class MainController {
     public void stopButton() throws IOException {
 
         isPlaying = false;
-        osc.sineLineOut.stop();
+        //osc.sineLineOut.stop();
+        osc.lineOut.stop();
         if (isRecording) {
-            osc.synthSine.stop();
+            osc.synth.stop();
             isRecording = false;
             recorder.stopRecording(osc);
         }
@@ -230,9 +232,10 @@ public class MainController {
     public void resetButton() throws IOException {
 
         isPlaying = false;
-        osc.sineLineOut.stop();
+        //osc.sineLineOut.stop();
+        osc.lineOut.stop();
         if (isRecording) {
-            osc.synthSine.stop();
+            osc.synth.stop();
             isRecording = false;
             recorder.stopRecording(osc);
         }
@@ -308,6 +311,10 @@ public class MainController {
     public void recBtn() throws IOException {
         recorder.initRecording(osc);
         isRecording = true;
+
+        if (isPlaying) {
+            recorder.startRecording(osc);
+        }
     }
 
     /**
@@ -321,7 +328,7 @@ public class MainController {
 
         g.setFill(Color.GREY);
         osc = new OscGenerator(0);
-        osc.SetupSine();
+        //osc.SetupSine();
         osc.OscSetup(new SawtoothOscillatorBL());
 
         // Start and control game loop
@@ -507,6 +514,12 @@ public class MainController {
 
         }
 
+        // G-clef for the user to read placement of notes
+        Image clef = new Image(new File("./data/clef 50p.png").toURI().toString());
+        for (int i = 0; i < 5; i++) {
+            g.drawImage(clef,1,65 * (i * row + 1));
+        }
+
         //Note paper. Its simply some lines! 5 of them. But they move down which each row.
         for (int i = 0; i <5 ; i++) {
             g.fillRect(0, 75 + row * offset+i*10, 640, 1);
@@ -686,12 +699,5 @@ public class MainController {
         }
 
     }
-
-
-
-
-
-
-
 
 }

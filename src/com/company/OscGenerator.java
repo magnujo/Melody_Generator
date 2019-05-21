@@ -74,9 +74,11 @@ public class OscGenerator {
     }
 
     public void OscSetup(UnitOscillator osc){
-        synth = JSyn.createSynthesizer();
+        this.osc = osc;
+        //synth = JSyn.createSynthesizer();
         synth.add(osc);
-        synth.add(lineOut = new LineOut());
+        //synth.add(lineOut = new LineOut());
+        synth.add(lineOut);
         synth.add(voice);
         voice.getOutput().connect(0, lineOut.input, 0);
         voice.getOutput().connect(0, lineOut.input, 1);
@@ -214,6 +216,8 @@ if (rhythmValue==rhythm.getQuarterNote())return "quarter";
     public UnitOscillator getSineOsc() {
         return sineOsc;
     }
+
+    public UnitOscillator getOsc() { return osc; }
 
     public void PlaySine(double frequency){
         this.frequency = frequency;
