@@ -30,6 +30,19 @@ import java.util.ArrayList;
 
 public class MainController {
 
+    /*
+     * Row variable. Keeps track of rows.
+     */
+    int row = 0;
+
+    /*
+     * Offset is used to determine how much we need to set the amount of distance in which we have to go out of line in relation to the previous ROW on the y axis.
+     */
+    int offset = 0;
+    /*
+     * xPos is used to store which position we are at on the x-axis.
+     */
+
     /**
      * Total notes played variable. Used to place notes correctly on the x-axis.
      */
@@ -433,52 +446,9 @@ public class MainController {
 
 
         g.setFill(Color.BLACK);
-        /*
-         * Row variable. Keeps track of rows.
-         */
-        int row = 0;
-
-        /*
-         * Offset is used to determine how much we need to set the amount of distance in which we have to go out of line in relation to the previous ROW on the y axis.
-         */
-        int offset = 0;
-        /*
-         * xPos is used to store which position we are at on the x-axis.
-         */
-        int xPos;
-        /*
-         * xOffset is the amount we need to offset on the xAxis. This is used so we don't draw notes before we are 60 pixels in. Which makes sense, because there need to be room for sharps/flats.
-         */
-        int xOffset=0;
-        /*
-         * If we get above 60, it means that we are out of bounds and we will need to switch to the next row.
-         */
-        if (this.counter > 30) {
-            row = 1;
-            offset = 100;
-            xOffset = 60;
-
-        }
-        /* If we get above 120 we need to switch to the second row. etc. */
-
-        if (this.counter > 60) {
-            row = 2;
-        }
-        if (this.counter > 90) {
-            row = 3;
-        }
-        if (this.counter > 120) {
-            row = 4;
-        }
-
-
-        /*
-         * Setting the xPosition. In relation to the offset and the row. Each row we get 60 pixels too far to the right in relation to the sheet so we need to correct for that by subtracting xOffset with the row.
-         */
-        xPos = this.counter - xOffset * row;
 
         //rhythmvalue
-      //  System.out.println( osc.getRhythmValue());
+        //  System.out.println( osc.getRhythmValue());
         int space=0;
         if(osc.getRhythmValue().equals("quarter"))
             space = 16;
@@ -494,19 +464,42 @@ public class MainController {
         //taktart
 
 
+
+        //notes.get(this.counter).setxPos(xTotal+25 + (double)xPos * 10);
+
         xTotal = xTotal + space;
+
+        /* If we get above 120 we need to switch to the second row. etc. */
+        //row switcher
+        if (xTotal+25 > 640) {
+            row++;
+            offset = 100;
+            xTotal=0;
+        }
+
+
+        /*
+         * Setting the xPosition. In relation to the offset and the row. Each row we get 60 pixels too far to the right in relation to the sheet so we need to correct for that by subtracting xOffset with the row.
+         */
+        //xPos = this.counter - xOffset * row;
+
+
 
         //This is where the note objects get created.
         // X positions are set first. 10 is the amount of space between each note. 25 is the start position of the first note.
-        notes.get(this.counter).setxPos(xTotal+25 + (double)xPos * 10);
+        notes.get(this.counter).setxPos(xTotal+25 );
         //Y positions are set next. They are a bit more complex because the notes need to be able to be placed correctly on the sheets no matter which scale we are playing in.
         notes.get(this.counter).setyPos(215 - rootNote - playingNoteNum * 5 + row * offset);
 
         System.out.println(notes.get(counter).getxPos());
 
+
+
         //This is where the note objects get drawn.
         double getyPos = notes.get(this.counter).getyPos();
         double getxPos = notes.get(this.counter).getxPos();
+
+
 
         g.fillOval(getxPos, getyPos, 6, 6);
         g.fillRect(getxPos, getyPos - 12, 2, 15);
@@ -539,11 +532,11 @@ public class MainController {
         }
 
 
-        //line seperator
+        //line seperator, every measure is 64 pixels wide.
 
-        for (int i = 0; i <9 ; i++) {
+        for (int i = 0; i <11 ; i++) {
 
-            g.fillRect(0+i*80, 75 + row * offset, 4, 41);
+            g.fillRect(0+i*64, 75 + row * offset, 4, 41);
 
         }
 
