@@ -291,20 +291,7 @@ if (rhythmValue==rhythm.getQuarterNote())return "quarter";
 
 
 
-    public static void main(String[] args) {
-        FrequencyHashMap noteMap = new FrequencyHashMap();
-         MajorScale majorScala = new MajorScale(13,noteMap.frequencyFinder("B0"));
 
-        OscGenerator oscGen = new OscGenerator(0);
-        oscGen.OscSetup(new SineOscillator());
-
-        for (int i = 0; i <64; i++) {
-           // oscGen.PlayLoop(majorScala.getScale(),0.1,1,0, false);
-
-        }
-        oscGen.synth.stop();
-
-    }
 
 
 }

@@ -245,7 +245,6 @@ public class MainController {
     public void resetButton() throws IOException {
 
         isPlaying = false;
-        //osc.sineLineOut.stop();
         osc.lineOut.stop();
         if (isRecording) {
             osc.synth.stop();
@@ -341,7 +340,6 @@ public class MainController {
 
         g.setFill(Color.GREY);
         osc = new OscGenerator(0);
-        //osc.SetupSine();
         osc.OscSetup(new SawtoothOscillatorBL());
 
         // Start and control game loop
@@ -399,20 +397,17 @@ public class MainController {
 
                 if (isMajor) {
                     osc.PlayLoop(majorScala.getScale(),isMuted,0.1,1,randomness,counter);
-                    //osc.Play(majorScala.getScale(), counter, complexity,"sine",true);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
 
 
                 }
                 if(isMinor) {
-                    //osc.Play(minorScala.getScale(), counter, complexity,"sine",isMuted);
                     osc.PlayLoop(minorScala.getScale(),isMuted,0.1,1,randomness,counter);
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
 
                 }
                 if(isHarmonicMinor){
                     osc.PlayLoop(harmonicMinorScale.getScale(),isMuted,0.1,1,randomness,counter);
-                    //osc.Play(harmonicMinorScale.getScale(), counter, complexity,"sine",isMuted);
                     notes.add(new Note(harmonicMinorScale.getScale(), counter, complexity));
 
                 }
@@ -459,13 +454,8 @@ public class MainController {
         if(osc.getRhythmValue().equals("sixteenth"))
             space = 4;
 
-
         //en takt er 64 pixels lang
         //taktart
-
-
-
-        //notes.get(this.counter).setxPos(xTotal+25 + (double)xPos * 10);
 
         xTotal = xTotal + space;
 
@@ -481,9 +471,6 @@ public class MainController {
         /*
          * Setting the xPosition. In relation to the offset and the row. Each row we get 60 pixels too far to the right in relation to the sheet so we need to correct for that by subtracting xOffset with the row.
          */
-        //xPos = this.counter - xOffset * row;
-
-
 
         //This is where the note objects get created.
         // X positions are set first. 10 is the amount of space between each note. 25 is the start position of the first note.
@@ -491,15 +478,9 @@ public class MainController {
         //Y positions are set next. They are a bit more complex because the notes need to be able to be placed correctly on the sheets no matter which scale we are playing in.
         notes.get(this.counter).setyPos(215 - rootNote - playingNoteNum * 5 + row * offset);
 
-        System.out.println(notes.get(counter).getxPos());
-
-
-
         //This is where the note objects get drawn.
         double getyPos = notes.get(this.counter).getyPos();
         double getxPos = notes.get(this.counter).getxPos();
-
-
 
         g.fillOval(getxPos, getyPos, 6, 6);
         g.fillRect(getxPos, getyPos - 12, 2, 15);

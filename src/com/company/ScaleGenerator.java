@@ -56,16 +56,6 @@ public class ScaleGenerator {
         return scale2;
     }
 
-    public static void main(String[] args) {
-        /*
-        OscGenerator osc = new OscGenerator();
- osc.OscSetup(new SineOscillator());
- osc.Play("a4",2.0);
-        osc.StopLineOut();
-        osc.Play("d4",2.0);
-        osc.StopLineOut();
 
-*/
-    }
 }
 

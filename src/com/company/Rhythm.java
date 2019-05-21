@@ -35,18 +35,10 @@ public class Rhythm {
         createLoop(2,4);
 
 
-        System.out.println("LOOP: "+ Arrays.toString(loop.toArray()));
-
-        System.out.println("Wholenote " +wholeNote);
         halfNote = milliseconds / bpm*2;
-        System.out.println("Halfnote = "+halfNote);
         quarterNote = milliseconds / bpm;
-        System.out.println("Quarternote = " +quarterNote);
         eightNote = milliseconds/bpm/2;
-        System.out.println("Eightnote = "+eightNote);
         sixteenthNote = milliseconds/bpm/4;
-        System.out.println("Sixteennote = "+sixteenthNote);
-        System.out.println("Measure: "+getMeasure());
     }
     public double getHalfNote(){return halfNote;}
 
