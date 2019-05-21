@@ -20,16 +20,15 @@ public class Rhythm {
     private double[] rhythmValues;
     private ArrayList<Double> loop = new ArrayList<>();
 
-    Rhythm(double bpm, double beatsPerMeasure) {
+    Rhythm(double bpm) {
         this.rhythmValues = new double[5]; //Array of different note lengths
         this.bpm = bpm;
-        this.beatsPerMeasure = beatsPerMeasure;
+        this.beatsPerMeasure = 4;
         this.oneBeat = milliseconds / bpm;
         this.wholeNote = oneBeat * beatsPerMeasure;
         double rhythmValue = wholeNote;
         for (int i = 0; i < rhythmValues.length ; i++) {
             rhythmValues[i] = rhythmValue;
-            System.out.println("rythmValues"+"["+i+"] = "+rhythmValues[i]);
             rhythmValue = rhythmValue/2;
         }
 //make a random loop
@@ -60,7 +59,6 @@ public class Rhythm {
     public double getEighthNote(){return milliseconds/bpm/2;}
 
     public double getMeasure(){
-        //Returns 4 if the bpm is 60 and beatsPerMeasure is 4 because then one measure is 4 seconds. Milliseconds is always 60?
         return oneBeat * beatsPerMeasure; }
 
     public double getRandomNoteLength(int minRhythmValue, int maxRhythmValue){ //rhythmComplexity = how many rhythmValues are created. //Speed value = how many fast notes
@@ -83,7 +81,7 @@ public class Rhythm {
 
     /**
      * Method from https://www.mkyong.com/java/java-generate-random-integers-in-a-range/
-     * IT will generates a random integer between min (inclusive) and max (inclusive).
+     * It will generates a random integer between min (inclusive) and max (inclusive).
      * @param min is the lowest number it will choose.
      * @param max is the highest number it will choose.
      * @return

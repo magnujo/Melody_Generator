@@ -25,7 +25,7 @@ public class OscGenerator {
     private LineOut squareLineOut;
     private Random random = new Random();
     private double rhythmValueAccumulator = 0;
-    private Rhythm rhythm = new Rhythm(125,4.0);
+    private Rhythm rhythm = new Rhythm(125);
     private double measureAccumulator;
     private double loopLength;
     private boolean first = true;
@@ -70,7 +70,7 @@ public class OscGenerator {
         FileReader fileReader = new FileReader(".idea/data", 0);
 
         this.intRhytmList = fileReader.getPlaylist();
-        rhythm = new Rhythm(80,4);
+        rhythm = new Rhythm(80);
     }
 
     public void OscSetup(UnitOscillator osc){
