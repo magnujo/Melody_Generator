@@ -128,13 +128,13 @@ public class OscGenerator {
             timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time
             if(timeNow>=measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
                 measureCounter++;                                       // but sleepUntil the end of the measure.
-                System.out.println("Playing last note of loop");
+            //    System.out.println("Playing last note of loop");
                 synth.sleepUntil(measureAccumulator);                  //Sleep until the end of the measure
                 measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
                 index = 0;                                             //Restarts the loop
             }
             else{
-                System.out.println("Playing note");
+                //System.out.println("Playing note");
                 synth.sleepUntil(timeNow);}                            //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
 
         } catch (InterruptedException e) {

@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextFlow;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.CheckBox;
@@ -254,6 +255,8 @@ public class MainController {
         counter = 0;
         toClear = true;
         xTotal =0;
+        row=0;
+        offset=0;
 
     }
 
@@ -393,27 +396,27 @@ public class MainController {
             }
 
             //this triggers a noteplay event every time we run through the draw method. Which one that is triggered depends on which scale we are playing from. Major, minor... etc.
-            if (counter < osc.intRhytmList.size()) {
+            if (counter < osc.intRhytmList.size()-1) {
 
                 if (isMajor) {
-                    osc.PlayLoop(majorScala.getScale(),isMuted,0.1,1,randomness,counter);
+                    osc.PlayLoop(majorScala.getScale(),isMuted,0.2,2,randomness,counter);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
 
 
                 }
                 if(isMinor) {
-                    osc.PlayLoop(minorScala.getScale(),isMuted,0.1,1,randomness,counter);
+                    osc.PlayLoop(minorScala.getScale(),isMuted,0.2,2,randomness,counter);
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
 
                 }
                 if(isHarmonicMinor){
-                    osc.PlayLoop(harmonicMinorScale.getScale(),isMuted,0.1,1,randomness,counter);
+                    osc.PlayLoop(harmonicMinorScale.getScale(),isMuted,0.2,2,randomness,counter);
                     notes.add(new Note(harmonicMinorScale.getScale(), counter, complexity));
 
                 }
 
             } else {
-                osc.sineLineOut.stop();
+                //osc.sineLineOut.stop();
                 counter=0;
                 isPlaying = false;
             }
@@ -445,14 +448,21 @@ public class MainController {
         //rhythmvalue
         //  System.out.println( osc.getRhythmValue());
         int space=0;
-        if(osc.getRhythmValue().equals("quarter"))
+        if(osc.getRhythmValue().equals("quarter")) {
+            space = 32;
+            g.setFill(Color.GREEN);
+        }
+
+        if(osc.getRhythmValue().equals("eight")) {
             space = 16;
+            g.setFill(Color.BLUE);
 
-        if(osc.getRhythmValue().equals("eight"))
+        }
+
+        if(osc.getRhythmValue().equals("sixteenth")) {
             space = 8;
-
-        if(osc.getRhythmValue().equals("sixteenth"))
-            space = 4;
+            g.setFill(Color.RED);
+        }
 
         //en takt er 64 pixels lang
         //taktart
@@ -461,20 +471,22 @@ public class MainController {
 
         /* If we get above 120 we need to switch to the second row. etc. */
         //row switcher
-        if (xTotal+25 > 640) {
+        if (xTotal > 512) {
             row++;
             offset = 100;
             xTotal=0;
         }
 
 
+        System.out.println(xTotal);
+
         /*
          * Setting the xPosition. In relation to the offset and the row. Each row we get 60 pixels too far to the right in relation to the sheet so we need to correct for that by subtracting xOffset with the row.
          */
 
         //This is where the note objects get created.
-        // X positions are set first. 10 is the amount of space between each note. 25 is the start position of the first note.
-        notes.get(this.counter).setxPos(xTotal+25 );
+        // X positions are set first. 10 is the amount of space between each note. 40 is the start position of the first note.
+        notes.get(this.counter).setxPos(xTotal +128);
         //Y positions are set next. They are a bit more complex because the notes need to be able to be placed correctly on the sheets no matter which scale we are playing in.
         notes.get(this.counter).setyPos(215 - rootNote - playingNoteNum * 5 + row * offset);
 
@@ -485,6 +497,8 @@ public class MainController {
         g.fillOval(getxPos, getyPos, 6, 6);
         g.fillRect(getxPos, getyPos - 12, 2, 15);
         g.fillRect(getxPos, getyPos - 14, 10, 1);
+
+        g.setFill(Color.BLACK);
 
         //line under notes too high up bylines // help lines
 
@@ -507,17 +521,28 @@ public class MainController {
         Image clef = new Image(new File("./data/clef 50p.png").toURI().toString());
             g.drawImage(clef,1,65 + row * offset);
 
+            //measure
+        Font font = new Font("Arial", 25);
+        Font font2 = new Font("Arial", 12);
+
+        g.setFont(font);
+        g.fillText("4 " , 40, 95);
+        g.fillText("4 " , 40, 115);
+
+        g.setFont(font2);
+
+
         //Note paper. Its simply some lines! 5 of them. But they move down which each row.
         for (int i = 0; i <5 ; i++) {
             g.fillRect(0, 75 + row * offset+i*10, 640, 1);
         }
 
 
-        //line seperator, every measure is 64 pixels wide.
+        //line seperator, every measure is 64 pixels wide, we add 24 though just for spacing.
 
         for (int i = 0; i <11 ; i++) {
 
-            g.fillRect(0+i*64, 75 + row * offset, 4, 41);
+            g.fillRect(0+i*128, 75 + row * offset, 4, 41);
 
         }
 
