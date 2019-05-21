@@ -291,7 +291,7 @@ public class MainController {
     public void pictureBtn() {
 
         try {
-            WritableImage snapshot = new WritableImage(600,546);
+            WritableImage snapshot = new WritableImage(660,546);
             WritableImage snapshot2 = canvas.getScene().snapshot(snapshot);
 
             File picFile = new File("./data/canvasPicture.png");
@@ -391,32 +391,27 @@ public class MainController {
 
             isMuted= mute.isSelected();
 
-            if(isMuted){
-                osc.sineLineOut.stop();
-            }
-
             //this triggers a noteplay event every time we run through the draw method. Which one that is triggered depends on which scale we are playing from. Major, minor... etc.
             if (counter < osc.intRhytmList.size()-1) {
 
                 if (isMajor) {
-                    osc.PlayLoop(majorScala.getScale(),isMuted,0.2,2,randomness,counter);
+                    osc.PlayLoop(majorScala.getScale(),isMuted,0.2,1,randomness,counter);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
 
 
                 }
                 if(isMinor) {
-                    osc.PlayLoop(minorScala.getScale(),isMuted,0.2,2,randomness,counter);
+                    osc.PlayLoop(minorScala.getScale(),isMuted,0.2,1,randomness,counter);
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
 
                 }
                 if(isHarmonicMinor){
-                    osc.PlayLoop(harmonicMinorScale.getScale(),isMuted,0.2,2,randomness,counter);
+                    osc.PlayLoop(harmonicMinorScale.getScale(),isMuted,0.2,1,randomness,counter);
                     notes.add(new Note(harmonicMinorScale.getScale(), counter, complexity));
 
                 }
 
             } else {
-                //osc.sineLineOut.stop();
                 counter=0;
                 isPlaying = false;
             }
@@ -467,7 +462,6 @@ public class MainController {
         //en takt er 64 pixels lang
         //taktart
 
-        xTotal = xTotal + space;
 
         /* If we get above 120 we need to switch to the second row. etc. */
         //row switcher
@@ -477,9 +471,6 @@ public class MainController {
             xTotal=0;
         }
 
-
-        System.out.println(xTotal);
-
         /*
          * Setting the xPosition. In relation to the offset and the row. Each row we get 60 pixels too far to the right in relation to the sheet so we need to correct for that by subtracting xOffset with the row.
          */
@@ -487,6 +478,8 @@ public class MainController {
         //This is where the note objects get created.
         // X positions are set first. 10 is the amount of space between each note. 40 is the start position of the first note.
         notes.get(this.counter).setxPos(xTotal +128);
+        xTotal = xTotal + space;
+
         //Y positions are set next. They are a bit more complex because the notes need to be able to be placed correctly on the sheets no matter which scale we are playing in.
         notes.get(this.counter).setyPos(215 - rootNote - playingNoteNum * 5 + row * offset);
 

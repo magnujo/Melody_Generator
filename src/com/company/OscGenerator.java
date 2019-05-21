@@ -122,6 +122,7 @@ public class OscGenerator {
 
         double timeNow = synth.getCurrentTime();
         try {
+            if(!isMuted)
             noteOn(timeNow, tonicNote, scale, counter);                                  //PlayLoop a note at the current time
             noteOff(timeNow+dutyCycle,tonicNote);                 //Realease the note after dutyCycle seconds
 
