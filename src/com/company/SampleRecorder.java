@@ -33,12 +33,11 @@ public class SampleRecorder {
     }
 
     /**
-     * Starts recording the output from the oscillator in OscGenerator
-     *(needs to be connected to the oscillator beforehand)
+     * Starts recording the output from the voice object in OscGenerator
      * @param oscGen OscGenerator to be recorded from
      */
     public void startRecording(OscGenerator oscGen) {
-        //recording is oly started if the synthesizer is running
+        //recording is only started if the synthesizer is running
         if (oscGen.synth.isRunning()) {
             waveRecorder.start();
             System.out.println("sample is being recorded");
@@ -70,11 +69,16 @@ public class SampleRecorder {
             wavFile = fileChooser.showSaveDialog(new Stage());
 
             if (tempFile != null) {
-                System.out.println("File saved as: "+wavFile.getName());
-                System.out.println("File saved to: "+wavFile.getAbsolutePath());
+                try {
+                    System.out.println("File saved as: " + wavFile.getName());
+                    System.out.println("File saved to: " + wavFile.getAbsolutePath());
 
-                //file with sample renamed to file with user's saved path
-                tempFile.renameTo(wavFile);
+                    //file with sample renamed to file with user's saved path
+                    tempFile.renameTo(wavFile);
+
+                } catch (NullPointerException e) {
+                    System.out.println("file was not saved");
+                }
             }
         }
     }
