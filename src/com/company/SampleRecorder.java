@@ -9,7 +9,7 @@ import java.io.IOException;
 public class SampleRecorder {
 
     File wavFile;
-    File RecFile = new File("./data/tempWave.wav");
+    File tempFile = new File("./data/tempWave.wav");
     WaveRecorder waveRecorder;
 
     /**
@@ -19,12 +19,14 @@ public class SampleRecorder {
      */
     public void initRecording(OscGenerator oscGen) throws IOException {
 
-        waveRecorder = new WaveRecorder(oscGen.synth, RecFile);
+        waveRecorder = new WaveRecorder(oscGen.synth, tempFile);
+        //waveRecorder gets the output from the synthesizer
         oscGen.voice.getOutput().connect(0,waveRecorder.getInput(),0);
         oscGen.voice.getOutput().connect(0,waveRecorder.getInput(),1);
 
-        System.out.println("ready to record - press play");
+        System.out.println("ready to record");
 
+        //if synthesizer is running but not playing from file the frequency is set to zero
         if (oscGen.lineOut.isStartRequired()) {
             oscGen.getOsc().frequency.set(0);
         }
@@ -36,7 +38,7 @@ public class SampleRecorder {
      * @param oscGen OscGenerator to be recorded from
      */
     public void startRecording(OscGenerator oscGen) {
-
+        //recording is oly started if the synthesizer is running
         if (oscGen.synth.isRunning()) {
             waveRecorder.start();
             System.out.println("sample is being recorded");
@@ -56,6 +58,7 @@ public class SampleRecorder {
             waveRecorder.close();
             System.out.println("synth stopped, recording ended");
 
+            //filechooser for save function
             FileChooser fileChooser = new FileChooser();
 
             String userDir = System.getProperty("user.home");
@@ -66,10 +69,12 @@ public class SampleRecorder {
             );
             wavFile = fileChooser.showSaveDialog(new Stage());
 
-            if (RecFile != null) {
+            if (tempFile != null) {
                 System.out.println("File saved as: "+wavFile.getName());
                 System.out.println("File saved to: "+wavFile.getAbsolutePath());
-                RecFile.renameTo(wavFile);
+
+                //file with sample renamed to file with user's saved path
+                tempFile.renameTo(wavFile);
             }
         }
     }
