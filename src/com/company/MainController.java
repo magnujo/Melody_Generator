@@ -443,7 +443,8 @@ public class MainController {
 
         g.setFill(Color.BLACK);
 
-        //rhythmvalue
+        //rhythmvalue the rhyth values have to comply with the music theoretical halving-princippe that note lenghts are defined by. We chose 32, as
+        //the style seemed to fit. But if we wanted less space between the notes we could have chosen 16 pixels distance for the quarter notes, gone down from there.
         int space=0;
         if(osc.getRhythmValue().equals("quarter")) {
             space = 32;
