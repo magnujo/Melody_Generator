@@ -34,12 +34,12 @@ public class MainController {
     /*
      * Row variable. Keeps track of rows.
      */
-    int row = 0;
+    private int row = 0;
 
     /*
      * Offset is used to determine how much we need to set the amount of distance in which we have to go out of line in relation to the previous ROW on the y axis.
      */
-    int offset = 0;
+    private int offset = 0;
     /*
      * xPos is used to store which position we are at on the x-axis.
      */
@@ -48,7 +48,7 @@ public class MainController {
      * Total notes played variable. Used to place notes correctly on the x-axis.
      */
 
-    int xTotal;
+    private int xTotal;
 
     /**this is for the sample recorder object which is used to record .wav files.
      *
@@ -227,7 +227,6 @@ public class MainController {
     public void stopButton() throws IOException {
 
         isPlaying = false;
-        //osc.sineLineOut.stop();
         osc.lineOut.stop();
         if (isRecording) {
             osc.synth.stop();
@@ -441,7 +440,6 @@ public class MainController {
         g.setFill(Color.BLACK);
 
         //rhythmvalue
-        //  System.out.println( osc.getRhythmValue());
         int space=0;
         if(osc.getRhythmValue().equals("quarter")) {
             space = 32;
@@ -463,9 +461,9 @@ public class MainController {
         //taktart
 
 
-        /* If we get above 120 we need to switch to the second row. etc. */
+        /* If we get above 512-space, just so we don't go out of bounds with the last note. (128*5)  we need to switch to the second row. etc. */
         //row switcher
-        if (xTotal > 512) {
+        if (xTotal > 512-space) {
             row++;
             offset = 100;
             xTotal=0;
@@ -514,7 +512,7 @@ public class MainController {
         Image clef = new Image(new File("./data/clef 50p.png").toURI().toString());
             g.drawImage(clef,1,65 + row * offset);
 
-            //measure
+            //Visual implementation of the time signature
         Font font = new Font("Arial", 25);
         Font font2 = new Font("Arial", 12);
 
@@ -524,18 +522,17 @@ public class MainController {
 
         g.setFont(font2);
 
-
         //Note paper. Its simply some lines! 5 of them. But they move down which each row.
         for (int i = 0; i <5 ; i++) {
             g.fillRect(0, 75 + row * offset+i*10, 640, 1);
         }
 
 
-        //line seperator, every measure is 64 pixels wide, we add 24 though just for spacing.
+        //line seperator, every measure is 128 pixels wide.
 
-        for (int i = 0; i <11 ; i++) {
+        for (int i = 0; i <6 ; i++) {
 
-            g.fillRect(0+i*128, 75 + row * offset, 4, 41);
+            g.fillRect(i*128, 75 + row * offset, 3, 41);
 
         }
 
