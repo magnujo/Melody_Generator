@@ -56,7 +56,7 @@ public class OscGenerator {
 
     OscGenerator (int octaves){
 
-        FileReader fileReader = new FileReader(".idea/data", octaves);
+        FileReader fileReader = new FileReader(".idea/data");
 
         this.intRhytmList = fileReader.getPlaylist();
 
@@ -67,7 +67,7 @@ public class OscGenerator {
      */
 
     public void refreshFileReader(){
-        FileReader fileReader = new FileReader(".idea/data", 0);
+        FileReader fileReader = new FileReader(".idea/data");
 
         this.intRhytmList = fileReader.getPlaylist();
         rhythm = new Rhythm(80);

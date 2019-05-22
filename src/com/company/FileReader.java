@@ -20,10 +20,8 @@ public class FileReader {
      * This class takes a textfile and turns it into numbers in an arraylist that are supposed to represent notes on a scale.
      * @param path
      * tha path to the file we need to parse
-     * @param octaves
-     * octave number
      */
-    public FileReader(String path, int octaves) {
+    public FileReader(String path) {
         this.path = path;
         generatePlaylist();
         this.octaves = octaves;

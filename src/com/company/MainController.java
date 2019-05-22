@@ -350,7 +350,7 @@ public class MainController {
             long lastUpdate;
 
             public void handle(long now) {
-                if (now > lastUpdate + 30 * 1000000) {
+                if (now > lastUpdate + 10 * 1000000) {
                     lastUpdate = now;
                     drawCanvas();
                 }
