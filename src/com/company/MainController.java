@@ -304,9 +304,13 @@ public class MainController {
             outputFile = fileChooser.showSaveDialog(new Stage());
 
             if (picFile != null) {
-                System.out.println("File saved as: "+outputFile.getName());
-                System.out.println("File saved to: "+outputFile.getAbsolutePath());
-                picFile.renameTo(outputFile);
+                try {
+                    System.out.println("File saved as: " + outputFile.getName());
+                    System.out.println("File saved to: " + outputFile.getAbsolutePath());
+                    picFile.renameTo(outputFile);
+                } catch (NullPointerException e) {
+                    System.out.println("the picture was not saved");
+                }
             }
 
         } catch (IOException e) {
