@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec85d8cf-6dbd-4d20-ab91-1e080761768c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/jsyn_20171016__3_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Osc Objects.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Osc Objects.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,17 +36,31 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-653314271">
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="xml" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="XML" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/SoundClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1063">
-              <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+            <state relative-caret-position="615">
+              <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5419#5420#0" expanded="true" />
-                <element signature="e#5479#5480#0" expanded="true" />
+                <element signature="e#4893#4894#0" expanded="true" />
+                <element signature="e#4943#4944#0" expanded="true" />
                 <element signature="e#5671#5672#0" expanded="true" />
                 <element signature="e#5711#5712#0" expanded="true" />
               </folding>
@@ -55,13 +69,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/company/Rhythm.java">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="61" column="38" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="225">
+              <caret line="15" column="52" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -69,8 +80,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1398">
-              <caret line="235" selection-start-line="235" selection-end-line="235" />
+            <state relative-caret-position="880">
+              <caret line="260" lean-forward="true" selection-start-line="260" selection-end-line="260" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,8 +92,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar:///usr/java/jdk-10.0.2/lib/src.zip!/javafx.graphics/javafx/stage/FileChooser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="412" selection-start-line="412" selection-end-line="412" />
+            <state relative-caret-position="65">
+              <caret line="388" selection-start-line="388" selection-end-line="388" />
             </state>
           </provider>
         </entry>
@@ -117,7 +128,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/SampleRecorder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
+            <state relative-caret-position="-70">
               <caret line="68" selection-start-line="68" selection-end-line="68" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -270,6 +281,22 @@
             <path>
               <item name="Osc_Objects_233" type="b2602c69:ProjectViewProjectNode" />
               <item name="Osc_Objects_233" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Osc_Objects_233" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Osc_Objects_233" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+              <item name="libraries" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Osc_Objects_233" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Osc_Objects_233" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Osc_Objects_233" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Osc_Objects_233" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -296,7 +323,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/Gem/Documents/GitHub/Osc_Objects_2/src/com/company/MinorScaleTest.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558608584777" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558611655411" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="extract.method.default.visibility" value="private" />
@@ -341,12 +368,8 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/data</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/TestCases/com/company/fileReaderTest.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/com/company/FileReader.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/com/company/MainController.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/com/company/Rhythm.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/com/company/ScaleGenerator.java</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/com/company/SoundClass.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
@@ -355,6 +378,7 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/libraries/jsyn_20171016.xml</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -515,7 +539,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.company" />
       <option name="MAIN_CLASS_NAME" value="com.company.fileReaderTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -976,7 +999,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="220867000" />
+    <option name="totallyTimeSpent" value="221011000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -989,6 +1012,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="30" y="0" width="1336" height="768" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17387944" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -999,7 +1023,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.47204968" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6916538" visible="true" weight="0.0" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.7859351" visible="true" weight="0.3152174" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.398773" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1008,7 +1032,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.4969743" weight="0.5294118" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32919255" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5030257" side_tool="true" weight="0.25326797" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.21406491" side_tool="true" visible="true" weight="0.3152174" />
       <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.4992272" weight="0.35403726" />
       <window_info anchor="bottom" id="SonarLint" order="13" weight="0.327454" />
       <window_info anchor="bottom" id="Statistic" order="14" sideWeight="0.49880764" weight="0.07285276" />
@@ -1128,7 +1152,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/company/redNoise.java" />
     <entry file="jar://$USER_HOME$/Downloads/jsyn-20171016.jar!/com/jsyn/unitgen/SineOscillator.class" />
     <entry file="jar://$USER_HOME$/Downloads/jsyn-20171016.jar!/com/jsyn/unitgen/LineOut.class" />
     <entry file="file://$PROJECT_DIR$/src/com/company/magnusSucks.java" />
@@ -1158,13 +1181,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/OscGeneratorChild.java" />
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="52" lean-forward="true" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -1217,9 +1233,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1295,24 +1308,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/company/SoundClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1063">
-          <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5419#5420#0" expanded="true" />
-            <element signature="e#5479#5480#0" expanded="true" />
-            <element signature="e#5671#5672#0" expanded="true" />
-            <element signature="e#5711#5712#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/java/jdk-10.0.2/lib/src.zip!/javafx.graphics/javafx/stage/FileChooser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="412" selection-start-line="412" selection-end-line="412" />
+        <state relative-caret-position="65">
+          <caret line="388" selection-start-line="388" selection-end-line="388" />
         </state>
       </provider>
     </entry>
@@ -1339,7 +1338,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/SampleRecorder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
+        <state relative-caret-position="-70">
           <caret line="68" selection-start-line="68" selection-end-line="68" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1347,10 +1346,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar:///usr/java/jdk-10.0.2/lib/src.zip!/javafx.fxml/javafx/fxml/FXMLLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="1669" selection-start-line="1669" selection-end-line="1669" />
+          <folding>
+            <element signature="e#67805#67806#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/company/SoundClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4893#4894#0" expanded="true" />
+            <element signature="e#4943#4944#0" expanded="true" />
+            <element signature="e#5671#5672#0" expanded="true" />
+            <element signature="e#5711#5712#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="52" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/company/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1398">
-          <caret line="235" selection-start-line="235" selection-end-line="235" />
+        <state relative-caret-position="880">
+          <caret line="260" lean-forward="true" selection-start-line="260" selection-end-line="260" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
