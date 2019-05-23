@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.regex.*;
 
 public class FileReader {
-    public ArrayList<Integer> getPlaylist() {
-        return playlist;
+    public ArrayList<Integer> getNoteList() {
+        return notelist;
     }
 
     //stores the notes to be played from a scale
-    ArrayList<Integer> playlist = new ArrayList<>();
+    ArrayList<Integer> notelist = new ArrayList<>();
     //stores the path to the file
     private String path;
     //Stores the textline to be read
@@ -23,11 +23,11 @@ public class FileReader {
      */
     public FileReader(String path) {
         this.path = path;
-        generatePlaylist();
+        generateNoteList();
         this.octaves = octaves;
     }
 
-    private void generatePlaylist() {
+    private void generateNoteList() {
 
         try {
             // FileReader reads text files in the default encoding.
@@ -77,31 +77,31 @@ public class FileReader {
 
                         if (m.find()) {
                             // a to e value
-                            playlist.add(0);
+                            notelist.add(0);
                         }
                         if (m2.find()) {
-                            playlist.add(1);
+                            notelist.add(1);
 
                         }
                         if (m3.find()) {
-                            playlist.add(2);
+                            notelist.add(2);
 
                         }
                         if (m4.find()) {
-                            playlist.add(3);
+                            notelist.add(3);
 
                         }
                         if (m5.find()) {
-                            playlist.add(4);
+                            notelist.add(4);
                         }
                         if (m6.find()) {
-                            playlist.add(5);
+                            notelist.add(5);
                         }
                         if (m7.find()) {
-                            playlist.add(6);
+                            notelist.add(6);
                         }
                         if (m8.find()) {
-                            playlist.add(7);
+                            notelist.add(7);
                         }
 
                     }
@@ -153,48 +153,48 @@ public class FileReader {
 
                         if (m.find()) {
                             // a to e value
-                            playlist.add(0);
+                            notelist.add(0);
                         }
                         if (m2.find()) {
-                            playlist.add(1);
+                            notelist.add(1);
 
                         }
                         if (m3.find()) {
-                            playlist.add(2);
+                            notelist.add(2);
 
                         }
                         if (m4.find()) {
-                            playlist.add(3);
+                            notelist.add(3);
 
                         }
                         if (m5.find()) {
-                            playlist.add(4);
+                            notelist.add(4);
                         }
                         if (m6.find()) {
-                            playlist.add(5);
+                            notelist.add(5);
                         }
                         if (m7.find()) {
-                            playlist.add(6);
+                            notelist.add(6);
                         }
                         if (m8.find()) {
-                            playlist.add(7);
+                            notelist.add(7);
                         }
                         if (m9.find()) {
-                            playlist.add(8);
+                            notelist.add(8);
 
                         }
                         if (m10.find()) {
-                            playlist.add(9);
+                            notelist.add(9);
 
                         }
                         if (m11.find()) {
-                            playlist.add(10);
+                            notelist.add(10);
                         }
                         if (m12.find()) {
-                            playlist.add(11);
+                            notelist.add(11);
                         }
                         if (m13.find()) {
-                            playlist.add(12);
+                            notelist.add(12);
                         }
 
                     }
@@ -202,7 +202,7 @@ public class FileReader {
                 }
 
             }
-            System.out.println("playlist size: "+playlist.size());
+            System.out.println("notelist size: "+ notelist.size());
 
         } catch (IOException e) {
             System.out.println("The file was not read correctly.");

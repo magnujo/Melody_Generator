@@ -397,7 +397,7 @@ public class MainController {
             isMuted= mute.isSelected();
 
             //this triggers a noteplay event every time we run through the draw method. Which one that is triggered depends on which scale we are playing from. Major, minor... etc.
-            if (counter < osc.intRhytmList.size()-1) {
+            if (counter < osc.notePicker.size()-1) {
 
                 if (isMajor) {
                     osc.PlayLoop(majorScala.getScale(),isMuted,0.2,1,randomness,counter);

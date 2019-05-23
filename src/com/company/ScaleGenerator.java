@@ -3,6 +3,7 @@ import com.jsyn.unitgen.SineOscillator;
 
 import java.util.ArrayList;
 
+
 public class ScaleGenerator {
 
     //this method generates a chromatic scale from any starting frequency.

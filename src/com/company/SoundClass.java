@@ -13,16 +13,9 @@ import java.util.Random;
 public class SoundClass {
     Synthesizer synth = JSyn.createSynthesizer();
 
-    private Synthesizer synthSaw = JSyn.createSynthesizer();
-    public Synthesizer synthSine = JSyn.createSynthesizer();
-    private LineOut sawLineOut;
     private UnitOscillator osc;
 
-    private double frequency;
-    double amplitude;
-    public LineOut sineLineOut;
     LineOut lineOut = new LineOut();
-    private LineOut squareLineOut;
     private Random random = new Random();
     private double rhythmValueAccumulator = 0;
     private Rhythm rhythm = new Rhythm(125);
@@ -30,41 +23,34 @@ public class SoundClass {
     private double loopLength;
     private boolean first = true;
     private int index = 0;
-    private LineOut noiseLineOut;
-    private Synthesizer synthSquare = JSyn.createSynthesizer();
-    private Synthesizer synthNoise = JSyn.createSynthesizer();
-    private double duration;
     private UnitOscillator sineOsc = new SineOscillator();
     private UnitOscillator oscillator;
 
     int tonicNote = 60;     //Controls pitch!
     private double rhythmValue;
-    FrequencyHashMap noteList = new FrequencyHashMap();
     private int measureCounter;
     private VoiceAllocator allocator; //Needed to use noteon and noteoff methods that can control decay
     private UnitVoice[] voices; //Needed for VoiceAllocator to work
     SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
     private double dutyCycle = 0.8; //Controls decay
-
-
-    ArrayList<Integer> intRhytmList;
+    ArrayList<Integer> notePicker;
 
     SoundClass(){
 
         FileReader fileReader = new FileReader(".idea/data");
 
-        this.intRhytmList = fileReader.getPlaylist();
+        this.notePicker = fileReader.getNoteList();
 
     }
 
     /**
-     * This method is used in conjuction with the refresh method in the maincontroller. It re-reads the file after its updated, and generates a new playlist based on it.
+     * This method is used in conjuction with the refresh method in the maincontroller. It re-reads the file after its updated, and generates a new notelist based on it.
      */
 
     public void refreshFileReader(){
         FileReader fileReader = new FileReader(".idea/data");
 
-        this.intRhytmList = fileReader.getPlaylist();
+        this.notePicker = fileReader.getNoteList();
         rhythm = new Rhythm(80);
     }
 
@@ -105,8 +91,8 @@ public class SoundClass {
         }
         first =false;
 
-        rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(index);   //Accumulates the rhythm values so that we know
-        // how much time is left in the measure
+        //Er i tvivl om den her bliver brugt, men måske skal den bruges fordi den er mere præcis end synth.getCurrentTime()
+        rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(index);   //Accumulates the rhythm values so that we know.
 
         lineOut.start();
         if (randomInt<=100-rhythmRandomness){
@@ -118,48 +104,32 @@ public class SoundClass {
         double timeNow = synth.getCurrentTime();
         try {
             if(!isMuted)
-            noteOn(timeNow, tonicNote, scale, counter);                                  //PlayLoop a note at the current time
+                noteOn(timeNow, tonicNote, scale, counter);                                  //PlayLoop a note at the current time
             noteOff(timeNow+dutyCycle,tonicNote);                 //Realease the note after dutyCycle seconds
 
             timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time
-            if(timeNow>=measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
+            if(timeNow >= measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
                 measureCounter++;                                       // but sleepUntil the end of the measure.
-            //    System.out.println("Playing last note of loop");
                 synth.sleepUntil(measureAccumulator);                  //Sleep until the end of the measure
                 measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
                 index = 0;                                             //Restarts the loop
             }
-            else{
-                //System.out.println("Playing note");
-                synth.sleepUntil(timeNow);}                            //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
-
+            else{synth.sleepUntil(timeNow);}                            //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         lineOut.stop();
-
     }
     private void noteOn(double time, int note, ArrayList<Double> scale, int counter) {
         // double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
         index++;
-        allocator.noteOn(note, scale.get(intRhytmList.get(counter)), amplitude, timeStamp);
+        allocator.noteOn(note, scale.get(notePicker.get(counter)), amplitude, timeStamp);
     }
 
     private void noteOff(double time, int note) {
         allocator.noteOff(note, new TimeStamp(time));
-    }
-
-    /**
-    stops synth
-     **/
-    public void stopSynth(){
-        synth.stop();
-    }
-
-    public double getMeasure(){
-        return rhythm.getMeasure();
     }
 
 
@@ -171,8 +141,7 @@ public class SoundClass {
      * returns the current note thats being played
      */
     public int getPlayingNoteNum(int i) {
-
-        return intRhytmList.get(i);
+        return notePicker.get(i);
     }
 
     /**
@@ -182,20 +151,15 @@ public class SoundClass {
      */
 
     public String getRhythmValue() {
-if (rhythmValue==rhythm.getQuarterNote())return "quarter";
+        if (rhythmValue==rhythm.getQuarterNote())return "quarter";
         if (rhythmValue==rhythm.getEighthNote())return "eight";
         if (rhythmValue==rhythm.getHalfNote())return "half";
         if(rhythmValue==rhythm.getSixteenthNote())return "sixteenth";
         if(rhythmValue==rhythm.getWholeNote())return "whole";
-
         return null;
     }
 
-
     public UnitOscillator getOsc() { return osc; }
-
-
-
 
 }
 

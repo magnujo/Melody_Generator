@@ -32,7 +32,7 @@ public class Rhythm {
             rhythmValue = rhythmValue/2;
         }
 //make a random loop
-        createLoop(2,4);
+        createLoop(2,2);
 
 
         halfNote = milliseconds / bpm*2;

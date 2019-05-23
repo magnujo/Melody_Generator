@@ -10,7 +10,7 @@ class fileReaderTest {
     @Test
     void getPlaylist() {
         FileReader fileReader = new FileReader("data/TestData");
-        assertEquals(5,fileReader.getPlaylist().size());
+        assertEquals(5,fileReader.getNoteList().size());
 
     }
 
