@@ -13,11 +13,11 @@ public class SampleRecorder {
     WaveRecorder waveRecorder;
 
     /**
-     * Connects a JSyn waveRecorder to the oscillator from a OscGenerator
-     * @param oscGen the OscGenerator to be recorded from
+     * Connects a JSyn waveRecorder to the oscillator from a SoundClass
+     * @param oscGen the SoundClass to be recorded from
      * @throws IOException
      */
-    public void initRecording(OscGenerator oscGen) throws IOException {
+    public void initRecording(SoundClass oscGen) throws IOException {
 
         waveRecorder = new WaveRecorder(oscGen.synth, tempFile);
         //waveRecorder gets the output from the synthesizer
@@ -33,10 +33,10 @@ public class SampleRecorder {
     }
 
     /**
-     * Starts recording the output from the voice object in OscGenerator
-     * @param oscGen OscGenerator to be recorded from
+     * Starts recording the output from the voice object in SoundClass
+     * @param oscGen SoundClass to be recorded from
      */
-    public void startRecording(OscGenerator oscGen) {
+    public void startRecording(SoundClass oscGen) {
         //recording is only started if the synthesizer is running
         if (oscGen.synth.isRunning()) {
             waveRecorder.start();
@@ -45,12 +45,12 @@ public class SampleRecorder {
     }
 
     /**
-     * When the synthesizer from the OscGenerator has been stopped the recording ends.
+     * When the synthesizer from the SoundClass has been stopped the recording ends.
      * The recording can be saved as a Wave or an MP3 file
      * @param ocsGen
      * @throws IOException
      */
-    public void stopRecording(OscGenerator ocsGen) throws IOException {
+    public void stopRecording(SoundClass ocsGen) throws IOException {
         if (!ocsGen.synth.isRunning()) {
             ocsGen.getOsc().stop();
             waveRecorder.stop();

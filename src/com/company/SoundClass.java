@@ -10,7 +10,7 @@ import com.softsynth.shared.time.TimeStamp;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class OscGenerator {
+public class SoundClass {
     Synthesizer synth = JSyn.createSynthesizer();
 
     private Synthesizer synthSaw = JSyn.createSynthesizer();
@@ -49,7 +49,7 @@ public class OscGenerator {
 
     ArrayList<Integer> intRhytmList;
 
-    OscGenerator (){
+    SoundClass(){
 
         FileReader fileReader = new FileReader(".idea/data");
 
