@@ -300,8 +300,12 @@ public class MainController {
 
             File outputFile;
             FileChooser fileChooser = new FileChooser();
-            String userDir = System.getProperty("user.home");
-            fileChooser.setInitialDirectory(new File(userDir+"/Desktop"));
+            try {
+                String userDir = System.getProperty("user.home");
+                fileChooser.setInitialDirectory(new File(userDir + "/Desktop"));
+            } catch (IllegalArgumentException e) {
+                System.out.println("could not find Desktop folder");
+            }
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG","*.png"));
             outputFile = fileChooser.showSaveDialog(new Stage());
 
