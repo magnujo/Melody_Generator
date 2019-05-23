@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Rhythm {
@@ -20,6 +19,11 @@ public class Rhythm {
     private double[] rhythmValues;
     private ArrayList<Double> loop = new ArrayList<>();
 
+    /**
+     * Creates the rhythmic values and stores them in variables and arrays from music theoretical formulas
+     * @param bpm bpm (beats per minute) controls the speed of the rhythm, and all the rhythmic data is calculated from this.
+     */
+
     Rhythm(double bpm) {
         this.rhythmValues = new double[5]; //Array of different note lengths
         this.bpm = bpm;
@@ -31,9 +35,7 @@ public class Rhythm {
             rhythmValues[i] = rhythmValue;
             rhythmValue = rhythmValue/2;
         }
-//make a random loop
         createLoop(2,4);
-
 
         halfNote = milliseconds / bpm*2;
         quarterNote = milliseconds / bpm;
@@ -53,14 +55,28 @@ public class Rhythm {
     public double getMeasure(){
         return oneBeat * beatsPerMeasure; }
 
-    public double getRandomNoteLength(int minRhythmValue, int maxRhythmValue){ //rhythmComplexity = how many rhythmValues are created. //Speed value = how many fast notes
+    /**
+     * Returns a random rhythmValue
+     * @param minRhythmValue controls the slowest value you want in your loop. 0 is a wholenote 1 is a halfnote etc.
+     * @param maxRhythmValue controls the fastest value you want in your loop. 3 is a eightnote 4 is a sixteenthNote etc.
+     * @return
+     */
+
+    public double getRandomRhythmValue(int minRhythmValue, int maxRhythmValue){ //rhythmComplexity = how many rhythmValues are created. //Speed value = how many fast notes
         return rhythmValues[getRandomNumberInRange(minRhythmValue,maxRhythmValue)];
     }
+
+    /**
+     * Creates an Arraylist containing random rhythmValues in a specified range of rhythmValues.
+     * @param minRhythmValue controls the slowest value you want in your loop. 0 is a wholenote 1 is a halfnote etc.
+     * @param maxRhythmValue controls the fastest value you want in your loop. 3 is a eightnote 4 is a sixteenthNote etc.
+     * @return
+     */
 
     private boolean createLoop(int minRhythmValue, int maxRhythmValue){
 
         for (int i = 0; i < 32; i++) {
-            double localNoteLength = getRandomNoteLength(minRhythmValue,maxRhythmValue);
+            double localNoteLength = getRandomRhythmValue(minRhythmValue,maxRhythmValue);
             loop.add(localNoteLength);
         }
         return true;

@@ -8,12 +8,27 @@ import com.softsynth.shared.time.TimeStamp;
 import java.util.ArrayList;
 import java.util.Random;
 
+
+
 public class SoundClass {
+    /**
+     * Creates a JSyn synthesizer with a SynthesisEngine that countains the sample rate and buffer size.
+     */
     Synthesizer synth = JSyn.createSynthesizer();
+    /**
+     * UnitOscillator the motherclass for different oscillators.
+     */
     private UnitOscillator osc;
+    /**
+     * Controls the routing of the sound data to the soundcard
+     */
     LineOut lineOut = new LineOut();
     private Random random = new Random();
+    /**
+     * rhythm values are accumulated in this variable as they are played in the program.
+     */
     private double rhythmValueAccumulator = 0;
+
     private Rhythm rhythm = new Rhythm(125);
     private double measureAccumulator;
     private double loopLength;
@@ -23,11 +38,15 @@ public class SoundClass {
     private int measureCounter;
     SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
     private double dutyCycle = 0.8; //Controls decay
-    ArrayList<Integer> notePicker;
+    ArrayList<Integer> noteList;
+
+    /**
+     * This constructor makes sure that the noteList is created from the inputtet data via FileReader.
+     */
 
     SoundClass(){
         FileReader fileReader = new FileReader(".idea/data");
-        this.notePicker = fileReader.getNoteList();
+        this.noteList = fileReader.getNoteList();
     }
 
     /**
@@ -36,9 +55,14 @@ public class SoundClass {
 
     public void refreshFileReader(){
         FileReader fileReader = new FileReader(".idea/data");
-        this.notePicker = fileReader.getNoteList();
+        this.noteList = fileReader.getNoteList();
         rhythm = new Rhythm(80);
     }
+
+    /**
+     * This method adds all the JSyn objects to he synthesizer, that is needed for it to play sound.
+     * @param osc Determines which waveform oscillator to be added to the synth.
+     */
 
     public void OscSetup(UnitOscillator osc){
         this.osc = osc;
@@ -78,7 +102,7 @@ public class SoundClass {
         if (randomInt<=100-rhythmRandomness){
             rhythmValue = rhythm.getLoop().get(index);
         }
-        else {rhythmValue = rhythm.getRandomNoteLength(0,3);
+        else {rhythmValue = rhythm.getRandomRhythmValue(0,3);
         }
 
         double timeNow = synth.getCurrentTime();
@@ -105,7 +129,7 @@ public class SoundClass {
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
         index++;
-        voice.noteOn(scale.get(notePicker.get(counter)), amplitude, timeStamp);
+        voice.noteOn(scale.get(noteList.get(counter)), amplitude, timeStamp);
     }
 
     private void noteOff(double time) {
@@ -121,7 +145,7 @@ public class SoundClass {
      * returns the current note thats being played
      */
     public int getPlayingNoteNum(int i) {
-        return notePicker.get(i);
+        return noteList.get(i);
     }
 
     /**

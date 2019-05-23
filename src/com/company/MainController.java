@@ -341,7 +341,7 @@ public class MainController {
     }
 
     /**
-     * This function is what gets run first time javafx is started.
+     * This method is what gets run first time javafx is started.
      */
 
     @FXML
@@ -403,7 +403,7 @@ public class MainController {
             isMuted= mute.isSelected();
 
             //this triggers a noteplay event every time we run through the draw method. Which one that is triggered depends on which scale we are playing from. Major, minor... etc.
-            if (counter < osc.notePicker.size()-1) {
+            if (counter < osc.noteList.size()-1) {
 
                 if (isMajor) {
                     osc.PlayLoop(majorScala.getScale(),isMuted,0.1,1,randomness,counter);
