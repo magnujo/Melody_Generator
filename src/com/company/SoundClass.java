@@ -23,8 +23,7 @@ public class SoundClass {
     private double loopLength;
     private boolean first = true;
     private int index = 0;
-    private UnitOscillator sineOsc = new SineOscillator();
-    private UnitOscillator oscillator;
+
 
     int tonicNote = 60;     //Controls pitch!
     private double rhythmValue;
