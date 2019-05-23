@@ -82,7 +82,7 @@ public class MainController {
     /**Instance of the oscillator we play from, from the JSYN API
      *
      */
-    private OscGenerator osc = new OscGenerator(0);
+    private OscGenerator osc = new OscGenerator();
 
     /**instancing class variable MajorScale, with null.
      *
@@ -278,7 +278,7 @@ public class MainController {
         }
 
         osc.refreshFileReader();
-        resetButton();
+       // resetButton();
     }
 
 
@@ -345,7 +345,7 @@ public class MainController {
         GraphicsContext g = canvas.getGraphicsContext2D();
 
         g.setFill(Color.GREY);
-        osc = new OscGenerator(0);
+        osc = new OscGenerator();
         osc.OscSetup(new SawtoothOscillatorBL());
 
         // Start and control game loop
@@ -439,7 +439,6 @@ public class MainController {
      */
 
     private void drawSheet(GraphicsContext g, int playingNoteNum) {
-
 
         g.setFill(Color.BLACK);
 

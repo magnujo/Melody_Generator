@@ -37,11 +37,6 @@ public class OscGenerator {
     private UnitOscillator sineOsc = new SineOscillator();
     private UnitOscillator oscillator;
 
-
-    private ArrayList<Integer> playListValues = new ArrayList<>();
-
-    private ArrayList<Double> notes = new ArrayList<>();
-
     int tonicNote = 60;     //Controls pitch!
     private double rhythmValue;
     FrequencyHashMap noteList = new FrequencyHashMap();
@@ -54,7 +49,7 @@ public class OscGenerator {
 
     ArrayList<Integer> intRhytmList;
 
-    OscGenerator (int octaves){
+    OscGenerator (){
 
         FileReader fileReader = new FileReader(".idea/data");
 
@@ -143,9 +138,6 @@ public class OscGenerator {
         }
         lineOut.stop();
 
-        notes.add(scale.get(intRhytmList.get(counter)));
-        playListValues.add(intRhytmList.get(counter));
-
     }
     private void noteOn(double time, int note, ArrayList<Double> scale, int counter) {
         // double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
@@ -171,14 +163,16 @@ public class OscGenerator {
     }
 
 
-
-
-    public ArrayList<Double> getNotes() {
-        return notes;
-    }
+    /**
+     *
+     * @param i
+     * The current note thats being played
+     * @return
+     * returns the current note thats being played
+     */
     public int getPlayingNoteNum(int i) {
 
-        return playListValues.get(i);
+        return intRhytmList.get(i);
     }
 
     /**
@@ -194,11 +188,8 @@ if (rhythmValue==rhythm.getQuarterNote())return "quarter";
         if(rhythmValue==rhythm.getSixteenthNote())return "sixteenth";
         if(rhythmValue==rhythm.getWholeNote())return "whole";
 
-
         return null;
     }
-
-
 
 
     public void SetupSine(){
@@ -210,7 +201,6 @@ if (rhythmValue==rhythm.getQuarterNote())return "quarter";
         sineOsc.amplitude.set(0.5);
         sineOsc.output.connect(0, sineLineOut.input, 0);
         sineOsc.output.connect(0, sineLineOut.input, 1);
-
 
     }
 
@@ -225,14 +215,6 @@ if (rhythmValue==rhythm.getQuarterNote())return "quarter";
         sineOsc.frequency.set(frequency);
         sineLineOut.start();
 
-    }
-
-    public int getRootNote() {
-
-        Double d = notes.get(0);
-        Integer u = d.intValue();
-
-        return u;
     }
 
     /**
@@ -267,8 +249,6 @@ if (rhythmValue==rhythm.getQuarterNote())return "quarter";
             PlaySine(scale.get(intRhytmList.get(counter)));
         }
 
-        //notes.add(scale.get(intRhytmList.get(counter)));
-        playListValues.add(intRhytmList.get(counter));
 
 
         if (oscillatorType == null||oscillatorType=="sine") {
@@ -288,12 +268,6 @@ if (rhythmValue==rhythm.getQuarterNote())return "quarter";
         }
 
     }
-
-
-
-
-
-
 
 }
 
