@@ -168,7 +168,7 @@ public class MainController {
      **/
     @FXML
 
-    private void playButton() {
+    private void playButton(){
 
 
         s = textField.getText();
@@ -280,7 +280,6 @@ public class MainController {
         }
 
         osc.refreshFileReader();
-       // resetButton();
     }
 
 
