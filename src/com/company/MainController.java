@@ -210,11 +210,11 @@ public class MainController {
         if (isRecording) {
             recorder.startRecording(osc);
         }
-        /*
+
         if (!osc.synth.isRunning()) {
             osc.synth.start();
         }
-        */
+
     }
 
     /**
@@ -421,6 +421,7 @@ public class MainController {
             } else {
                 counter=0;
                 isPlaying = false;
+                osc.synth.stop();
             }
             g.setFill(Color.RED);
 
