@@ -4,17 +4,13 @@ import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.instruments.SubtractiveSynthVoice;
 import com.jsyn.unitgen.*;
-import com.jsyn.util.VoiceAllocator;
 import com.softsynth.shared.time.TimeStamp;
-
 import java.util.ArrayList;
 import java.util.Random;
 
 public class SoundClass {
     Synthesizer synth = JSyn.createSynthesizer();
-
     private UnitOscillator osc;
-
     LineOut lineOut = new LineOut();
     private Random random = new Random();
     private double rhythmValueAccumulator = 0;
@@ -23,23 +19,16 @@ public class SoundClass {
     private double loopLength;
     private boolean first = true;
     private int index = 0;
-
-
     int tonicNote = 60;     //Controls pitch!
     private double rhythmValue;
     private int measureCounter;
-    private VoiceAllocator allocator; //Needed to use noteon and noteoff methods that can control decay
-    private UnitVoice[] voices; //Needed for VoiceAllocator to work
     SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
     private double dutyCycle = 0.8; //Controls decay
     ArrayList<Integer> notePicker;
 
     SoundClass(){
-
         FileReader fileReader = new FileReader(".idea/data");
-
         this.notePicker = fileReader.getNoteList();
-
     }
 
     /**
@@ -48,7 +37,6 @@ public class SoundClass {
 
     public void refreshFileReader(){
         FileReader fileReader = new FileReader(".idea/data");
-
         this.notePicker = fileReader.getNoteList();
         rhythm = new Rhythm(80);
     }
@@ -62,9 +50,6 @@ public class SoundClass {
         synth.add(voice);
         voice.getOutput().connect(0, lineOut.input, 0);
         voice.getOutput().connect(0, lineOut.input, 1);
-        voices = new UnitVoice[1];
-        voices[0] = voice;
-        allocator = new VoiceAllocator(voices);
         synth.start();
     }
 
@@ -81,7 +66,6 @@ public class SoundClass {
     public void PlayLoop(ArrayList<Double> scale, boolean isMuted, double decay,
                          int loopMeasureLength, int rhythmRandomness, int counter){
         int randomInt = random.nextInt(100);
-
         this.dutyCycle = decay;
 
         if(first == true){
@@ -124,11 +108,11 @@ public class SoundClass {
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
         index++;
-        allocator.noteOn(note, scale.get(notePicker.get(counter)), amplitude, timeStamp);
+        voice.noteOn(scale.get(notePicker.get(counter)), amplitude, timeStamp);
     }
 
     private void noteOff(double time, int note) {
-        allocator.noteOff(note, new TimeStamp(time));
+        voice.noteOff(new TimeStamp(time));
     }
 
 

@@ -403,13 +403,13 @@ public class MainController {
             if (counter < osc.notePicker.size()-1) {
 
                 if (isMajor) {
-                    osc.PlayLoop(majorScala.getScale(),isMuted,0.2,1,randomness,counter);
+                    osc.PlayLoop(majorScala.getScale(),isMuted,1,1,randomness,counter);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
 
 
                 }
                 if(isMinor) {
-                    osc.PlayLoop(minorScala.getScale(),isMuted,0.2,1,randomness,counter);
+                    osc.PlayLoop(minorScala.getScale(),isMuted,1,1,randomness,counter);
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
 
                 }
