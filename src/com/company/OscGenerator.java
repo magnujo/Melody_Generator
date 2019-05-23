@@ -192,82 +192,10 @@ if (rhythmValue==rhythm.getQuarterNote())return "quarter";
     }
 
 
-    public void SetupSine(){
-        sineLineOut = new LineOut();
-        synthSine.start();
-        synthSine.add(sineOsc);
-        synthSine.add(sineLineOut);
-
-        sineOsc.amplitude.set(0.5);
-        sineOsc.output.connect(0, sineLineOut.input, 0);
-        sineOsc.output.connect(0, sineLineOut.input, 1);
-
-    }
-
-    public UnitOscillator getSineOsc() {
-        return sineOsc;
-    }
-
     public UnitOscillator getOsc() { return osc; }
 
-    public void PlaySine(double frequency){
-        this.frequency = frequency;
-        sineOsc.frequency.set(frequency);
-        sineLineOut.start();
-
-    }
-
-    /**
-     *
-     * @param scale
-     * The scale we want to play from.
-     * @param counter
-     * The note we are playing represented by an iterative counter.
-     * @param complexity
-     * The complexity of the rhythm we are using.
-     * @param oscillatorType
-     * The type of oscillator we allow the user to use.
-     * @param muted
-     * If the user has muted the application, this parameter should stop all sound if set to true.
-     */
-
-    public void Play(ArrayList<Double> scale, int counter, String complexity, String oscillatorType, boolean muted) {
-
-        if (complexity.equals("low complexity")) {
-            duration = 0.1;
-        }
-        if (complexity.equals("medium complexity") || complexity == null) {
-
-            duration = intRhytmList.get(counter) * 0.1;
-        }
-        if (complexity.equals("high complexity")) {
-
-            duration = random.nextInt(1);
-        }
-
-        if(!muted) {
-            PlaySine(scale.get(intRhytmList.get(counter)));
-        }
 
 
-
-        if (oscillatorType == null||oscillatorType=="sine") {
-            try {
-                synthSine.sleepFor(duration);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (oscillatorType == null||oscillatorType=="square") {
-            try {
-                synthSine.sleepFor(duration);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
 
 }
 

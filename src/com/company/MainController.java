@@ -181,8 +181,8 @@ public class MainController {
                 majorScala = new MajorScale(scaleLengths, frequencyMap.frequencyFinder(s));
                 rootNote = frequencyMap.noteFinder(majorScala.getScale().get(0));
                 isMajor = true;
-                isMinor=false;
-                isHarmonicMinor=false;
+                isMinor = false;
+                isHarmonicMinor = false;
                 isPlaying = true;
                 break;
             case "minor scale":
@@ -192,7 +192,7 @@ public class MainController {
                 rootNote = frequencyMap.noteFinder(minorScala.getScale().get(0));
                 isMinor = true;
                 isMajor = false;
-                isHarmonicMinor=false;
+                isHarmonicMinor = false;
                 isPlaying = true;
                 break;
             case "harmonic minor scale":
@@ -201,8 +201,8 @@ public class MainController {
                 harmonicMinorScale = new HarmonicMinorScale(scaleLengths, frequencyMap.frequencyFinder(s));
                 rootNote = frequencyMap.noteFinder(harmonicMinorScale.getScale().get(0));
                 isHarmonicMinor = true;
-                isMajor=false;
-                isMinor=false;
+                isMajor = false;
+                isMinor = false;
                 isPlaying = true;
                     break;
         }
@@ -253,9 +253,9 @@ public class MainController {
         }
         counter = 0;
         toClear = true;
-        xTotal =0;
-        row=0;
-        offset=0;
+        xTotal = 0;
+        row = 0;
+        offset = 0;
 
     }
 
@@ -388,7 +388,9 @@ public class MainController {
         }
 
 
-//if the button major or minor are pressed
+        /**if the button major or minor are pressed
+         *
+         */
         if (isPlaying) {
             complexity = choiceBox.getSelectionModel().getSelectedItem();
 
