@@ -84,18 +84,18 @@ public class MainController {
      */
     private SoundClass osc = new SoundClass();
 
-    /**instancing class variable MajorScale, with null.
+    /**instancing class variable MajorChromaticScale, with null.
      *
      */
-    private MajorScale majorScala;
-    /**instancing class variable MajorScale, with null.
+    private MajorChromaticScale majorScala;
+    /**instancing class variable MajorChromaticScale, with null.
      *
      */
-    private MinorScale minorScala;
-    /**instancing class variable HarmonicMinorScale, with null.
+    private MinorChromaticScale minorScala;
+    /**instancing class variable HarmonicMinorChromaticScale, with null.
      *
      */
-    private HarmonicMinorScale harmonicMinorScale;
+    private HarmonicMinorChromaticScale harmonicMinorScale;
 
     //booleans that the user can manipulate through the GUI, which are input parameters for the program.
 
@@ -178,7 +178,7 @@ public class MainController {
         switch (scaleType){
             default :
             case "major scale":
-                majorScala = new MajorScale(scaleLengths, frequencyMap.frequencyFinder(s));
+                majorScala = new MajorChromaticScale(scaleLengths, frequencyMap.frequencyFinder(s));
                 rootNote = frequencyMap.noteFinder(majorScala.getScale().get(0));
                 isMajor = true;
                 isMinor = false;
@@ -188,7 +188,7 @@ public class MainController {
             case "minor scale":
                 s = textField.getText();
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
-                minorScala = new MinorScale(scaleLengths, frequencyMap.frequencyFinder(s));
+                minorScala = new MinorChromaticScale(scaleLengths, frequencyMap.frequencyFinder(s));
                 rootNote = frequencyMap.noteFinder(minorScala.getScale().get(0));
                 isMinor = true;
                 isMajor = false;
@@ -198,7 +198,7 @@ public class MainController {
             case "harmonic minor scale":
                 s = textField.getText();
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
-                harmonicMinorScale = new HarmonicMinorScale(scaleLengths, frequencyMap.frequencyFinder(s));
+                harmonicMinorScale = new HarmonicMinorChromaticScale(scaleLengths, frequencyMap.frequencyFinder(s));
                 rootNote = frequencyMap.noteFinder(harmonicMinorScale.getScale().get(0));
                 isHarmonicMinor = true;
                 isMajor = false;

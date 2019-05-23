@@ -1,10 +1,10 @@
 package com.company;
 
-public class MajorScale extends ScaleGenerator {
+public class MajorChromaticScale extends ChromaticScaleGenerator {
     /**Removing the unused notes in a chromatic scale turns it into a harmonic scale.
      *
      */
-    public MajorScale(int scaleLength, double startFreq) {
+    public MajorChromaticScale(int scaleLength, double startFreq) {
         super(scaleLength, startFreq);
          scale.remove(1);
             scale.remove(2);

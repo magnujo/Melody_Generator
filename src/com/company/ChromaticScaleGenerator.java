@@ -4,7 +4,7 @@ import com.jsyn.unitgen.SineOscillator;
 import java.util.ArrayList;
 
 
-public class ScaleGenerator {
+public class ChromaticScaleGenerator {
 
     //this method generates a chromatic scale from any starting frequency.
     //A frequency table can be found on http://pages.mtu.edu/~suits/notefreqs.html
@@ -15,7 +15,7 @@ public class ScaleGenerator {
 
     //This is the constructor which can take a length (there are 12 notes in a chromatic octave), and a starting frequency.
     // I refer to the table mentioned above.
-    public ScaleGenerator(int scalelength, double startFreq) {
+    public ChromaticScaleGenerator(int scalelength, double startFreq) {
 
         for (int i = 0; i < scalelength; i++) {
             // The frequency needs to double every \{12}12 notes (because there are \{7}7 white notes and \{5}5 black notes in each octave.)

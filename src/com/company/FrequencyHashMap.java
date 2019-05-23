@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class FrequencyHashMap {
 
-    private ScaleGenerator scaleGenerator = new ScaleGenerator(150, 16.351597831287414);
+    private ChromaticScaleGenerator chromaticScaleGenerator = new ChromaticScaleGenerator(150, 16.351597831287414);
     private HashMap<String,Double> freqMap = new HashMap<>();
     private HashMap<Double,Double> noteMap = new HashMap<>();
     private String[] noteNames = {"C","C#","D","D#","E","F","F#","G","G#","A","A#","B"};
@@ -17,14 +17,14 @@ public class FrequencyHashMap {
      * Just like the notes on a piano are linear. Even though the underlying frequencies rise exponentially the furhter uip you get on the piano.
      */
     FrequencyHashMap() {
-        for (int i = 0; i < scaleGenerator.getScale().size(); i++) {
+        for (int i = 0; i < chromaticScaleGenerator.getScale().size(); i++) {
 
             if (i % 12 == 0 && i != 0) {
                 j = 0;
                 octaveNumber++;
             }
-            freqMap.put(noteNames[j] + octaveNumber, scaleGenerator.getScale().get(i));
-            noteMap.put(scaleGenerator.getScale().get(i),i*2.6);
+            freqMap.put(noteNames[j] + octaveNumber, chromaticScaleGenerator.getScale().get(i));
+            noteMap.put(chromaticScaleGenerator.getScale().get(i),i*2.6);
             j++;
         }
     }

@@ -1,12 +1,12 @@
 package com.company;
 
-public class HarmonicMinorScale extends ScaleGenerator {
+public class HarmonicMinorChromaticScale extends ChromaticScaleGenerator {
 
 
     /**Removing the unused notes in a chromatic scale turns it into a harmonic scale.
      *
      */
-    public HarmonicMinorScale(int scaleLength, double startFreq) {
+    public HarmonicMinorChromaticScale(int scaleLength, double startFreq) {
         super(scaleLength, startFreq);
         scale.remove(1);
         scale.remove(3);
