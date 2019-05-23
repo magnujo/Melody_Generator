@@ -19,7 +19,6 @@ public class SoundClass {
     private double loopLength;
     private boolean first = true;
     private int index = 0;
-    int tonicNote = 60;     //Controls pitch!
     private double rhythmValue;
     private int measureCounter;
     SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
@@ -85,8 +84,8 @@ public class SoundClass {
         double timeNow = synth.getCurrentTime();
         try {
             if(!isMuted)
-                noteOn(timeNow, tonicNote, scale, counter);                                  //PlayLoop a note at the current time
-            noteOff(timeNow+dutyCycle,tonicNote);                 //Realease the note after dutyCycle seconds
+                noteOn(timeNow, scale, counter);                                  //PlayLoop a note at the current time
+            noteOff(timeNow+dutyCycle);                 //Realease the note after dutyCycle seconds
 
             timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time
             if(timeNow >= measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
@@ -101,7 +100,7 @@ public class SoundClass {
         }
         lineOut.stop();
     }
-    private void noteOn(double time, int note, ArrayList<Double> scale, int counter) {
+    private void noteOn(double time, ArrayList<Double> scale, int counter) {
         // double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
@@ -109,7 +108,7 @@ public class SoundClass {
         voice.noteOn(scale.get(notePicker.get(counter)), amplitude, timeStamp);
     }
 
-    private void noteOff(double time, int note) {
+    private void noteOff(double time) {
         voice.noteOff(new TimeStamp(time));
     }
 
