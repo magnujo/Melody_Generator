@@ -210,9 +210,11 @@ public class MainController {
         if (isRecording) {
             recorder.startRecording(osc);
         }
+        /*
         if (!osc.synth.isRunning()) {
             osc.synth.start();
         }
+        */
     }
 
     /**
