@@ -59,9 +59,12 @@ public class SampleRecorder {
 
             //filechooser for save function
             FileChooser fileChooser = new FileChooser();
-
-            String userDir = System.getProperty("user.home");
-            fileChooser.setInitialDirectory(new File(userDir+"/Desktop"));
+            try {
+                String userDir = System.getProperty("user.home");
+                fileChooser.setInitialDirectory(new File(userDir + "/Desktop"));
+            } catch (IllegalArgumentException e) {
+                System.out.println("could not find Desktop folder");
+            }
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Wave", "*.wav"),
                     new FileChooser.ExtensionFilter("MP3", "*.mp3")
