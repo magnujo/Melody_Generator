@@ -43,9 +43,7 @@ public class SoundClass {
 
     public void OscSetup(UnitOscillator osc){
         this.osc = osc;
-        //synth = JSyn.createSynthesizer();
         synth.add(osc);
-        //synth.add(lineOut = new LineOut());
         synth.add(lineOut);
         synth.add(voice);
         voice.getOutput().connect(0, lineOut.input, 0);
