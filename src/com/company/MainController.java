@@ -231,9 +231,7 @@ public class MainController {
         isPlaying = false;
         osc.lineOut.stop();
         if (isRecording) {
-            osc.synth.stop();
-            isRecording = false;
-            recorder.stopRecording(osc);
+            recorder.pauseRecording(osc);
         }
     }
 
@@ -249,7 +247,6 @@ public class MainController {
         isPlaying = false;
         osc.lineOut.stop();
         if (isRecording) {
-            osc.synth.stop();
             isRecording = false;
             recorder.stopRecording(osc);
         }
@@ -303,18 +300,18 @@ public class MainController {
                 String userDir = System.getProperty("user.home");
                 fileChooser.setInitialDirectory(new File(userDir + "/Desktop"));
             } catch (IllegalArgumentException e) {
-                System.out.println("could not find Desktop folder");
+                System.out.println("Could not find Desktop folder");
             }
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG","*.png"));
             outputFile = fileChooser.showSaveDialog(new Stage());
 
             if (picFile != null) {
                 try {
-                    System.out.println("File saved as: " + outputFile.getName());
-                    System.out.println("File saved to: " + outputFile.getAbsolutePath());
+                    System.out.println("Picture saved as: " + outputFile.getName());
+                    System.out.println("Picture saved to: " + outputFile.getAbsolutePath());
                     picFile.renameTo(outputFile);
                 } catch (NullPointerException e) {
-                    System.out.println("the picture was not saved");
+                    System.out.println("The picture was not saved");
                 }
             }
 
@@ -392,6 +389,14 @@ public class MainController {
             toClear = false;
         }
 
+/*        //clears note paper to make room for new notes
+        if (row == 5) {
+            toClear = true;
+            xTotal = 0;
+            row = 0;
+            offset = 0;
+        }
+*/
 
         /**if the button major or minor are pressed
          *
@@ -665,6 +670,7 @@ public class MainController {
             //we clear it afterwards so it doesn't get unessecarily long.
         }
     }
+
 
     /**
      * This is a private class of the private function that is wholly dependent on the private class, sharps. A sharp, is thus an object of the type; sharp, that is added to the list of sharps.

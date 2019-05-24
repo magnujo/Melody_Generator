@@ -14,56 +14,69 @@ public class SampleRecorder {
 
     /**
      * Connects a JSyn waveRecorder to the oscillator from a SoundClass
-     * @param oscGen the SoundClass to be recorded from
+     * @param sound the SoundClass to be recorded from
      * @throws IOException
      */
-    public void initRecording(SoundClass oscGen) throws IOException {
+    public void initRecording(SoundClass sound) throws IOException {
 
-        waveRecorder = new WaveRecorder(oscGen.synth, tempFile);
+        waveRecorder = new WaveRecorder(sound.synth, tempFile);
         //waveRecorder gets the output from the synthesizer
-        oscGen.voice.getOutput().connect(0,waveRecorder.getInput(),0);
-        oscGen.voice.getOutput().connect(0,waveRecorder.getInput(),1);
+        sound.getOsc().getOutput().connect(0,waveRecorder.getInput(),0);
+        sound.getOsc().getOutput().connect(0,waveRecorder.getInput(),1);
 
-        System.out.println("ready to record");
+        System.out.println("Ready to record");
 
         //if synthesizer is running but not playing from file the frequency is set to zero
-        if (oscGen.lineOut.isStartRequired()) {
-            oscGen.getOsc().frequency.set(0);
+        //prevents "hidden" notes from oscillator startup to be included in sample
+        if (sound.lineOut.isStartRequired()) {
+            sound.getOsc().frequency.set(0);
         }
     }
 
     /**
      * Starts recording the output from the voice object in SoundClass
-     * @param oscGen SoundClass to be recorded from
+     * @param sound SoundClass to be recorded from
      */
-    public void startRecording(SoundClass oscGen) {
-        //recording is only started if the synthesizer is running
-        if (oscGen.synth.isRunning()) {
+    public void startRecording(SoundClass sound) {
+        if (sound.lineOutPlaying || sound.synth.isRunning()) {
             waveRecorder.start();
-            System.out.println("sample is being recorded");
+            System.out.println("The sample is being recorded");
         }
     }
 
     /**
-     * When the synthesizer from the SoundClass has been stopped the recording ends.
+     * Pauses recording if lineOut is not playing
+     * Recording can be resumed with startRecording()
+     * @param sound
+     */
+    public void pauseRecording(SoundClass sound) {
+        if (!sound.lineOutPlaying) {
+            waveRecorder.stop();
+        }
+    }
+
+    /**
+     * Stops recording if lineOut is no longer playing
      * The recording can be saved as a Wave or an MP3 file
-     * @param ocsGen
+     * @param sound
      * @throws IOException
      */
-    public void stopRecording(SoundClass ocsGen) throws IOException {
-        if (!ocsGen.synth.isRunning()) {
-            ocsGen.getOsc().stop();
+    public void stopRecording(SoundClass sound) throws IOException {
+        //if (!sound.synth.isRunning()) {
+        if (!sound.lineOutPlaying) {
+            sound.getOsc().stop();
             waveRecorder.stop();
             waveRecorder.close();
-            System.out.println("synth stopped, recording ended");
+            System.out.println("Recording ended");
 
             //filechooser for save function
             FileChooser fileChooser = new FileChooser();
-            try {
+            try { //locate the users desktop
                 String userDir = System.getProperty("user.home");
                 fileChooser.setInitialDirectory(new File(userDir + "/Desktop"));
             } catch (IllegalArgumentException e) {
-                System.out.println("could not find Desktop folder");
+                //else catch exception and direct to hard drive
+                System.out.println("Could not find Desktop folder");
             }
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Wave", "*.wav"),
@@ -73,14 +86,14 @@ public class SampleRecorder {
 
             if (tempFile != null) {
                 try {
-                    System.out.println("File saved as: " + wavFile.getName());
-                    System.out.println("File saved to: " + wavFile.getAbsolutePath());
+                    System.out.println("Recording saved as: " + wavFile.getName());
+                    System.out.println("Recording saved to: " + wavFile.getAbsolutePath());
 
                     //file with sample renamed to file with user's saved path
                     tempFile.renameTo(wavFile);
 
                 } catch (NullPointerException e) {
-                    System.out.println("file was not saved");
+                    System.out.println("The recording was not saved");
                 }
             }
         }

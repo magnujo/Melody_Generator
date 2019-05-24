@@ -23,6 +23,9 @@ public class SoundClass {
      * Controls the routing of the sound data to the soundcard
      */
     LineOut lineOut = new LineOut();
+
+    public boolean lineOutPlaying = false;
+
     private Random random = new Random();
     /**
      * rhythm values are accumulated in this variable as they are played in the program.
@@ -75,6 +78,7 @@ public class SoundClass {
        osc.output.connect(0,lineOut.input,1);
 
         synth.start();
+        lineOutPlaying = true;
     }
 
     /**
@@ -102,6 +106,7 @@ public class SoundClass {
         rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(index);   //Accumulates the rhythm values so that we know.
 
         lineOut.start();
+        lineOutPlaying = true;
         if (randomInt<=100-rhythmRandomness){
             rhythmValue = rhythm.getLoop().get(index);
         }
@@ -131,6 +136,7 @@ public class SoundClass {
             e.printStackTrace();
         }
         lineOut.stop();
+        lineOutPlaying = false;
     }
 
 
@@ -163,6 +169,7 @@ public class SoundClass {
         rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(index);   //Accumulates the rhythm values so that we know.
 
         lineOut.start();
+        lineOutPlaying = true;
         if (randomInt<=100-rhythmRandomness){
             rhythmValue = rhythm.getLoop().get(index);
         }
@@ -189,6 +196,7 @@ public class SoundClass {
             e.printStackTrace();
         }
         lineOut.stop();
+        lineOutPlaying = false;
         index++;
 
     }
