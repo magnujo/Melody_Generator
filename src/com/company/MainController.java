@@ -410,18 +410,16 @@ public class MainController {
             if (counter < osc.noteList.size()-1) {
 
                 if (isMajor) {
-                    osc.PlayLoop2(majorScala.getScale(),isMuted,0.1,1,randomness,counter);
+                    osc.PlayLoop3(majorScala.getScale(),isMuted,0.1,1,randomness,counter);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
-
-
                 }
                 if(isMinor) {
-                    osc.PlayLoop2(minorScala.getScale(),isMuted,0.1,1,randomness,counter);
+                    osc.PlayLoop3(minorScala.getScale(),isMuted,0.1,1,randomness,counter);
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
 
                 }
                 if(isHarmonicMinor){
-                    osc.PlayLoop2(harmonicMinorScale.getScale(),isMuted,0.2,1,randomness,counter);
+                    osc.PlayLoop3(harmonicMinorScale.getScale(),isMuted,0.2,1,randomness,counter);
                     notes.add(new Note(harmonicMinorScale.getScale(), counter, complexity));
 
                 }
@@ -431,13 +429,15 @@ public class MainController {
                 isPlaying = false;
                 osc.synth.stop();
             }
+            /* We do this because we need to get the exact note that we are playing. The way the programme is built the maincontroller doesn't know exactly what notes we have to play. Thats taken care off in the oscgenerator.java. This is in relation to the root note.*/
             g.setFill(Color.RED);
 
             /* We do this because we need to get the exact note that we are playing. The way the programme is built the maincontroller doesn't know exactly what notes we have to play. Thats taken care off in the oscgenerator.java. This is in relation to the root note.*/
             int playingNoteNum = osc.getPlayingNoteNum(counter);
-
+            System.out.println(osc.getRhythmValue());
             //Actually draws the sheet and notes! Handles the visual part.
             drawSheet(g, playingNoteNum);
+            //Actually draws the sheet and notes! Handles the visual part.
             counter++;
 
         }

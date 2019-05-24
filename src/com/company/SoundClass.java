@@ -42,6 +42,8 @@ public class SoundClass {
     SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
     private double dutyCycle = 0.8; //Controls decay
     ArrayList<Integer> noteList;
+    private boolean outOfMeasure;
+    private double tempRhythmValue;
 
     /**
      * This constructor makes sure that the noteList is created from the inputtet data via FileReader.
@@ -198,7 +200,8 @@ public class SoundClass {
                 double calc = rhythmValueAccumulator-rhythmValue;
                 rhythmValue= measureAccumulator-calc;// but sleepUntil the end of the measure.
                 synth.sleepFor(rhythmValue);                  //Sleep until the end of the measure
-                measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
+                    rhythmValueAccumulator=measureAccumulator;
+                    measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
                 index = 0;                                             //Restarts the loop
             }
             else {synth.sleepFor(rhythmValue);}
@@ -211,6 +214,70 @@ public class SoundClass {
         lineOut.stop();
         lineOutPlaying = false;
         index++;
+
+    }
+
+
+    public void PlayLoop3(ArrayList<Double> scale, boolean isMuted, double decay,
+                          int loopMeasureLength, int rhythmRandomness, int counter){
+        outOfMeasure=false;
+        int randomInt = random.nextInt(100);
+        this.dutyCycle = decay;
+
+        if(first == true){
+            loopLength=rhythm.getMeasure()*loopMeasureLength;
+            measureAccumulator= loopLength;
+        }
+        first =false;
+
+
+        //Er i tvivl om den her bliver brugt, men måske skal den bruges fordi den er mere præcis end synth.getCurrentTime()
+
+        lineOut.start();
+        lineOutPlaying = true;
+        if (randomInt<=100-rhythmRandomness){
+            rhythmValue = rhythm.getLoop().get(index);
+        }
+        else {rhythmValue = rhythm.getRandomRhythmValue(0,3);
+        }
+        index++;
+
+        rhythmValueAccumulator = rhythmValueAccumulator+rhythmValue;   //Accumulates the rhythm values so that we know.
+        if(rhythmValueAccumulator == measureAccumulator){
+            index = 0;
+            rhythmValue = rhythm.getLoop().get(index);
+            measureCounter++;
+            measureAccumulator = measureAccumulator + loopLength;
+        }
+        double timeNow = synth.getCurrentTime();
+        try {
+            //Realease the note after dutyCycle seconds
+            osc.frequency.set(scale.get(noteList.get(counter)));
+            osc.amplitude.set(0.5);
+            //rhythmValueAccumulator = rhythmValueAccumulator + rhythmValue;                            //Adds the rythm value to current time
+            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
+
+
+            if(rhythmValueAccumulator > measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
+                measureCounter++;
+                double calc = rhythmValueAccumulator-rhythmValue;
+                rhythmValue = measureAccumulator-calc;// but sleepUntil the end of the measure.
+                synth.sleepFor(rhythmValue);                  //Sleep until the end of the measure
+                rhythmValueAccumulator=measureAccumulator;
+                measureAccumulator = measureAccumulator + loopLength;
+               // adds the time where the new measure ends ie the current measure end point + a new measure lenght
+                index = 0;                                             //Restarts the loop
+
+            }
+            else {synth.sleepFor(rhythmValue);}
+
+
+            //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        lineOut.stop();
+        lineOutPlaying = false;
 
     }
 
@@ -232,11 +299,15 @@ public class SoundClass {
      */
 
     public String getRhythmValue() {
-        if (rhythmValue==rhythm.getQuarterNote())return "quarter";
-        if (rhythmValue==rhythm.getEighthNote())return "eight";
-        if (rhythmValue==rhythm.getHalfNote())return "half";
-        if(rhythmValue==rhythm.getSixteenthNote())return "sixteenth";
-        if(rhythmValue==rhythm.getWholeNote())return "whole";
+
+            if (rhythmValue==rhythm.getQuarterNote()){return "quarter";}
+            if (rhythmValue==rhythm.getEighthNote()){return "eight";}
+            if (rhythmValue==rhythm.getHalfNote()){return "half";}
+            if(rhythmValue==rhythm.getSixteenthNote()){return "sixteenth";}
+            if(rhythmValue==rhythm.getWholeNote()){return "whole";}
+
+
+
         return null;
     }
 

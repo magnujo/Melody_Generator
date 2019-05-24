@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Rhythm {
@@ -36,7 +37,7 @@ public class Rhythm {
             rhythmValue = rhythmValue/2;
         }
         createLoop(2,3);
-
+        System.out.println(Arrays.toString(getLoop().toArray()));
         halfNote = milliseconds / bpm*2;
         quarterNote = milliseconds / bpm;
         eightNote = milliseconds/bpm/2;
