@@ -35,7 +35,7 @@ public class Rhythm {
             rhythmValues[i] = rhythmValue;
             rhythmValue = rhythmValue/2;
         }
-        createLoop(2,4);
+        createLoop(2,3);
 
         halfNote = milliseconds / bpm*2;
         quarterNote = milliseconds / bpm;

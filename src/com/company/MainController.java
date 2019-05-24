@@ -48,7 +48,7 @@ public class MainController {
      * Total notes played variable. Used to place notes correctly on the x-axis.
      */
 
-    private int xTotal;
+    private int xTotal =0;
 
     /**this is for the sample recorder object which is used to record .wav files.
      *
@@ -63,7 +63,7 @@ public class MainController {
     /**this variable is the play counter, it will go up for every note that should be played.
      *
      */
-    private int counter;
+    private int counter = 0;
     /**This is the initial scale that gets played
      *
      */
@@ -186,7 +186,7 @@ public class MainController {
                 isPlaying = true;
                 break;
             case "minor scale":
-                s = textField.getText();
+             //   s = textField.getText();
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
                 minorScala = new MinorChromaticScale(scaleLengths, frequencyMap.frequencyFinder(s));
                 rootNote = frequencyMap.noteFinder(minorScala.getScale().get(0));
@@ -196,7 +196,7 @@ public class MainController {
                 isPlaying = true;
                 break;
             case "harmonic minor scale":
-                s = textField.getText();
+               // s = textField.getText();
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
                 harmonicMinorScale = new HarmonicMinorChromaticScale(scaleLengths, frequencyMap.frequencyFinder(s));
                 rootNote = frequencyMap.noteFinder(harmonicMinorScale.getScale().get(0));
@@ -346,7 +346,6 @@ public class MainController {
 
     @FXML
     public void initialize() {
-
         GraphicsContext g = canvas.getGraphicsContext2D();
 
         g.setFill(Color.GREY);
@@ -406,18 +405,18 @@ public class MainController {
             if (counter < osc.noteList.size()-1) {
 
                 if (isMajor) {
-                    osc.PlayLoop(majorScala.getScale(),isMuted,0.1,1,randomness,counter);
+                    osc.PlayLoop2(majorScala.getScale(),isMuted,0.1,1,randomness,counter);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
 
 
                 }
                 if(isMinor) {
-                    osc.PlayLoop(minorScala.getScale(),isMuted,0.1,1,randomness,counter);
+                    osc.PlayLoop2(minorScala.getScale(),isMuted,0.1,1,randomness,counter);
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
 
                 }
                 if(isHarmonicMinor){
-                    osc.PlayLoop(harmonicMinorScale.getScale(),isMuted,0.2,1,randomness,counter);
+                    osc.PlayLoop2(harmonicMinorScale.getScale(),isMuted,0.2,1,randomness,counter);
                     notes.add(new Note(harmonicMinorScale.getScale(), counter, complexity));
 
                 }

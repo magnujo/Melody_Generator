@@ -29,7 +29,7 @@ public class SoundClass {
      */
     private double rhythmValueAccumulator = 0;
 
-    private Rhythm rhythm = new Rhythm(125);
+    private Rhythm rhythm = new Rhythm(80);
     private double measureAccumulator;
     private double loopLength;
     private boolean first = true;
@@ -68,9 +68,12 @@ public class SoundClass {
         this.osc = osc;
         synth.add(osc);
         synth.add(lineOut);
-        synth.add(voice);
-        voice.getOutput().connect(0, lineOut.input, 0);
-        voice.getOutput().connect(0, lineOut.input, 1);
+     //  synth.add(voice);
+       // voice.getOutput().connect(0, lineOut.input, 0);
+      // voice.getOutput().connect(0, lineOut.input, 1);
+       osc.output.connect(0,lineOut.input,0);
+       osc.output.connect(0,lineOut.input,1);
+
         synth.start();
     }
 
@@ -107,8 +110,10 @@ public class SoundClass {
 
         double timeNow = synth.getCurrentTime();
         try {
-            if(!isMuted)
+            if(!isMuted){
                 noteOn(timeNow, scale, counter);                                  //PlayLoop a note at the current time
+
+            }
             noteOff(timeNow+dutyCycle);                 //Realease the note after dutyCycle seconds
 
             timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time
@@ -118,12 +123,17 @@ public class SoundClass {
                 measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
                 index = 0;                                             //Restarts the loop
             }
-            else{synth.sleepUntil(timeNow);}                            //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
+            else{synth.sleepUntil(timeNow);
+
+            }
+            //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         lineOut.stop();
     }
+
+
     private void noteOn(double time, ArrayList<Double> scale, int counter) {
         // double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
         double amplitude = 0.2;
@@ -136,6 +146,52 @@ public class SoundClass {
         voice.noteOff(new TimeStamp(time));
     }
 
+
+
+    public void PlayLoop2(ArrayList<Double> scale, boolean isMuted, double decay,
+                         int loopMeasureLength, int rhythmRandomness, int counter){
+        int randomInt = random.nextInt(100);
+        this.dutyCycle = decay;
+
+        if(first == true){
+            loopLength=rhythm.getMeasure()*loopMeasureLength;
+            measureAccumulator= loopLength;
+        }
+        first =false;
+
+        //Er i tvivl om den her bliver brugt, men måske skal den bruges fordi den er mere præcis end synth.getCurrentTime()
+        rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(index);   //Accumulates the rhythm values so that we know.
+
+        lineOut.start();
+        if (randomInt<=100-rhythmRandomness){
+            rhythmValue = rhythm.getLoop().get(index);
+        }
+        else {rhythmValue = rhythm.getRandomRhythmValue(0,3);
+        }
+
+        double timeNow = synth.getCurrentTime();
+        try {
+                       //Realease the note after dutyCycle seconds
+            osc.frequency.set(scale.get(noteList.get(counter)));
+            osc.amplitude.set(0.5);
+            timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time
+            if(rhythmValueAccumulator >= measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
+                measureCounter++;                                       // but sleepUntil the end of the measure.
+                synth.sleepUntil(measureAccumulator);                  //Sleep until the end of the measure
+                measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
+                index = 0;                                             //Restarts the loop
+            }
+            synth.sleepFor(rhythmValue);
+
+
+            //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        lineOut.stop();
+        index++;
+
+    }
 
     /**
      *
