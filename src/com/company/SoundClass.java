@@ -50,6 +50,8 @@ public class SoundClass {
     SoundClass(){
         FileReader fileReader = new FileReader(".idea/data");
         this.noteList = fileReader.getNoteList();
+        rhythmValue= rhythm.getLoop().get(index);
+
     }
 
     /**
@@ -165,8 +167,8 @@ public class SoundClass {
         }
         first =false;
 
+
         //Er i tvivl om den her bliver brugt, men måske skal den bruges fordi den er mere præcis end synth.getCurrentTime()
-        rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(index);   //Accumulates the rhythm values so that we know.
 
         lineOut.start();
         lineOutPlaying = true;
@@ -175,20 +177,31 @@ public class SoundClass {
         }
         else {rhythmValue = rhythm.getRandomRhythmValue(0,3);
         }
-
+        rhythmValueAccumulator = rhythmValueAccumulator+rhythmValue;   //Accumulates the rhythm values so that we know.
+        if(rhythmValueAccumulator == measureAccumulator){
+            index = 0;
+            rhythmValue = rhythm.getLoop().get(index);
+            measureCounter++;
+            measureAccumulator = measureAccumulator + loopLength;
+        }
         double timeNow = synth.getCurrentTime();
         try {
                        //Realease the note after dutyCycle seconds
             osc.frequency.set(scale.get(noteList.get(counter)));
             osc.amplitude.set(0.5);
-            timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time
-            if(rhythmValueAccumulator >= measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
-                measureCounter++;                                       // but sleepUntil the end of the measure.
-                synth.sleepUntil(measureAccumulator);                  //Sleep until the end of the measure
+            //rhythmValueAccumulator = rhythmValueAccumulator + rhythmValue;                            //Adds the rythm value to current time
+                                // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
+
+
+                if(rhythmValueAccumulator > measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
+                measureCounter++;
+                double calc = rhythmValueAccumulator-rhythmValue;
+                rhythmValue= measureAccumulator-calc;// but sleepUntil the end of the measure.
+                synth.sleepFor(rhythmValue);                  //Sleep until the end of the measure
                 measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
                 index = 0;                                             //Restarts the loop
             }
-            synth.sleepFor(rhythmValue);
+            else {synth.sleepFor(rhythmValue);}
 
 
             //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
