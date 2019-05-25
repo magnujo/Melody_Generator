@@ -41,14 +41,14 @@ public class FileReader {
             while((textLine = bufferedReader.readLine()) != null) {
 
 
-                char a;
+                char tempChar;
                 for (int i = 0; i < textLine.length(  ); i++) {
 
 
                     if (octaves < 14) {
 
-                        a = textLine.charAt(i);
-                        String b = new StringBuilder().append(a).toString();
+                        tempChar = textLine.toLowerCase().charAt(i);
+                        String b = new StringBuilder().append(tempChar).toString();
 
                         Pattern ae = Pattern.compile("[a-d]");   // the pattern to search for
                         Matcher m = ae.matcher(b);
@@ -107,8 +107,8 @@ public class FileReader {
                     }
 
                     if(octaves>14){
-                        a = textLine.charAt(i);
-                        String b = new StringBuilder().append(a).toString();
+                        tempChar = textLine.charAt(i);
+                        String b = new StringBuilder().append(tempChar).toString();
 
                         Pattern ae = Pattern.compile("[a-b]");   // the pattern to search for
                         Matcher m = ae.matcher(b);

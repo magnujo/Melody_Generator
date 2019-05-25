@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Rhythm {
 
-    private int milliseconds = 60; // Skal den ikke altid være 60 og for at finde hvor lang tid et slag vare ift BPM?
+    private int milliseconds = 60;
     private double bpm;
     private double beatsPerMeasure;
     private double measure = milliseconds / bpm * beatsPerMeasure;

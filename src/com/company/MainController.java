@@ -31,6 +31,13 @@ import java.util.ArrayList;
 
 public class MainController {
 
+
+    /**
+     * Image of a clef
+     */
+    Image clef = new Image(new File("./data/clef 50p.png").toURI().toString());
+
+
     /*
      * Row variable. Keeps track of rows.
      */
@@ -166,12 +173,14 @@ public class MainController {
     /**the play button is where the main programme is launched, and melody is supposed to play when it is clicked. This happens when the boolean isPlaying is set to true
      * There is a switch case that depends on which scale the user chooses to play from. The correct scale will then be generated, dependant on the root note that the user has specified.
      **/
-    @FXML
 
+
+    @FXML
     private void playButton(){
 
-osc.lineOut.start();
-        s = textField.getText();
+//osc.lineOut.start();
+
+        s = textField.getText().toUpperCase();
         complexity = choiceBox.getSelectionModel().getSelectedItem();
          scaleType = choiceBox1.getSelectionModel().getSelectedItem();
 
@@ -229,7 +238,7 @@ osc.lineOut.start();
     public void stopButton() throws IOException {
 
         isPlaying = false;
-        osc.lineOut.stop();
+       // osc.lineOut.stop();
         if (isRecording) {
             recorder.pauseRecording(osc);
         }
@@ -243,7 +252,6 @@ osc.lineOut.start();
 
     @FXML
     public void resetButton() throws IOException {
-
         isPlaying = false;
         osc.lineOut.stop();
         if (isRecording) {
@@ -434,7 +442,6 @@ osc.lineOut.start();
 
             /* We do this because we need to get the exact note that we are playing. The way the programme is built the maincontroller doesn't know exactly what notes we have to play. Thats taken care off in the oscgenerator.java. This is in relation to the root note.*/
             int playingNoteNum = osc.getPlayingNoteNum(counter);
-            System.out.println(osc.getRhythmValue());
             //Actually draws the sheet and notes! Handles the visual part.
             drawSheet(g, playingNoteNum);
             //Actually draws the sheet and notes! Handles the visual part.
@@ -526,7 +533,6 @@ osc.lineOut.start();
         }
 
         // G-clef for the user to read placement of notes
-        Image clef = new Image(new File("./data/clef 50p.png").toURI().toString());
             g.drawImage(clef,1,65 + row * offset);
 
             //Visual implementation of the time signature
@@ -672,6 +678,8 @@ osc.lineOut.start();
     }
 
 
+
+
     /**
      * This is a private class of the private function that is wholly dependent on the private class, sharps. A sharp, is thus an object of the type; sharp, that is added to the list of sharps.
      */
@@ -702,6 +710,8 @@ osc.lineOut.start();
             this.flat = flat;
 
         }
+
+
 
         public void invoke() {
             //visual approximation of a sharp sign. (#)

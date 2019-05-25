@@ -41,7 +41,7 @@ public class SoundClass {
     private int index = 0;
     private double rhythmValue;
     private int measureCounter;
-    SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
+    private SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
     private double dutyCycle = 0.8; //Controls decay
     ArrayList<Integer> noteList;
 
@@ -103,7 +103,7 @@ public class SoundClass {
 
         }
         first =false;
-
+lineOut.start();
         lineOutPlaying = true;
         if (randomInt<=100-rhythmRandomness){
             rhythmValue = rhythm.getLoop().get(index);
@@ -133,6 +133,7 @@ public class SoundClass {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        lineOut.stop();
         lineOutPlaying = false;
     }
 
@@ -167,6 +168,10 @@ public class SoundClass {
      */
     public int getPlayingNoteNum(int i) {
         return noteList.get(i);
+    }
+
+    public SubtractiveSynthVoice getVoice(){
+        return voice;
     }
 
     /**

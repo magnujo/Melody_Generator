@@ -22,15 +22,15 @@ public class SampleRecorder {
 
         waveRecorder = new WaveRecorder(sound.synth, tempFile);
         //waveRecorder gets the output from the synthesizer
-        sound.getOsc().getOutput().connect(0,waveRecorder.getInput(),0);
-        sound.getOsc().getOutput().connect(0,waveRecorder.getInput(),1);
+        sound.getVoice().getOutput().connect(0,waveRecorder.getInput(),0);
+        sound.getVoice().getOutput().connect(0,waveRecorder.getInput(),1);
 
         System.out.println("Ready to record");
 
         //if synthesizer is running but not playing from file the frequency is set to zero
         //prevents "hidden" notes from oscillator startup to be included in sample
         if (sound.lineOut.isStartRequired()) {
-            sound.getOsc().frequency.set(0);
+           // sound.getOsc().frequency.set(0);
         }
     }
 
