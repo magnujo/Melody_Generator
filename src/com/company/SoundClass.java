@@ -75,11 +75,11 @@ public class SoundClass {
         this.osc = osc;
         synth.add(osc);
         synth.add(lineOut);
-     //  synth.add(voice);
-       // voice.getOutput().connect(0, lineOut.input, 0);
-      // voice.getOutput().connect(0, lineOut.input, 1);
-       osc.output.connect(0,lineOut.input,0);
-       osc.output.connect(0,lineOut.input,1);
+        synth.add(voice);
+        voice.getOutput().connect(0, lineOut.input, 0);
+        voice.getOutput().connect(0, lineOut.input, 1);
+        // osc.output.connect(0,lineOut.input,0);
+        // osc.output.connect(0,lineOut.input,1);
 
         synth.start();
         lineOutPlaying = true;
@@ -103,32 +103,32 @@ public class SoundClass {
         if(first == true){
             loopLength=rhythm.getMeasure()*loopMeasureLength;
             measureAccumulator= loopLength;
+
         }
         first =false;
 
         //Er i tvivl om den her bliver brugt, men måske skal den bruges fordi den er mere præcis end synth.getCurrentTime()
-        rhythmValueAccumulator = rhythmValueAccumulator+rhythm.getLoop().get(index);   //Accumulates the rhythm values so that we know.
+        //Accumulates the rhythm values so that we know.
 
-        lineOut.start();
         lineOutPlaying = true;
         if (randomInt<=100-rhythmRandomness){
             rhythmValue = rhythm.getLoop().get(index);
         }
-        else {rhythmValue = rhythm.getRandomRhythmValue(0,3);
+        else {rhythmValue = rhythm.getRandomRhythmValue(2,4);
         }
-
+        rhythmValueAccumulator = rhythmValueAccumulator+rhythmValue;
+        index++;
         double timeNow = synth.getCurrentTime();
         try {
             if(!isMuted){
                 noteOn(timeNow, scale, counter);                                  //PlayLoop a note at the current time
-
             }
             noteOff(timeNow+dutyCycle);                 //Realease the note after dutyCycle seconds
 
-            timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time
+            timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time.
             if(timeNow >= measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
                 measureCounter++;                                       // but sleepUntil the end of the measure.
-                synth.sleepUntil(measureAccumulator);                  //Sleep until the end of the measure
+                synth.sleepUntil(measureAccumulator);                  //Sleeps until the end of the measure
                 measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
                 index = 0;                                             //Restarts the loop
             }
@@ -139,7 +139,60 @@ public class SoundClass {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        lineOut.stop();
+        lineOutPlaying = false;
+    }
+
+    public void PlayLoop4(ArrayList<Double> scale, boolean isMuted, double decay,
+                          int loopMeasureLength, int rhythmRandomness, int counter){
+        int randomInt = random.nextInt(100);
+        this.dutyCycle = decay;
+
+        if(first == true){
+            loopLength=rhythm.getMeasure()*loopMeasureLength;
+            measureAccumulator= loopLength;
+
+        }
+        first =false;
+
+        lineOutPlaying = true;
+        if (randomInt<=100-rhythmRandomness){
+            rhythmValue = rhythm.getLoop().get(index);
+        }
+        else {rhythmValue = rhythm.getRandomRhythmValue(0,3);
+        }
+        rhythmValueAccumulator = rhythmValueAccumulator+rhythmValue;
+        index++;
+        if(rhythmValueAccumulator == measureAccumulator){
+            index = 0;
+            rhythmValue = rhythm.getLoop().get(index);
+            measureCounter++;
+            measureAccumulator = measureAccumulator + loopLength;
+        }
+        double timeNow = synth.getCurrentTime();
+        try {
+            if(!isMuted){
+                noteOn(timeNow, scale, counter);                                  //PlayLoop a note at the current time
+
+            }
+            noteOff(timeNow+dutyCycle);                 //Realease the note after dutyCycle seconds
+
+            timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time
+            if(timeNow > measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
+                measureCounter++;                                       // but sleepUntil the end of the measure.
+                synth.sleepUntil(measureAccumulator);
+                rhythmValueAccumulator = measureAccumulator;//Sleep until the end of the measure
+                measureAccumulator = measureAccumulator + loopLength;
+                // adds the time where the new measure ends ie the current measure end point + a new measure lenght
+                index = 0;                                             //Restarts the loop
+            }
+            else{synth.sleepUntil(timeNow);
+
+            }
+            //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+      //  lineOut.stop();
         lineOutPlaying = false;
     }
 
@@ -159,7 +212,7 @@ public class SoundClass {
 
 
     public void PlayLoop2(ArrayList<Double> scale, boolean isMuted, double decay,
-                         int loopMeasureLength, int rhythmRandomness, int counter){
+                          int loopMeasureLength, int rhythmRandomness, int counter){
         int randomInt = random.nextInt(100);
         this.dutyCycle = decay;
 
@@ -188,20 +241,20 @@ public class SoundClass {
         }
         double timeNow = synth.getCurrentTime();
         try {
-                       //Realease the note after dutyCycle seconds
+            //Realease the note after dutyCycle seconds
             osc.frequency.set(scale.get(noteList.get(counter)));
             osc.amplitude.set(0.5);
             //rhythmValueAccumulator = rhythmValueAccumulator + rhythmValue;                            //Adds the rythm value to current time
-                                // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
+            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
 
 
-                if(rhythmValueAccumulator > measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
+            if(rhythmValueAccumulator > measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
                 measureCounter++;
                 double calc = rhythmValueAccumulator-rhythmValue;
                 rhythmValue= measureAccumulator-calc;// but sleepUntil the end of the measure.
                 synth.sleepFor(rhythmValue);                  //Sleep until the end of the measure
-                    rhythmValueAccumulator=measureAccumulator;
-                    measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
+                rhythmValueAccumulator=measureAccumulator;
+                measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
                 index = 0;                                             //Restarts the loop
             }
             else {synth.sleepFor(rhythmValue);}
@@ -248,6 +301,7 @@ public class SoundClass {
             rhythmValue = rhythm.getLoop().get(index);
             measureCounter++;
             measureAccumulator = measureAccumulator + loopLength;
+
         }
         double timeNow = synth.getCurrentTime();
         try {
@@ -262,14 +316,14 @@ public class SoundClass {
                 measureCounter++;
                 double calc = rhythmValueAccumulator-rhythmValue;
                 rhythmValue = measureAccumulator-calc;// but sleepUntil the end of the measure.
-                synth.sleepFor(rhythmValue);                  //Sleep until the end of the measure
+                synth.sleepUntil(timeNow+rhythmValue);                  //Sleep until the end of the measure
                 rhythmValueAccumulator=measureAccumulator;
                 measureAccumulator = measureAccumulator + loopLength;
-               // adds the time where the new measure ends ie the current measure end point + a new measure lenght
+                // adds the time where the new measure ends ie the current measure end point + a new measure lenght
                 index = 0;                                             //Restarts the loop
 
             }
-            else {synth.sleepFor(rhythmValue);}
+            else {synth.sleepUntil(timeNow+rhythmValue);}
 
 
             //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
@@ -300,11 +354,11 @@ public class SoundClass {
 
     public String getRhythmValue() {
 
-            if (rhythmValue==rhythm.getQuarterNote()){return "quarter";}
-            if (rhythmValue==rhythm.getEighthNote()){return "eight";}
-            if (rhythmValue==rhythm.getHalfNote()){return "half";}
-            if(rhythmValue==rhythm.getSixteenthNote()){return "sixteenth";}
-            if(rhythmValue==rhythm.getWholeNote()){return "whole";}
+        if (rhythmValue==rhythm.getQuarterNote()){return "quarter";}
+        if (rhythmValue==rhythm.getEighthNote()){return "eight";}
+        if (rhythmValue==rhythm.getHalfNote()){return "half";}
+        if(rhythmValue==rhythm.getSixteenthNote()){return "sixteenth";}
+        if(rhythmValue==rhythm.getWholeNote()){return "whole";}
 
 
 

@@ -82,7 +82,7 @@ public class MainController {
     /**Instance of the oscillator we play from, from the JSYN API
      *
      */
-    private SoundClass osc = new SoundClass();
+    private SoundClass osc;
 
     /**instancing class variable MajorChromaticScale, with null.
      *
@@ -170,7 +170,7 @@ public class MainController {
 
     private void playButton(){
 
-
+osc.lineOut.start();
         s = textField.getText();
         complexity = choiceBox.getSelectionModel().getSelectedItem();
          scaleType = choiceBox1.getSelectionModel().getSelectedItem();
@@ -410,16 +410,16 @@ public class MainController {
             if (counter < osc.noteList.size()-1) {
 
                 if (isMajor) {
-                    osc.PlayLoop3(majorScala.getScale(),isMuted,0.1,1,randomness,counter);
+                    osc.PlayLoop(majorScala.getScale(),isMuted,0.1,1,randomness,counter);
                     notes.add(new Note(majorScala.getScale(), counter, complexity));
                 }
                 if(isMinor) {
-                    osc.PlayLoop3(minorScala.getScale(),isMuted,0.1,1,randomness,counter);
+                    osc.PlayLoop(minorScala.getScale(),isMuted,0.1,1,randomness,counter);
                     notes.add(new Note(minorScala.getScale(), counter, complexity));
 
                 }
                 if(isHarmonicMinor){
-                    osc.PlayLoop3(harmonicMinorScale.getScale(),isMuted,0.2,1,randomness,counter);
+                    osc.PlayLoop(harmonicMinorScale.getScale(),isMuted,0.2,1,randomness,counter);
                     notes.add(new Note(harmonicMinorScale.getScale(), counter, complexity));
 
                 }
