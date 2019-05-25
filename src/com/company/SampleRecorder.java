@@ -7,8 +7,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class SampleRecorder {
-
+    //file to save sample to
     File wavFile;
+    //temporary file to write sample to
     File tempFile = new File("./data/tempWave.wav");
     WaveRecorder waveRecorder;
 

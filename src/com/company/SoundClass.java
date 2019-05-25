@@ -23,7 +23,9 @@ public class SoundClass {
      * Controls the routing of the sound data to the soundcard
      */
     LineOut lineOut = new LineOut();
-
+    /**
+     * For other parts of the program to check whether lineOut is on or off
+     */
     public boolean lineOutPlaying = false;
 
     private Random random = new Random();
