@@ -124,10 +124,10 @@ public class SoundClass {
                 measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght
                 index = 0;                                             //Restarts the loop
             }
-            else{synth.sleepUntil(timeNow);
+            else{synth.sleepUntil(timeNow);     //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
+
 
             }
-            //if the rhythmValue doesnt exceed the current measure, sleepUntil the rhythValue ie play the note in its given rhythmValue
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -135,7 +135,12 @@ public class SoundClass {
     }
 
 
-
+    /**
+     * This method determines how and when a note should be played, using a TimeStamp
+     * @param time Controls when the note should be played
+     * @param scale Controls which scale the note should be played from
+     * @param counter Controls which frequency from the scale the note should be played
+     */
 
     private void noteOn(double time, ArrayList<Double> scale, int counter) {
         // double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
@@ -144,13 +149,15 @@ public class SoundClass {
         index++;
         voice.noteOn(scale.get(noteList.get(counter)), amplitude, timeStamp);
     }
-
+    /**
+     * This method determines how and when a note should stop being played, using a TimeStamp
+     * @param time Controls when the note should stop being played
+     */
     private void noteOff(double time) {
         voice.noteOff(new TimeStamp(time));
     }
 
     /**
-     *
      * @param i
      * The current note thats being played
      * @return
@@ -161,21 +168,17 @@ public class SoundClass {
     }
 
     /**
-     *
+     *Returns the rhythm values
      * @return
-     * has to return quarternote, halfnote or eight-note
+     *
      */
 
     public String getRhythmValue() {
-
         if (rhythmValue==rhythm.getQuarterNote()){return "quarter";}
         if (rhythmValue==rhythm.getEighthNote()){return "eight";}
         if (rhythmValue==rhythm.getHalfNote()){return "half";}
         if(rhythmValue==rhythm.getSixteenthNote()){return "sixteenth";}
         if(rhythmValue==rhythm.getWholeNote()){return "whole";}
-
-
-
         return null;
     }
 

@@ -19,7 +19,6 @@ public class Rhythm {
     private double wholeNote;
     private double[] rhythmValues;
     private ArrayList<Double> loop = new ArrayList<>();
-    private double rhythmValueAccumulator;
 
     /**
      * Creates the rhythmic values and stores them in variables and arrays from music theoretical formulas
@@ -80,22 +79,6 @@ public class Rhythm {
         for (int i = 0; i < 32; i++) {
             double localNoteLength = getRandomRhythmValue(minRhythmValue, maxRhythmValue);
             loop.add(localNoteLength);
-        }
-        return true;
-    }
-
-    private boolean createLoop2(int minRhythmValue, int maxRhythmValue){
-
-        for (int i = 0; i < 32; i++) {
-            double localNoteLength = getRandomRhythmValue(minRhythmValue,maxRhythmValue);
-            rhythmValueAccumulator = rhythmValueAccumulator + localNoteLength;
-
-            if (rhythmValueAccumulator>getMeasure()){
-                double calc = rhythmValueAccumulator-localNoteLength;
-                loop.add(getMeasure()-calc);
-                rhythmValueAccumulator=0;
-            }
-            else{loop.add(localNoteLength);}
         }
         return true;
     }
