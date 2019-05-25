@@ -87,15 +87,15 @@ public class MainController {
     /**instancing class variable MajorChromaticScale, with null.
      *
      */
-    private MajorChromaticScale majorScala;
+    private MajorScale majorScala;
     /**instancing class variable MajorChromaticScale, with null.
      *
      */
-    private MinorChromaticScale minorScala;
+    private MinorScale minorScala;
     /**instancing class variable HarmonicMinorChromaticScale, with null.
      *
      */
-    private HarmonicMinorChromaticScale harmonicMinorScale;
+    private HarmonicMinorScale harmonicMinorScale;
 
     //booleans that the user can manipulate through the GUI, which are input parameters for the program.
 
@@ -178,7 +178,7 @@ osc.lineOut.start();
         switch (scaleType){
             default :
             case "major scale":
-                majorScala = new MajorChromaticScale(scaleLengths, frequencyMap.frequencyFinder(s));
+                majorScala = new MajorScale(scaleLengths, frequencyMap.frequencyFinder(s));
                 rootNote = frequencyMap.noteFinder(majorScala.getScale().get(0));
                 isMajor = true;
                 isMinor = false;
@@ -188,7 +188,7 @@ osc.lineOut.start();
             case "minor scale":
              //   s = textField.getText();
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
-                minorScala = new MinorChromaticScale(scaleLengths, frequencyMap.frequencyFinder(s));
+                minorScala = new MinorScale(scaleLengths, frequencyMap.frequencyFinder(s));
                 rootNote = frequencyMap.noteFinder(minorScala.getScale().get(0));
                 isMinor = true;
                 isMajor = false;
@@ -198,7 +198,7 @@ osc.lineOut.start();
             case "harmonic minor scale":
                // s = textField.getText();
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
-                harmonicMinorScale = new HarmonicMinorChromaticScale(scaleLengths, frequencyMap.frequencyFinder(s));
+                harmonicMinorScale = new HarmonicMinorScale(scaleLengths, frequencyMap.frequencyFinder(s));
                 rootNote = frequencyMap.noteFinder(harmonicMinorScale.getScale().get(0));
                 isHarmonicMinor = true;
                 isMajor = false;
