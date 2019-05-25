@@ -42,8 +42,6 @@ public class SoundClass {
     SubtractiveSynthVoice voice = new SubtractiveSynthVoice();
     private double dutyCycle = 0.8; //Controls decay
     ArrayList<Integer> noteList;
-    private boolean outOfMeasure;
-    private double tempRhythmValue;
 
     /**
      * This constructor makes sure that the noteList is created from the inputtet data via FileReader.
@@ -78,9 +76,6 @@ public class SoundClass {
         synth.add(voice);
         voice.getOutput().connect(0, lineOut.input, 0);
         voice.getOutput().connect(0, lineOut.input, 1);
-        // osc.output.connect(0,lineOut.input,0);
-        // osc.output.connect(0,lineOut.input,1);
-
         synth.start();
         lineOutPlaying = true;
     }
@@ -106,9 +101,6 @@ public class SoundClass {
 
         }
         first =false;
-
-        //Er i tvivl om den her bliver brugt, men måske skal den bruges fordi den er mere præcis end synth.getCurrentTime()
-        //Accumulates the rhythm values so that we know.
 
         lineOutPlaying = true;
         if (randomInt<=100-rhythmRandomness){
