@@ -179,7 +179,7 @@ public class MainController {
     private void playButton(){
 
 //osc.lineOut.start();
-
+osc.synth.start();
         s = textField.getText().toUpperCase();
         complexity = choiceBox.getSelectionModel().getSelectedItem();
          scaleType = choiceBox1.getSelectionModel().getSelectedItem();
@@ -242,6 +242,7 @@ public class MainController {
         if (isRecording) {
             recorder.pauseRecording(osc);
         }
+        osc.synth.stop();
     }
 
     /**
@@ -427,7 +428,7 @@ public class MainController {
 
                 }
                 if(isHarmonicMinor){
-                    osc.PlayLoop(harmonicMinorScale.getScale(),isMuted,0.2,1,randomness,counter);
+                    osc.PlayLoop(harmonicMinorScale.getScale(),isMuted,0.1,1,randomness,counter);
                     notes.add(new Note(harmonicMinorScale.getScale(), counter, complexity));
 
                 }

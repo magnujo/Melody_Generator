@@ -78,7 +78,7 @@ public class SoundClass {
         synth.add(voice);
         voice.getOutput().connect(0, lineOut.input, 0);
         voice.getOutput().connect(0, lineOut.input, 1);
-        synth.start();
+       // synth.start();
         lineOutPlaying = true;
     }
 
