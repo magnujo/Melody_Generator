@@ -146,7 +146,6 @@ lineOut.start();
      */
 
     private void noteOn(double time, ArrayList<Double> scale, int counter) {
-        // double frequency = AudioMath.pitchToFrequency(note);  //Determins the pitch of the Note, out of tonicNote;
         double amplitude = 0.2;
         TimeStamp timeStamp = new TimeStamp(time);
         index++;
