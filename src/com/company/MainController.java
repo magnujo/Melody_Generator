@@ -74,7 +74,7 @@ public class MainController {
     /**This is the initial scale that gets played
      *
      */
-    private String s;
+    private String inputRootNote;
 
     /**scaletype
      *
@@ -179,15 +179,15 @@ public class MainController {
     private void playButton(){
 
 //osc.lineOut.start();
-osc.synth.start();
-        s = textField.getText().toUpperCase();
+        osc.synth.start();
+        inputRootNote = textField.getText().toUpperCase();
         complexity = choiceBox.getSelectionModel().getSelectedItem();
-         scaleType = choiceBox1.getSelectionModel().getSelectedItem();
+        scaleType = choiceBox1.getSelectionModel().getSelectedItem();
 
         switch (scaleType){
             default :
             case "major scale":
-                majorScala = new MajorScale(scaleLengths, frequencyMap.frequencyFinder(s));
+                majorScala = new MajorScale(scaleLengths, frequencyMap.frequencyFinder(inputRootNote));
                 rootNote = frequencyMap.noteFinder(majorScala.getScale().get(0));
                 isMajor = true;
                 isMinor = false;
@@ -195,9 +195,9 @@ osc.synth.start();
                 isPlaying = true;
                 break;
             case "minor scale":
-             //   s = textField.getText();
+                //   inputRootNote = textField.getText();
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
-                minorScala = new MinorScale(scaleLengths, frequencyMap.frequencyFinder(s));
+                minorScala = new MinorScale(scaleLengths, frequencyMap.frequencyFinder(inputRootNote));
                 rootNote = frequencyMap.noteFinder(minorScala.getScale().get(0));
                 isMinor = true;
                 isMajor = false;
@@ -205,15 +205,15 @@ osc.synth.start();
                 isPlaying = true;
                 break;
             case "harmonic minor scale":
-               // s = textField.getText();
+                // inputRootNote = textField.getText();
                 complexity = choiceBox.getSelectionModel().getSelectedItem();
-                harmonicMinorScale = new HarmonicMinorScale(scaleLengths, frequencyMap.frequencyFinder(s));
+                harmonicMinorScale = new HarmonicMinorScale(scaleLengths, frequencyMap.frequencyFinder(inputRootNote));
                 rootNote = frequencyMap.noteFinder(harmonicMinorScale.getScale().get(0));
                 isHarmonicMinor = true;
                 isMajor = false;
                 isMinor = false;
                 isPlaying = true;
-                    break;
+                break;
         }
 
         if (isRecording) {
@@ -238,7 +238,7 @@ osc.synth.start();
     public void stopButton() throws IOException {
 
         isPlaying = false;
-       // osc.lineOut.stop();
+        // osc.lineOut.stop();
         if (isRecording) {
             recorder.pauseRecording(osc);
         }
@@ -534,9 +534,9 @@ osc.synth.start();
         }
 
         // G-clef for the user to read placement of notes
-            g.drawImage(clef,1,65 + row * offset);
+        g.drawImage(clef,1,65 + row * offset);
 
-            //Visual implementation of the time signature
+        //Visual implementation of the time signature
         Font font = new Font("Arial", 25);
         Font font2 = new Font("Arial", 12);
 
@@ -563,12 +563,12 @@ osc.synth.start();
         //beatcounter
         g.clearRect(0, 0, 150, 50);
         g.fillText("Notes played: " + Integer.toString(this.counter), 5, 15);
-        g.fillText( s + " "+ scaleType, 5, 30);
+        g.fillText( inputRootNote + " "+ scaleType, 5, 30);
 
         g.setFill(Color.RED);
 
-            //sharps
-        sharps(g, row, offset);
+        //keySignatures
+        keySignatures(g, row, offset);
 
     }
 
@@ -577,103 +577,103 @@ osc.synth.start();
      * @param g
      * Graphicscontext g
      * @param row
-     * The row parameter is also needed to place the sharps on every row correctly.
+     * The row parameter is also needed to place the keySignatures on every row correctly.
      * @param offset
      * Offset on the y axis.
-     * All the key signatures need to be accounted for. These are determined by their flats and sharps.
+     * All the key signatures need to be accounted for. These are determined by their flats and keySignatures.
      * A description can be found here.
      * http://musictheoryfundamentals.com/MusicTheory/keySignatures.php
      */
 
 
-    private void sharps(GraphicsContext g, int row, int offset) {
-        //If we are playing in Major we will get the following sharps. We also reuse the user chose of key from earlier by doing a regex function on the textfield, to see what scale we are playing.
+    private void keySignatures(GraphicsContext g, int row, int offset) {
+        //If we are playing in Major we will get the following keySignatures. We also reuse the user chose of key from earlier by doing a regex function on the textfield, to see what scale we are playing.
         if (isMajor) {
             //holds all the sharps/flats
-            ArrayList<Sharp> sharps = new ArrayList<>();
+            ArrayList<KeySignature> keySignatures = new ArrayList<>();
 
             //øverste linje = 0, for hver 10 man går op går man en linje ned.
-            if (s.contains("A")) {
-                sharps.add(new Sharp(g, row, offset, 15, -5));
-                sharps.add(new Sharp(g, row, offset, 25, 0));
-                sharps.add(new Sharp(g, row, offset, 0, 15));
+            if (inputRootNote.contains("A")) {
+                keySignatures.add(new KeySignature(g, row, offset, 15, -5));
+                keySignatures.add(new KeySignature(g, row, offset, 25, 0));
+                keySignatures.add(new KeySignature(g, row, offset, 0, 15));
             }
 
-            if (s.contains("B")) {
-                sharps.add(new Sharp(g, row, offset, 15, -5));
-                sharps.add(new Sharp(g, row, offset, 0, 0));
-                sharps.add(new Sharp(g, row, offset, 25, 10));
-                sharps.add(new Sharp(g, row, offset, 11, 15));
-                sharps.add(new Sharp(g, row, offset, 35, 25));
+            if (inputRootNote.contains("B")) {
+                keySignatures.add(new KeySignature(g, row, offset, 15, -5));
+                keySignatures.add(new KeySignature(g, row, offset, 0, 0));
+                keySignatures.add(new KeySignature(g, row, offset, 25, 10));
+                keySignatures.add(new KeySignature(g, row, offset, 11, 15));
+                keySignatures.add(new KeySignature(g, row, offset, 35, 25));
             }
 
-            if (s.contains("D")) {
-                sharps.add(new Sharp(g, row, offset, 15, 0));
-                sharps.add(new Sharp(g, row, offset, 0, 15));
+            if (inputRootNote.contains("D")) {
+                keySignatures.add(new KeySignature(g, row, offset, 15, 0));
+                keySignatures.add(new KeySignature(g, row, offset, 0, 15));
             }
 
-            if (s.contains("E")) {
-                sharps.add(new Sharp(g, row, offset, 15, -5));
-                sharps.add(new Sharp(g, row, offset, 0, 0));
-                sharps.add(new Sharp(g, row, offset, 25, 10));
-                sharps.add(new Sharp(g, row, offset, 11, 15));
+            if (inputRootNote.contains("E")) {
+                keySignatures.add(new KeySignature(g, row, offset, 15, -5));
+                keySignatures.add(new KeySignature(g, row, offset, 0, 0));
+                keySignatures.add(new KeySignature(g, row, offset, 25, 10));
+                keySignatures.add(new KeySignature(g, row, offset, 11, 15));
             }
 
-            if (s.contains("F")) {
-                sharps.add(new Sharp(g, row, offset, 0, 20, true));
+            if (inputRootNote.contains("F")) {
+                keySignatures.add(new KeySignature(g, row, offset, 0, 20, true));
             }
-            if (s.contains("G")) {
-                sharps.add(new Sharp(g, row, offset, 0, 0));
+            if (inputRootNote.contains("G")) {
+                keySignatures.add(new KeySignature(g, row, offset, 0, 0));
             }
-            for (Sharp sharp : sharps) {
-                sharp.invoke();
+            for (KeySignature keySignature : keySignatures) {
+                keySignature.invoke();
             }
 //we clear it afterwards so it doesn't get unessecarily long.
-            sharps.clear();
+            keySignatures.clear();
         }
 //minor
         if (isMinor||isHarmonicMinor) {
-            ArrayList<Sharp> sharps = new ArrayList<>();
+            ArrayList<KeySignature> keySignatures = new ArrayList<>();
 
-            if (s.contains("B")) {
+            if (inputRootNote.contains("B")) {
 
-                sharps.add(new Sharp(g, row, offset, 0, 0));
-                sharps.add(new Sharp(g, row, offset, 0, 15));
+                keySignatures.add(new KeySignature(g, row, offset, 0, 0));
+                keySignatures.add(new KeySignature(g, row, offset, 0, 15));
             }
 
-            if (s.contains("C")) {
+            if (inputRootNote.contains("C")) {
 
-                sharps.add(new Sharp(g, row, offset, 5, 5,true));
-                sharps.add(new Sharp(g, row, offset, 0, 20,true));
-                sharps.add(new Sharp(g, row, offset, 10, 25,true));
+                keySignatures.add(new KeySignature(g, row, offset, 5, 5,true));
+                keySignatures.add(new KeySignature(g, row, offset, 0, 20,true));
+                keySignatures.add(new KeySignature(g, row, offset, 10, 25,true));
             }
 
-            if (s.contains("D")) {
+            if (inputRootNote.contains("D")) {
 
-                sharps.add(new Sharp(g, row, offset, 0, 20,true));
+                keySignatures.add(new KeySignature(g, row, offset, 0, 20,true));
             }
 
-            if (s.contains("E")) {
+            if (inputRootNote.contains("E")) {
 
-                sharps.add(new Sharp(g, row, offset, 0, 0));
+                keySignatures.add(new KeySignature(g, row, offset, 0, 0));
             }
 
-            if (s.contains("F")) {
-                sharps.add(new Sharp(g, row, offset, 5, 5,true));
-                sharps.add(new Sharp(g, row, offset, 15, 10,true));
-                sharps.add(new Sharp(g, row, offset, 0, 25,true));
-                sharps.add(new Sharp(g, row, offset, 10, 30,true));
+            if (inputRootNote.contains("F")) {
+                keySignatures.add(new KeySignature(g, row, offset, 5, 5,true));
+                keySignatures.add(new KeySignature(g, row, offset, 15, 10,true));
+                keySignatures.add(new KeySignature(g, row, offset, 0, 25,true));
+                keySignatures.add(new KeySignature(g, row, offset, 10, 30,true));
             }
-            if (s.contains("G")) {
+            if (inputRootNote.contains("G")) {
 
-                sharps.add(new Sharp(g, row, offset, 5, 5,true));
-                sharps.add(new Sharp(g, row, offset, 0, 20,true));
+                keySignatures.add(new KeySignature(g, row, offset, 5, 5,true));
+                keySignatures.add(new KeySignature(g, row, offset, 0, 20,true));
             }
 
-            for (Sharp sharp : sharps) {
-                sharp.invoke();
+            for (KeySignature keySignature : keySignatures) {
+                keySignature.invoke();
             }
-            sharps.clear();
+            keySignatures.clear();
             //we clear it afterwards so it doesn't get unessecarily long.
         }
     }
@@ -682,10 +682,10 @@ osc.synth.start();
 
 
     /**
-     * This is a private class of the private function that is wholly dependent on the private class, sharps. A sharp, is thus an object of the type; sharp, that is added to the list of sharps.
+     * This is a private class of the private function that is wholly dependent on the private class, keySignatures. A sharp, is thus an object of the type; sharp, that is added to the list of keySignatures.
      */
 
-    private class Sharp {
+    private class KeySignature {
         private GraphicsContext g;
         private int row;
         private int offset;
@@ -693,16 +693,16 @@ osc.synth.start();
         private int startY;
         private boolean flat; //if its a flat....
 
-        public Sharp(GraphicsContext g, int row, int offset, int startX, int startY) {
+        public KeySignature(GraphicsContext g, int row, int offset, int startX, int startY) {
             this.g = g;
             this.row = row;
             this.offset = offset;
             this.startX = startX;
-            //This is simply to make placing the sharps easier. So the first line is 0. The next is 10, next 20, next 30. Makes placing the sharps and flats mentally much easier.
+            //This is simply to make placing the keySignatures easier. So the first line is 0. The next is 10, next 20, next 30. Makes placing the keySignatures and flats mentally much easier.
             this.startY = startY+72;
         }
 
-        public Sharp(GraphicsContext g, int row, int offset, int startX, int startY, boolean flat) {
+        public KeySignature(GraphicsContext g, int row, int offset, int startX, int startY, boolean flat) {
             this.g = g;
             this.row = row;
             this.offset = offset;
