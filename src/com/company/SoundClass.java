@@ -57,7 +57,8 @@ public class SoundClass {
     }
 
     /**
-     * This method is used in conjuction with the refresh method in the maincontroller. It re-reads the file after its updated, and generates a new notelist based on it.
+     * This method is used in conjuction with the refresh method in the maincontroller. It re-reads the file after its
+     * updated, and generates a new notelist based on it.
      */
 
     public void refreshFileReader(){
@@ -78,7 +79,7 @@ public class SoundClass {
         synth.add(voice);
         voice.getOutput().connect(0, lineOut.input, 0);
         voice.getOutput().connect(0, lineOut.input, 1);
-       // synth.start();
+        // synth.start();
         lineOutPlaying = true;
     }
 
@@ -103,7 +104,7 @@ public class SoundClass {
 
         }
         first =false;
-lineOut.start();
+        lineOut.start();
         lineOutPlaying = true;
         if (randomInt<=100-rhythmRandomness){
             rhythmValue = rhythm.getLoop().get(index);
@@ -120,7 +121,7 @@ lineOut.start();
             noteOff(timeNow+dutyCycle);                 //Realease the note after dutyCycle seconds
 
             timeNow = timeNow + rhythmValue;                            //Adds the rythm value to current time.
-            if(timeNow >= measureAccumulator){                            // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
+            if(timeNow >= measureAccumulator){  // if the rhythmValue exceeds the current measure, dont sleepUntil the rythmValue,
                 measureCounter++;                                       // but sleepUntil the end of the measure.
                 synth.sleepUntil(measureAccumulator);                  //Sleeps until the end of the measure
                 measureAccumulator = measureAccumulator + loopLength;  // adds the time where the new measure ends ie the current measure end point + a new measure lenght

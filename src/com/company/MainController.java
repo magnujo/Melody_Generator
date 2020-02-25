@@ -38,16 +38,17 @@ public class MainController {
     Image clef = new Image(new File("./data/clef 50p.png").toURI().toString());
 
 
-    /*
+    /**
      * Row variable. Keeps track of rows.
      */
     private int row = 0;
 
-    /*
-     * Offset is used to determine how much we need to set the amount of distance in which we have to go out of line in relation to the previous ROW on the y axis.
+    /**
+     * Offset is used to determine how much we need to set the amount of distance in which we have to go out of line in
+     * relation to the previous ROW on the y axis.
      */
     private int offset = 0;
-    /*
+    /**
      * xPos is used to store which position we are at on the x-axis.
      */
 
@@ -62,7 +63,8 @@ public class MainController {
      */
     private SampleRecorder recorder = new SampleRecorder();
 
-    /**this hashmap is used to connect musical notation of scales ie. C3 to their respective frequencies, for use in the scalegenerator afterwards.
+    /**this hashmap is used to connect musical notation of scales ie. C3 to their respective frequencies, for use in
+     * the scalegenerator afterwards.
      *
      */
     private FrequencyHashMap frequencyMap = new FrequencyHashMap();
@@ -135,7 +137,8 @@ public class MainController {
      */
     private boolean isRecording;
 
-    /**the root note, we need to know the root note as all other notes in a scale relate to this. This is used to place the notes on the XY axis.
+    /**the root note, we need to know the root note as all other notes in a scale relate to this. This is used to
+     *   place the notes on the XY axis.
      *
      */
     private double rootNote;
@@ -732,3 +735,5 @@ public class MainController {
     }
 
 }
+
+//hej jehhehj
