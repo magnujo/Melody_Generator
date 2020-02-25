@@ -713,6 +713,7 @@ public class MainController {
             this.startY = startY+72;
             this.flat = flat;
 
+
         }
 
 
@@ -729,6 +730,7 @@ public class MainController {
             if(flat){
                 g.fillRect(startX , startY + row * offset-13, 2, 18);
                 g.fillRect(startX + 2, startY + row * offset , 6, 6);
+                System.out.println("test");
             }
         }
 
